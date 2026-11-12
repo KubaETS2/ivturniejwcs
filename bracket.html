@@ -62,6 +62,17 @@ h1 span{color:#f28a0b}
 
 .nav-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.nav-actions .btn{white-space:nowrap}
 @media(max-width:760px){.nav-actions{gap:6px}.nav-actions .btn{padding:10px 11px;font-size:10px}}
+</style><style>.playoff-rounds{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:14px}.playoff-round{min-width:0;padding:14px}.playoff-round>h3{color:#ffad24;margin:0 0 12px}.playoff-round .results{display:grid;grid-template-columns:1fr;gap:10px}.playoff-round .result{min-width:0}.playoff-round .result strong{display:block;overflow-wrap:anywhere}</style><style>
+.group-stage-accordion{padding:0!important;margin-top:24px;overflow:hidden}
+.group-stage-accordion>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;background:#1a1715;border-bottom:1px solid #3c342b}
+.group-stage-accordion>summary::-webkit-details-marker{display:none}
+.group-stage-accordion>summary b{display:block;font:800 25px 'Barlow Condensed';color:#f0a326}
+.group-stage-accordion>summary small{display:block;color:var(--muted);font-size:10px;margin-top:5px}
+.group-stage-accordion[open]>summary .accordion-mark{transform:rotate(45deg)}
+.accordion-mark{font-size:25px;color:#f0a326;font-weight:800;transition:transform .15s}
+.group-stage-content{padding:20px}
+.public-playoffs{margin-bottom:26px}
+@media(max-width:760px){.group-stage-content{padding:13px}.group-stage-accordion>summary{padding:15px}}
 </style></head><body><nav><div class="wrap inner"><a class="brand" href="index.html"><div class="logo"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/08e1bb79-1557-4e2f-ba28-0937f6eeb71d-profile_image-70x70.png" alt="Avatar Twitch BlazePL007"></div><div>BLAZEPL007<small>COMMUNITY TOURNAMENT</small></div></a><div class="navlinks"><a href="bracket.html">DRABINKA</a><a href="results.html">WYNIKI</a><a href="teams.html">DRUŻYNY</a></div><div class="nav-actions"><a class="btn" id="accountNavBtn" href="login.html">LOGOWANIE</a><a class="btn ghost hidden" id="adminNavBtn" href="admin.html">ADMIN PANEL</a></div></div></nav><main class="wrap"><section><div class="head"><div><div class="eyebrow">RYWALIZACJA</div><h2>DRABINKA TURNIEJOWA</h2><p>Pełny przebieg rozgrywek i awanse drużyn.</p></div><a class="btn ghost" href="register.html">ZGŁOŚ DRUŻYNĘ</a></div><div id="tournamentPublic" class="panel"><p class="note">Ładowanie fazy grupowej…</p></div></section></main><footer><div class="wrap foot"><span>© 2026 BLAZEPL007 · TURNIEJ CS2</span><a href="https://www.twitch.tv/blazepl007" target="_blank" rel="noopener">TWITCH</a></div></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script>
 (()=>{
  const btn=document.getElementById("accountNavBtn");
