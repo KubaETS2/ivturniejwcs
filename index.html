@@ -101,7 +101,7 @@ h1 span{color:#f28a0b}
 </style></head><body>
 <nav><div class="wrap inner"><a class="brand" href="index.html"><div class="logo"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/08e1bb79-1557-4e2f-ba28-0937f6eeb71d-profile_image-70x70.png" alt="Avatar Twitch BlazePL007"></div><div>BLAZEPL007<small>COMMUNITY TOURNAMENT</small></div></a><div class="navlinks"><a href="bracket.html">DRABINKA</a><a href="results.html">WYNIKI</a><a href="teams.html">DRUŻYNY</a></div><div class="nav-actions"><a class="btn" id="accountNavBtn" href="login.html">LOGOWANIE</a><a class="btn ghost hidden" id="adminNavBtn" href="admin.html">ADMIN PANEL</a></div></div></nav>
 <main class="wrap">
-<div class="hero"><div><div class="eyebrow"><i class="dot"></i> TURNIEJ SPOŁECZNOŚCI · COUNTER-STRIKE 2</div><h1>WALCZ O <span>ZWYCIĘSTWO.</span></h1><p class="lead">Turniej CS2 społeczności BlazePL007. Załóż konto, stwórz drużynę i śledź rywalizację. Drabinka i wyniki będą aktualizowane na tej stronie.</p><div class="actions"><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ →</a><a class="btn ghost" href="#drabinka">ZOBACZ DRABINKĘ</a></div></div><div class="hero-art"><img class="hero-banner-img" src="assets/turniej-banner.png" alt="Baner turnieju CS2 BlazePL007"></div></div>
+<div class="hero"><div><div class="eyebrow"><i class="dot"></i> TURNIEJ SPOŁECZNOŚCI · COUNTER-STRIKE 2</div><h1>WALCZ O <span>ZWYCIĘSTWO.</span></h1><p class="lead">Turniej CS2 społeczności BlazePL007. Załóż konto, stwórz drużynę i śledź rywalizację. Drabinka, wyniki i lista drużyn są dostępne na osobnych podstronach.</p><div class="actions"><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ →</a><a class="btn ghost" href="bracket.html">ZOBACZ DRABINKĘ</a></div></div><div class="hero-art"><img class="hero-banner-img" src="assets/turniej-banner.png" alt="Baner turnieju CS2 BlazePL007"></div></div>
 <section id="twitch-live">
  <div class="head"><div><div class="eyebrow"><i class="dot"></i> TRANSMISJA NA ŻYWO</div><h2>BLAZEPL007 LIVE</h2><p>Oglądaj transmisję i rozmawiaj z czatem bezpośrednio na stronie.</p></div><a class="btn ghost" href="https://www.twitch.tv/blazepl007" target="_blank" rel="noopener">OTWÓRZ TWITCH ↗</a></div>
  <div class="twitch-embed">
@@ -111,9 +111,6 @@ h1 span{color:#f28a0b}
 </section>
 <div class="stats"><div class="stat"><strong id="statTeams">—</strong><span>ZATWIERDZONE DRUŻYNY</span></div><div class="stat"><strong>5 VS 5</strong><span>FORMAT MECZÓW</span></div><div class="stat"><strong id="statMatches">—</strong><span>ROZEGRANE MECZE</span></div></div>
 <section id="zapisy"><div class="twitch"><div><div class="eyebrow"><i class="dot"></i> ZAPISY DO TURNIEJU</div><h3>STWÓRZ KONTO I ZGŁOŚ DRUŻYNĘ</h3><p>Rejestracja, logowanie i formularz zgłoszeniowy znajdują się na osobnej stronie.</p></div><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ →</a></div></section>
-<section id="drabinka"><div class="head"><div><div class="eyebrow">RYWALIZACJA</div><h2>DRABINKA TURNIEJOWA</h2></div><span class="tag">SINGLE ELIMINATION</span></div><div id="bracket" class="panel"></div></section>
-<section id="wyniki"><div class="head"><div><div class="eyebrow">OSTATNIE SPOTKANIA</div><h2>WYNIKI</h2></div></div><div id="results" class="results"></div></section>
-<section id="druzyny"><div class="head"><div><div class="eyebrow">UCZESTNICY</div><h2>ZAKWALIFIKOWANE DRUŻYNY</h2><p>Lista zatwierdzonych zespołów.</p></div></div><div id="teams" class="teamlist"></div></section>
 
 </main><footer><div class="wrap foot"><span>© 2026 BLAZEPL007 · TURNIEJ CS2</span><span>Community tournament · Counter-Strike 2</span></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script>
@@ -134,8 +131,18 @@ h1 span{color:#f28a0b}
 })();
 </script>
 <script>
-const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function renderBracket(matches){if(!matches.length){document.querySelector("#bracket").innerHTML='<p class="note">Drabinka zostanie opublikowana po zamknięciu zapisów.</p>';return}const rounds={};matches.forEach(m=>(rounds[m.round]??=[]).push(m));document.querySelector("#bracket").innerHTML=`<div class="rounds">${Object.entries(rounds).map(([r,ms])=>`<div><h3>RUNDA ${safe(r)}</h3>${ms.map(m=>`<div class="match"><div class="tag">MECZ ${safe(m.number)}</div><div class="teamline"><span>${safe(m.team1||"Do ustalenia")}</span><b>${safe(m.score1??"—")}</b></div><div class="teamline"><span>${safe(m.team2||"Do ustalenia")}</span><b>${safe(m.score2??"—")}</b></div></div>`).join("")}</div>`).join("")}</div>`}
-async function loadPublic(){try{const [t,m,r]=await Promise.all([fetch("data/teams.json").then(x=>x.json()),fetch("data/bracket.json").then(x=>x.json()),fetch("data/results.json").then(x=>x.json())]);document.querySelector("#teams").innerHTML=t.length?t.map(x=>`<div class="teamcard"><div><small>ZATWIERDZONA DRUŻYNA</small><strong>${safe(x.name)}</strong></div><span class="tag">CS2 · 5V5</span></div>`).join(""):'<div class="panel note">Brak zatwierdzonych drużyn.</div>';document.querySelector("#statTeams").textContent=t.length;renderBracket(m);document.querySelector("#results").innerHTML=r.length?r.map(x=>`<div class="result"><div><small>${safe(x.round||"MECZ")}</small><strong>${safe(x.team1)} vs ${safe(x.team2)}</strong></div><div class="scorebig">${safe(x.score1)} : ${safe(x.score2)}</div></div>`).join(""):'<div class="panel note">Nie rozegrano jeszcze meczów.</div>';document.querySelector("#statMatches").textContent=r.length}catch(e){document.querySelector("#teams").textContent="Nie udało się pobrać danych turnieju."}}
+async function loadPublic(){
+ try{
+  const [teams,results]=await Promise.all([
+   fetch("data/teams.json").then(r=>{if(!r.ok) throw new Error("teams"); return r.json()}),
+   fetch("data/results.json").then(r=>{if(!r.ok) throw new Error("results"); return r.json()})
+  ]);
+  document.querySelector("#statTeams").textContent=Array.isArray(teams)?teams.length:0;
+  document.querySelector("#statMatches").textContent=Array.isArray(results)?results.length:0;
+ }catch(e){
+  document.querySelector("#statTeams").textContent="—";
+  document.querySelector("#statMatches").textContent="—";
+ }
+}
 loadPublic();
 </script></body></html>
