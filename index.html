@@ -28,7 +28,45 @@ footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:1
 <div class="grid2"><div class="panel"><div id="authForms"><div class="tabs"><button id="loginTab" class="active" type="button">LOGOWANIE</button><button id="registerTab" type="button">REJESTRACJA</button></div>
 <form id="authForm"><div class="field"><label>EMAIL *</label><input name="email" type="email" required autocomplete="email" placeholder="adres@email.com"></div><div class="field"><label>HASŁO *</label><input name="password" type="password" required minlength="8" autocomplete="current-password" placeholder="Minimum 8 znaków"></div><div class="field hidden" id="nickField"><label>NICK GRACZA</label><input name="nickname" maxlength="32" placeholder="Twój nick"></div><button class="btn" id="authSubmit" type="submit" style="width:100%">ZALOGUJ SIĘ</button></form></div>
 <div id="signedIn" class="hidden"><div class="eyebrow">ZALOGOWANO</div><h3 id="userEmail" style="font-size:25px;margin:12px 0"></h3><p class="note">Możesz teraz zgłosić drużynę w formularzu poniżej.</p><button class="btn ghost" id="logoutBtn" type="button">WYLOGUJ SIĘ</button></div><div id="authMsg" class="status"></div></div>
-<div class="panel"><div class="eyebrow">INFORMACJE</div><h3 style="font-size:27px;margin:12px 0">JAK TO DZIAŁA?</h3><p class="note">Konto jest obsługiwane przez Supabase Auth. Hasła nie są przechowywane w kodzie strony. Po rejestracji może być wymagane potwierdzenie adresu e-mail — zależy to od ustawień projektu Supabase.</p><div class="notice">Do publicznej strony wstawiamy wyłącznie Project URL i Publishable key. Nigdy nie umieszczaj tutaj klucza Secret ani service_role.</div></div></div></section>
+
+<div class="panel">
+  <div class="eyebrow">PRYWATNOŚĆ</div>
+  <h3 style="font-size:27px;margin:12px 0">INFORMACJA O DANYCH</h3>
+
+  <p class="note">
+    Dane podane podczas rejestracji i zgłoszenia drużyny wykorzystujemy wyłącznie do obsługi kont, zapisów oraz organizacji turnieju BlazePL007.
+  </p>
+
+  <div class="notice">
+    <strong>Jakie dane przetwarzamy?</strong><br>
+    Adres e-mail konta, nazwę drużyny, nick kapitana i zawodników, kontakt Discord oraz nick rezerwowego, jeśli zostanie podany. Zapisujemy również datę zgłoszenia i jego status.
+  </div>
+
+  <p class="note">
+    <strong>W jakim celu?</strong><br>
+    Dane wykorzystujemy do obsługi kont, weryfikacji zgłoszeń, kontaktu z uczestnikami, organizacji meczów i prowadzenia turnieju.
+  </p>
+
+  <p class="note">
+    <strong>Kto ma dostęp do danych?</strong><br>
+    Dane zgłoszeniowe są dostępne dla właściciela konta oraz upoważnionych organizatorów. Publicznie prezentujemy wyłącznie informacje potrzebne do przedstawienia turnieju, np. nazwy zatwierdzonych drużyn i wyniki. Nie publikujemy adresów e-mail ani prywatnych danych kontaktowych.
+  </p>
+
+  <p class="note">
+    <strong>Bezpieczeństwo</strong><br>
+    Logowanie i obsługę haseł zapewnia Supabase. Hasła nie są przechowywane w kodzie strony. Dostęp do danych jest ograniczany za pomocą odpowiednich uprawnień.
+  </p>
+
+  <p class="note">
+    <strong>Twoje prawa</strong><br>
+    Możesz skontaktować się z organizatorem w sprawie dostępu do swoich danych, ich sprostowania lub usunięcia. Dane nie będą wykorzystywane do celów reklamowych ani sprzedawane.
+  </p>
+
+  <p class="note">
+    Szczegółowe informacje o administratorze danych, podstawie prawnej, okresie przechowywania oraz prawach uczestników znajdują się w pełnej Polityce Prywatności turnieju.
+  </p>
+</div>
+
 <section id="zglos"><div class="head"><div><div class="eyebrow">DOŁĄCZ DO GRY</div><h2>ZGŁOŚ SWOJĄ DRUŻYNĘ</h2><p>Wymagane jest zalogowanie. Zgłoszenie trafi do organizatora do zatwierdzenia.</p></div></div>
 <div class="grid2"><div class="panel"><form id="teamForm"><div class="field"><label>NAZWA DRUŻYNY *</label><input name="team" required maxlength="40" placeholder="np. Blaze Warriors"></div><div class="field"><label>KAPITAN / NICK W GRZE *</label><input name="captain" required maxlength="40" placeholder="Nick kapitana"></div><div class="field"><label>KONTAKT DISCORD *</label><input name="contact" required maxlength="80" placeholder="Nazwa użytkownika Discord"></div><div class="field"><label>5 ZAWODNIKÓW — PO JEDNYM NICKU W LINII *</label><textarea name="players" required placeholder="Gracz 1&#10;Gracz 2&#10;Gracz 3&#10;Gracz 4&#10;Gracz 5"></textarea></div><div class="field"><label>REZERWOWY (OPCJONALNIE)</label><input name="reserve" maxlength="40" placeholder="Nick rezerwowego"></div><label class="note"><input type="checkbox" required> Potwierdzam poprawność danych i akceptuję regulamin turnieju.</label><button class="btn" id="teamSubmit" style="width:100%;margin-top:15px" type="submit">WYŚLIJ ZGŁOSZENIE</button></form><div id="teamMsg" class="status"></div></div>
 <div class="panel"><div class="eyebrow">STATUS ZGŁOSZENIA</div><h3 style="font-size:27px;margin:12px 0">TWOJE ZGŁOSZENIA</h3><div id="myTeams" class="note">Zaloguj się, aby zobaczyć zgłoszenia przypisane do konta.</div></div></div></section>
