@@ -1,0 +1,85 @@
+name: Approve CS2 team submission
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  approve-team:
+    if: github.event.label.name == 'approved' && contains(github.event.issue.labels.*.name, 'team-submission')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Add approved team to JSON
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: |
+          python - <<'PY'
+          import json, os, re
+          from pathlib import Path
+
+          body = os.environ.get("ISSUE_BODY", "")
+          def section(name):
+              pattern = rf"(?ims)^##\s+{re.escape(name)}\s*\n(.*?)(?=^##\s+|\Z)"
+              m = re.search(pattern, body)
+              return m.group(1).strip() if m else ""
+
+          name = section("Nazwa drużyny")
+          captain = section("Kapitan")
+          contact = section("Kontakt Discord")
+          players_text = section("Zawodnicy (5)")
+          reserve = section("Rezerwowy")
+          players = []
+          for line in players_text.splitlines():
+              line = re.sub(r"^\s*\d+[.)]\s*", "", line).strip()
+              if line:
+                  players.append(line)
+
+          if not name or not captain or not contact or len(players) != 5:
+              raise SystemExit("Issue has invalid/missing team fields; refusing to approve.")
+
+          path = Path("data/teams.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          if any(t.get("name", "").casefold() == name.casefold() for t in data):
+              raise SystemExit("A team with this name already exists.")
+          data.append({
+              "name": name,
+              "captain": captain,
+              "contact": contact,
+              "players": players,
+              "reserve": "" if reserve.lower() == "brak" else reserve,
+              "issue": int(os.environ["ISSUE_NUMBER"])
+          })
+          path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          PY
+
+      - name: Commit approved team
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/teams.json
+          git commit -m "Add approved tournament team from issue #${{ github.event.issue.number }}" || exit 0
+          git push
+
+      - name: Close submission issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: "Zgłoszenie zostało zatwierdzone. Drużyna została dodana do listy turniejowej."
+            });
+            await github.rest.issues.update({
+              ...context.repo,
+              issue_number: context.issue.number,
+              state: "closed"
+            });
