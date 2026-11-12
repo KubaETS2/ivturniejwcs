@@ -62,16 +62,60 @@ h1 span{color:#f28a0b}
 <div class="panel"><div class="eyebrow">INFORMACJE</div><h3 style="font-size:27px;margin:12px 0">ZANIM WYŚLESZ ZGŁOSZENIE</h3><p class="note">Do wysłania zgłoszenia wymagane jest konto. Zgłoszenie otrzyma status oczekujące i będzie widoczne dla organizatora po zalogowaniu do panelu bazy danych.</p><div class="notice">Wpisuj wyłącznie nicki graczy i kontakt niezbędny do organizacji turnieju. Nie podawaj haseł do Steam, Discord ani innych usług.</div></div>
 </div></section>
 <section id="teamSection" class="hidden"><div class="head"><div><div class="eyebrow">ZGŁOSZENIE TURNIEJOWE</div><h2>ZGŁOŚ SWOJĄ DRUŻYNĘ</h2><p>Wypełnij skład. Organizator sprawdzi zgłoszenie przed jego zatwierdzeniem.</p></div></div>
-<div class="grid2"><div class="panel"><form id="teamForm"><div class="field"><label>NAZWA DRUŻYNY *</label><input name="team" required maxlength="40" placeholder="np. Blaze Warriors"></div><div class="field"><label>KAPITAN / NICK W GRZE *</label><input name="captain" required maxlength="40" placeholder="Nick kapitana"></div><div class="field"><label>KONTAKT DISCORD *</label><input name="contact" required maxlength="80" placeholder="Nazwa użytkownika Discord"></div><div class="field"><label>5 ZAWODNIKÓW — PO JEDNYM NICKU W LINII *</label><textarea name="players" required placeholder="Gracz 1&#10;Gracz 2&#10;Gracz 3&#10;Gracz 4&#10;Gracz 5"></textarea></div><div class="field"><label>REZERWOWY (OPCJONALNIE)</label><input name="reserve" maxlength="40" placeholder="Nick rezerwowego"></div><label class="note"><input type="checkbox" required> Potwierdzam poprawność danych i akceptuję regulamin oraz politykę prywatności turnieju.</label><button class="btn" id="teamSubmit" style="width:100%;margin-top:15px" type="submit">WYŚLIJ ZGŁOSZENIE</button></form><div id="teamMsg" class="status"></div></div><div class="panel"><div class="eyebrow">STATUS ZGŁOSZENIA</div><h3 style="font-size:27px;margin:12px 0">TWOJE ZGŁOSZENIA</h3><div id="myTeams" class="note">Ładowanie…</div></div></div></section>
+<div class="grid2"><div class="panel"><form id="teamForm"><div class="field"><label>NAZWA DRUŻYNY *</label><input name="team" required maxlength="40" placeholder="np. Blaze Warriors"></div><div class="field"><label>KAPITAN / NICK W GRZE *</label><input name="captain" required maxlength="40" placeholder="Nick kapitana"></div><div class="field"><label>KONTAKT DISCORD *</label><input name="contact" required maxlength="80" placeholder="Nazwa użytkownika Discord"></div><div class="field"><label>5 ZAWODNIKÓW — PO JEDNYM NICKU W LINII *</label><textarea name="players" required placeholder="Gracz 1&#10;Gracz 2&#10;Gracz 3&#10;Gracz 4&#10;Gracz 5"></textarea></div><div class="field"><label>REZERWOWY (OPCJONALNIE)</label><input name="reserve" maxlength="40" placeholder="Nick rezerwowego"></div><label class="note"><input type="checkbox" required> Potwierdzam poprawność danych i akceptuję regulamin oraz politykę prywatności turnieju.</label><input type="hidden" name="teamId" id="teamId"><button class="btn" id="teamSubmit" style="width:100%;margin-top:15px" type="submit">WYŚLIJ ZGŁOSZENIE</button><button class="btn ghost hidden" id="cancelEdit" style="width:100%;margin-top:8px" type="button">ANULUJ EDYCJĘ</button></form><div id="teamMsg" class="status"></div></div><div class="panel"><div class="eyebrow">STATUS ZGŁOSZENIA</div><h3 style="font-size:27px;margin:12px 0">TWOJE ZGŁOSZENIA</h3><div id="myTeams" class="note">Ładowanie…</div></div></div></section>
 </main><footer><div class="wrap foot"><span>© 2026 BLAZEPL007 · TURNIEJ CS2</span><a href="index.html">Powrót na stronę główną</a></div></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script>
 const $=s=>document.querySelector(s),safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const configured=window.SUPABASE_URL && window.SUPABASE_PUBLISHABLE_KEY?.startsWith("sb_publishable_") && !window.SUPABASE_PUBLISHABLE_KEY.includes("WSTAW_TUTAJ");
 const db=configured&&window.supabase?window.supabase.createClient(window.SUPABASE_URL,window.SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.localStorage}}):null;let currentUser=null;
 function msg(el,t,k=""){el.textContent=t;el.className="status "+k}
-async function refresh(){if(!db)return;const {data}=await db.auth.getSession();currentUser=data.session?.user||null;$("#authForms").classList.toggle("hidden",!!currentUser);$("#signedIn").classList.toggle("hidden",!currentUser);$("#teamSection").classList.toggle("hidden",!currentUser);$("#userEmail").textContent=currentUser?.email||"";if(currentUser)loadMine()}
-async function loadMine(){const {data,error}=await db.from("teams").select("id,name,status,created_at").order("created_at",{ascending:false});if(error){$("#myTeams").textContent="Nie udało się pobrać zgłoszeń.";return}const mine=(data||[]).filter(t=>t.user_id===currentUser.id);$("#myTeams").innerHTML=mine.length?mine.map(t=>`<div class="teamcard"><div><strong>${safe(t.name)}</strong><small>${new Date(t.created_at).toLocaleString("pl-PL")}</small></div><span class="tag">${safe(t.status)}</span></div>`).join(""):"Nie masz jeszcze zgłoszonej drużyny."}
+async function refresh(){if(!db)return;const {data}=await db.auth.getSession();currentUser=data.session?.user||null;$("#authForms").classList.toggle("hidden",!!currentUser);$("#signedIn").classList.toggle("hidden",!currentUser);$("#teamSection").classList.toggle("hidden",!currentUser);$("#teamForm").classList.remove("hidden");$("#userEmail").textContent=currentUser?.email||"";if(currentUser)loadMine()}
+async function loadMine(){
+ const {data,error}=await db.from("teams").select("id,user_id,name,captain,discord,players,reserve,status,created_at").eq("user_id",currentUser.id).order("created_at",{ascending:false}).limit(2);
+ if(error){$("#myTeams").textContent="Nie udało się pobrać zgłoszenia.";return}
+ const mine=data||[];
+ if(mine.length>1){$("#myTeams").innerHTML="<p>Na koncie znaleziono więcej niż jedno zgłoszenie. Skontaktuj się z organizatorem, aby uporządkować dane.</p>";$("#teamForm").classList.add("hidden");return}
+ const existing=mine[0];
+ $("#teamForm").classList.toggle("hidden",!!existing&&!$("#teamId").value);
+ if(!existing){$("#myTeams").textContent="Nie masz jeszcze zgłoszonej drużyny. Możesz zgłosić jedną drużynę na konto.";return}
+ $("#myTeams").innerHTML=`<div class="teamcard"><div><strong>${safe(existing.name)}</strong><small>${new Date(existing.created_at).toLocaleString("pl-PL")}</small></div><span class="tag">${safe(existing.status)}</span></div><p class="note">Na jednym koncie można mieć tylko jedno zgłoszenie. Możesz je edytować poniżej; po zmianie danych zgłoszenie wróci do sprawdzenia organizatora.</p><button class="btn" id="editTeamBtn" type="button">EDYTUJ ZGŁOSZENIE</button>`;
+ $("#editTeamBtn").onclick=()=>{startEdit(existing)};
+}
+function startEdit(team){
+ $("#teamId").value=team.id;
+ $("#teamForm").elements.team.value=team.name||"";
+ $("#teamForm").elements.captain.value=team.captain||"";
+ $("#teamForm").elements.contact.value=team.discord||"";
+ $("#teamForm").elements.players.value=Array.isArray(team.players)?team.players.join("\\n"):"";
+ $("#teamForm").elements.reserve.value=team.reserve||"";
+ $("#teamSubmit").textContent="ZAPISZ ZMIANY";
+ $("#cancelEdit").classList.remove("hidden");
+ $("#teamForm").classList.remove("hidden");
+ $("#teamForm").scrollIntoView({behavior:"smooth",block:"center"});
+}
+function cancelEdit(){
+ $("#teamForm").reset();$("#teamId").value="";$("#teamSubmit").textContent="WYŚLIJ ZGŁOSZENIE";$("#cancelEdit").classList.add("hidden");loadMine();
+}
+$("#cancelEdit").addEventListener("click",cancelEdit);
+
 $("#authForm").addEventListener("submit",async e=>{e.preventDefault();if(!db){msg($("#authMsg"),"Uzupełnij klucz sb_publishable_ w pliku supabase-config.js.","error");return}const f=new FormData(e.target);$("#authSubmit").disabled=true;try{const {data,error}=await db.auth.signUp({email:String(f.get("email")).trim(),password:String(f.get("password")),options:{data:{nickname:String(f.get("nickname")||"").trim()}}});if(error)throw error;if(data.session){msg($("#authMsg"),"Konto utworzone. Możesz teraz zgłosić drużynę.","ok")}else{msg($("#authMsg"),"Konto utworzone. Potwierdź adres e-mail, a następnie zaloguj się na osobnej stronie logowania.","ok")}await refresh()}catch(err){msg($("#authMsg"),err.message||"Nie udało się utworzyć konta.","error")}finally{$("#authSubmit").disabled=false}});
 $("#logoutBtn").onclick=async()=>{await db.auth.signOut();await refresh();msg($("#authMsg"),"Wylogowano.","ok")};
-$("#teamForm").addEventListener("submit",async e=>{e.preventDefault();if(!currentUser){msg($("#teamMsg"),"Zaloguj się, aby wysłać zgłoszenie.","error");return}const f=new FormData(e.target),players=String(f.get("players")).split(/\n/).map(x=>x.trim()).filter(Boolean);if(players.length!==5){msg($("#teamMsg"),"Wpisz dokładnie 5 zawodników, po jednym nicku w każdej linii.","error");return}const team={user_id:currentUser.id,name:String(f.get("team")).trim(),captain:String(f.get("captain")).trim(),discord:String(f.get("contact")).trim(),players,reserve:String(f.get("reserve")||"").trim()||null,status:"pending"};$("#teamSubmit").disabled=true;try{const {error}=await db.from("teams").insert(team);if(error)throw error;msg($("#teamMsg"),"Zgłoszenie wysłane! Oczekuje na zatwierdzenie.","ok");e.target.reset();loadMine()}catch(err){msg($("#teamMsg"),err.message||"Nie udało się wysłać zgłoszenia.","error")}finally{$("#teamSubmit").disabled=false}});
+$("#teamForm").addEventListener("submit",async e=>{
+ e.preventDefault();if(!currentUser){msg($("#teamMsg"),"Zaloguj się, aby wysłać zgłoszenie.","error");return}
+ const f=new FormData(e.target),players=String(f.get("players")).split(/\\n/).map(x=>x.trim()).filter(Boolean);
+ if(players.length!==5){msg($("#teamMsg"),"Wpisz dokładnie 5 zawodników, po jednym nicku w każdej linii.","error");return}
+ const team={name:String(f.get("team")).trim(),captain:String(f.get("captain")).trim(),discord:String(f.get("contact")).trim(),players,reserve:String(f.get("reserve")||"").trim()||null};
+ const id=String(f.get("teamId")||"");$("#teamSubmit").disabled=true;
+ try{
+  let result;
+  if(id){result=await db.from("teams").update(team).eq("id",id).eq("user_id",currentUser.id);}
+  else{result=await db.from("teams").insert({...team,user_id:currentUser.id,status:"pending"});}
+  if(result.error)throw result.error;
+  msg($("#teamMsg"),id?"Zgłoszenie zaktualizowane. Wróciło do statusu oczekującego na zatwierdzenie.":"Zgłoszenie wysłane! Oczekuje na zatwierdzenie.","ok");
+  cancelEdit();await loadMine();
+ }catch(err){
+  const message=err.code==="23505"?"To konto ma już zgłoszoną drużynę. Edytuj istniejące zgłoszenie zamiast wysyłać kolejne.":(err.message||"Nie udało się zapisać zgłoszenia.");
+  msg($("#teamMsg"),message,"error");
+ }finally{$("#teamSubmit").disabled=false}
+});
 if(!configured)msg($("#authMsg"),"Brak klucza Supabase. Uzupełnij supabase-config.js.","error");else if(!db)msg($("#authMsg"),"Nie udało się załadować biblioteki Supabase.","error");else{db.auth.onAuthStateChange((event)=>{if(event==="SIGNED_IN"||event==="SIGNED_OUT"||event==="TOKEN_REFRESHED"||event==="USER_UPDATED")refresh()});refresh()}
 </script></body></html>
