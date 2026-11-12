@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Panel administratora | BLAZEPL007</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#09090d;--panel:#12121a;--line:#292936;--purple:#9147ff;--pale:#c6a5ff;--white:#f5f3fa;--muted:#9692a5;--green:#4ade80;--red:#fb7185}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% 0%,#25143d 0,transparent 34%),var(--bg);color:var(--white);font-family:Inter,Arial,sans-serif}a{color:inherit;text-decoration:none}.wrap{max-width:1160px;margin:auto;padding:0 24px}
+nav{height:74px;display:flex;align-items:center;border-bottom:1px solid #ffffff12;background:#09090de8;position:sticky;top:0;z-index:10;backdrop-filter:blur(14px)}nav .inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#c6a5ff,#6523c9);display:grid;place-items:center;font:900 22px 'Barlow Condensed';box-shadow:0 0 24px #9147ff55}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:3px}.navlinks{display:flex;gap:22px;color:#c5c0d0;font-size:12px;font-weight:800}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:12px 17px;font-weight:800;font-size:12px;cursor:pointer;background:var(--purple);color:white}.btn:hover{background:#a66cff}.btn.ghost{background:#ffffff0a;border:1px solid #ffffff24}
+.hero{padding:76px 0 46px;display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center}.eyebrow{color:var(--pale);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;display:flex;gap:10px;align-items:center}.dot{width:7px;height:7px;background:var(--purple);border-radius:50%}
+h1,h2,h3{font-family:'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:0;line-height:.95}h1{font-size:clamp(54px,7vw,88px);margin:18px 0}h1 span{color:var(--pale);display:block}.lead{color:#b5b0c1;line-height:1.75;font-size:14px;max-width:530px}.actions{display:flex;gap:11px;margin-top:25px;flex-wrap:wrap}.hero-art{min-height:285px;border:1px solid #ffffff18;border-radius:18px;background:linear-gradient(135deg,#201431,#101018 65%);display:flex;align-items:center;justify-content:center}.emblem{text-align:center;text-shadow:0 0 45px #9147ff88}.emblem b{font:900 104px/.8 'Barlow Condensed';letter-spacing:-5px}.emblem small{display:block;color:var(--pale);font-weight:800;letter-spacing:6px;margin-top:18px;font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 45px}.stat,.panel{padding:19px;border:1px solid var(--line);background:#111119d9;border-radius:12px}.stat strong{display:block;font:800 27px 'Barlow Condensed'}.stat span{font-size:9px;color:var(--muted);letter-spacing:1.5px}
+section{padding:30px 0 55px}.head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.head h2{font-size:40px;margin-top:8px}.head p{color:var(--muted);font-size:11px;margin:7px 0 0}.tag{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.rounds{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.round h3{font-size:20px;color:var(--pale);margin-bottom:14px}.match{background:#0c0c12;border:1px solid #292936;border-radius:9px;padding:12px;margin:9px 0}.teamline{display:flex;justify-content:space-between;gap:8px;padding:7px 0;font-size:12px;color:#d6d2df}.teamline+.teamline{border-top:1px solid #ffffff10}.winner{color:var(--green)}.results,.teamlist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.result,.teamcard{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;background:#0d0d13;border:1px solid var(--line);border-radius:9px}.result small,.teamcard small{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}.result strong,.teamcard strong{font-size:12px}.scorebig{font:800 22px 'Barlow Condensed';color:var(--pale);white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin:12px 0}.field label{display:block;font-size:10px;color:#c6c0d1;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;background:#09090f;border:1px solid #343342;border-radius:8px;padding:11px;color:white;font:12px Inter;outline:none}.field input:focus,.field textarea:focus{border-color:var(--purple)}.field textarea{min-height:105px;resize:vertical}.note{font-size:10px;line-height:1.7;color:var(--muted)}.notice{padding:11px;border-radius:8px;font-size:11px;line-height:1.5;margin:10px 0;background:#211b2d;border:1px solid #49356b;color:#d9c8ff}.hidden{display:none!important}.twitch{display:flex;align-items:center;justify-content:space-between;gap:20px;background:linear-gradient(110deg,#24143c,#14121d);border:1px solid #5b3785;border-radius:14px;padding:23px}.twitch h3{font-size:27px;margin:10px 0}.twitch p{color:#bdb5ca;font-size:11px;line-height:1.6;margin:0}
+footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:10px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#171520;border:1px solid #373143;color:#ddd;padding:9px 13px;border-radius:8px;cursor:pointer}.tabs button.active{background:#382052;border-color:#9147ff}.status{font-size:11px;color:var(--muted);margin-top:10px}.status.error{color:var(--red)}.status.ok{color:var(--green)}
+@media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:52px;gap:25px}.hero-art{min-height:210px}.stats{margin-bottom:22px}.rounds,.grid2{grid-template-columns:1fr}.results,.teamlist{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.twitch{align-items:start;flex-direction:column}.wrap{padding:0 17px}}
+
+/* Twitch embed — szeroki odtwarzacz po lewej, czat po prawej */
+.wrap{max-width:1600px;padding-left:32px;padding-right:32px}
+#twitch-live{width:100%}
+#twitch-live .twitch-embed{
+  display:grid;
+  grid-template-columns:minmax(0, 3fr) minmax(320px, 1fr);
+  gap:14px;
+  width:100%;
+  align-items:stretch;
+}
+#twitch-live .twitch-player,
+#twitch-live .twitch-chat{
+  min-width:0;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#09090d;
+}
+#twitch-live .twitch-player{height: min(68vw, 760px); min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px); min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+@media(max-width:850px){
+  .wrap{padding-left:18px;padding-right:18px}
+  #twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}
+  #twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}
+  #twitch-live .twitch-chat{height:480px;min-height:480px}
+}
+
+
+/* BLAZEPL007 Twitch identity: orange, charcoal and gold */
+:root{--bg:#09090c;--panel:#17171d;--line:#343039;--purple:#e87908;--pale:#ffad24;--white:#f4f1e9;--muted:#aaa39a;--green:#b8d77a;--red:#ff6b35}
+body{background-color:#09090c;background-image:repeating-linear-gradient(0deg,transparent 0 52px,rgba(232,121,8,.025) 52px 54px),radial-gradient(ellipse at 50% 0%,#3b200b 0,transparent 45%);color:var(--white)}
+nav{background:#111116ed;border-bottom:2px solid #d87508}
+.logo{border-radius:4px;background:linear-gradient(145deg,#ffad24,#b94b00);box-shadow:0 0 22px #e8790844;color:#111}
+.brand small{color:#d99b37}
+.navlinks{color:#e2d8c9}
+.navlinks a:hover{color:#ff9a18}
+.btn{border-radius:3px;background:#e87908;color:#111;font-weight:900}
+.btn:hover{background:#ff9b1c}
+.btn.ghost{background:#17171d;border:1px solid #a85b19;color:#f4e9d9}
+.hero{padding-top:44px}
+.eyebrow{color:#f0a326}
+.dot{background:#ed810b}
+h1 span{color:#f28a0b}
+.hero-art{border-radius:3px;border:1px solid #a85b19;background:linear-gradient(135deg,#ed870b,#c85a05 58%,#191923 58%);color:#171720}
+.emblem{text-shadow:none}
+.emblem small{color:#211b18}
+.stat,.panel{border-radius:3px;border-color:#3c342b;background:#17171de8}
+.match,.result,.teamcard{border-radius:3px;border-color:#3c342b;background:#111116}
+.round h3,.scorebig{color:#f0a326}
+.field input,.field textarea{border-radius:3px;border-color:#4a3b2c;background:#0c0c10}
+.field input:focus,.field textarea:focus{border-color:#e87908}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{border-radius:3px;border-color:#694018}
+#twitch-live .twitch-embed{display:grid;grid-template-columns:minmax(0,3fr) minmax(320px,1fr);gap:14px;width:100%;align-items:stretch}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{min-width:0;overflow:hidden;background:#09090c}
+#twitch-live .twitch-player{height:min(68vw,760px);min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px);min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+.event-banner{width:100%;margin:26px 0 0;overflow:hidden;border:1px solid #a85b19;background:#15151b}
+.event-banner img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
+@media(max-width:850px){#twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}#twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}#twitch-live .twitch-chat{height:480px;min-height:480px}.event-banner img{max-height:none}}
+
+
+/* Logo i plakat */
+.logo{overflow:hidden;padding:0;border-radius:8px;background:#e87908}
+.logo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-art{min-height:0;aspect-ratio:16/9;padding:0;overflow:hidden;border-radius:3px;background:#111}
+.hero-banner-img{display:block;width:100%;height:100%;object-fit:contain}
+.event-banner{display:none}
+@media(max-width:760px){.hero-art{aspect-ratio:16/9;min-height:0}.hero-banner-img{object-fit:contain}}
+
+
+.logo{width:42px;height:42px;min-width:42px;overflow:hidden;padding:0;border-radius:50%;background:#17171d;border:2px solid #e87908;box-shadow:0 0 16px #e8790844}
+.logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+
+.hidden{display:none!important}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.panel{padding:22px}.field{margin:12px 0}.field label{display:block;font-size:11px;font-weight:800;margin-bottom:6px;color:var(--pale)}.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid var(--line);background:#0c0c10;color:var(--white);border-radius:3px}.status{font-size:13px;margin-top:12px;color:var(--muted)}.status.error{color:#ff6b35}.status.ok{color:#b8d77a}.team-row{border:1px solid var(--line);background:#111116;padding:16px;margin:10px 0;display:grid;grid-template-columns:1fr auto;gap:14px}.team-row h3{margin:0 0 8px}.team-details{margin-top:12px;padding-top:8px;border-top:1px solid #ffffff18}.team-details p{margin:7px 0}.team-row p{margin:5px 0;color:var(--muted);font-size:13px;overflow-wrap:anywhere}.actions{display:flex;gap:8px;flex-wrap:wrap}.actions button,.smallbtn{cursor:pointer;border:1px solid #694018;background:#17171d;color:#f4f1e9;padding:9px 12px;border-radius:3px;font-weight:800}.actions .approve{background:#e87908;color:#111}.actions .danger{border-color:#a33d25;color:#ff8c69}.tag{display:inline-block;border:1px solid #694018;padding:4px 8px;font-size:11px;text-transform:uppercase}.topline{display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap}.mfa-code{max-width:240px;font-size:22px;letter-spacing:5px}.qr{background:white;padding:12px;display:inline-block;max-width:220px}.qr img{max-width:190px;height:auto}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.tabs button{cursor:pointer;padding:10px 14px;background:#17171d;border:1px solid var(--line);color:var(--white)}.tabs button.active{border-color:#e87908;color:#ffad24}
+@media(max-width:760px){.admin-grid{grid-template-columns:1fr}.team-row{grid-template-columns:1fr}.wrap{padding:0 17px}}
+</style></head><body>
+<nav><div class="wrap inner"><a class="brand" href="index.html"><div class="logo"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/08e1bb79-1557-4e2f-ba28-0937f6eeb71d-profile_image-70x70.png" alt="BlazePL007"></div><div>BLAZEPL007<small>PANEL ADMINISTRATORA</small></div></a><div class="navlinks"><a href="index.html">STRONA GŁÓWNA</a><a href="teams.html">DRUŻYNY</a></div><button class="btn ghost" id="logout" type="button">WYLOGUJ</button></div></nav>
+<main class="wrap">
+<section><div class="head"><div><div class="eyebrow">STREFA ORGANIZATORA</div><h2>PANEL ADMINISTRATORA</h2><p>Zarządzanie turniejem BlazePL007.</p></div></div>
+<div id="loginPanel" class="panel"><h3>Wymagane logowanie</h3><p class="note">Zaloguj się na konto administratora. Panel wymaga dodatkowego uwierzytelnienia 2FA.</p><a class="btn" href="login.html">PRZEJDŹ DO LOGOWANIA</a><div id="loginStatus" class="status"></div></div>
+<div id="mfaPanel" class="panel hidden"><div class="eyebrow">DODATKOWA OCHRONA</div><h3>Weryfikacja dwuetapowa (2FA)</h3><p class="note" id="mfaIntro">Aby wejść do panelu, skonfiguruj aplikację uwierzytelniającą, np. Google Authenticator, Microsoft Authenticator lub 1Password.</p><div id="enrollArea"><button class="btn" id="enrollBtn">SKONFIGURUJ 2FA</button></div><div id="verifyArea" class="hidden"><div id="qrArea" class="qr hidden"><img id="qrImg" alt="Kod QR 2FA"></div><p id="secretText" class="note"></p><div class="field"><label>KOD Z APLIKACJI</label><input id="totpCode" class="mfa-code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000"></div><button class="btn" id="verifyBtn">POTWIERDŹ KOD</button></div><div id="mfaStatus" class="status"></div></div>
+<div id="adminApp" class="hidden">
+ <div class="topline"><p class="note">Zalogowano jako <strong id="adminEmail"></strong> · 2FA aktywne</p><span class="tag">ADMIN</span></div>
+ <div class="tabs"><button class="active" data-tab="submissions">ZGŁOSZENIA</button><button data-tab="admins">ADMINISTRATORZY</button></div>
+ <section id="submissionsTab" class="panel"><div class="topline"><div><h3>ZGŁOSZENIA DRUŻYN</h3><p class="note">Zarządzaj zgłoszeniami uczestników.</p></div><select id="statusFilter" style="max-width:180px;background:#0c0c10;color:white;padding:10px;border:1px solid var(--line)"><option value="all">Wszystkie</option><option value="pending">Oczekujące</option><option value="approved">Zatwierdzone</option><option value="rejected">Odrzucone</option></select></div><div id="teamsList">Ładowanie…</div></section>
+ <section id="adminsTab" class="panel hidden"><h3>ZARZĄDZANIE ADMINISTRATORAMI</h3><p class="note">Dodawaj administratorów po adresie e-mail. Nowy administrator musi mieć konto i skonfigurować 2FA.</p><div class="field"><label>E-MAIL KONTA</label><input id="newAdminEmail" type="email" placeholder="admin@example.com"></div><button class="btn" id="addAdmin">DODAJ ADMINISTRATORA</button><div id="adminsList"></div><div id="adminStatus" class="status"></div></section>
+</div></section></main>
+<footer><div class="wrap foot"><span>© 2026 BLAZEPL007 · PANEL ADMINISTRATORA</span><a href="index.html">Powrót na stronę główną</a></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script>
+const $=s=>document.querySelector(s), safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeHttps=v=>{try{const u=new URL(String(v||""));return u.protocol==="https:"?u.href:""}catch{return ""}};
+const configured=window.SUPABASE_URL&&window.SUPABASE_PUBLISHABLE_KEY?.startsWith("sb_publishable_")&&!window.SUPABASE_PUBLISHABLE_KEY.includes("WSTAW_TUTAJ");
+const db=configured&&window.supabase?window.supabase.createClient(window.SUPABASE_URL,window.SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.localStorage}}):null;
+let activeFactor=null,challengeId=null;
+function say(el,msg,type=""){el.textContent=msg;el.className="status "+type}
+async function init(){
+ if(!db){$("#loginPanel").classList.remove("hidden");say($("#loginStatus"),"Sprawdź konfigurację Supabase.","error");return}
+ const {data:{session}}=await db.auth.getSession();
+ if(!session){$("#loginPanel").classList.remove("hidden");return}
+ $("#loginPanel").classList.add("hidden");$("#adminEmail").textContent=session.user.email||"";
+ // Najpierw sprawdzamy członkostwo administratora. Samo członkostwo nie daje dostępu do danych.
+ const {data:isMember,error:memberError}=await db.rpc("is_admin_member");
+ if(memberError||isMember!==true){$("#loginPanel").classList.remove("hidden");say($("#loginStatus"),"To konto nie ma uprawnień administratora.","error");return}
+ // Serwer uznaje MFA tylko przez 5 minut od ostatniego poprawnego kodu TOTP.
+ const {data:freshAdmin}=await db.rpc("is_current_user_admin");
+ if(freshAdmin===true){await loadAdmin();return}
+ const {data:factorData,error}=await db.auth.mfa.listFactors();
+ if(error){$("#mfaPanel").classList.remove("hidden");say($("#mfaStatus"),error.message,"error");return}
+ const verified=(factorData?.totp||[]).find(f=>f.status==="verified");
+ $("#mfaPanel").classList.remove("hidden");
+ if(verified){activeFactor=verified.id;$("#enrollArea").classList.add("hidden");$("#verifyArea").classList.remove("hidden");$("#mfaIntro").textContent="Aby wejść do panelu, ponownie potwierdź dostęp kodem z aplikacji uwierzytelniającej."}
+ else {$("#mfaIntro").textContent="To konto administratora nie ma aktywnego 2FA. Skonfiguruj aplikację, aby uzyskać dostęp do panelu."}
+}
+async function loadAdmin(){
+ const {data,error}=await db.rpc("is_current_user_admin");
+ if(error||data!==true){$("#adminApp").classList.add("hidden");$("#mfaPanel").classList.remove("hidden");say($("#mfaStatus"),"Wymagane jest świeże potwierdzenie kodem 2FA. Wpisz aktualny kod z aplikacji.","error");return}
+ $("#mfaPanel").classList.add("hidden");$("#loginPanel").classList.add("hidden");$("#adminApp").classList.remove("hidden");await loadTeams();await loadAdmins();
+}
+$("#enrollBtn").onclick=async()=>{
+ try{const {data,error}=await db.auth.mfa.enroll({factorType:"totp",friendlyName:"BlazePL007 Admin"});if(error)throw error;activeFactor=data.id;$("#qrImg").src=data.totp.qr_code;$("#qrArea").classList.remove("hidden");$("#secretText").textContent="Klucz ręczny: "+data.totp.secret;$("#enrollArea").classList.add("hidden");$("#verifyArea").classList.remove("hidden");say($("#mfaStatus"),"Zeskanuj kod QR w aplikacji, a następnie wpisz wygenerowany kod.")}catch(e){say($("#mfaStatus"),e.message,"error")}
+};
+$("#verifyBtn").onclick=async()=>{
+ const code=$("#totpCode").value.trim();
+ try{let challenge;if(challengeId){challenge={data:{id:challengeId}}}else{const c=await db.auth.mfa.challenge({factorId:activeFactor});if(c.error)throw c.error;challengeId=c.data.id;challenge=c}
+ const {error}=await db.auth.mfa.verify({factorId:activeFactor,challengeId:challenge.data.id,code});if(error)throw error;await loadAdmin()}catch(e){say($("#mfaStatus"),e.message||"Nieprawidłowy kod.","error")}
+};
+async function loadTeams(){
+ const {data,error}=await db.from("teams").select("id,user_id,name,captain,discord,players,reserve,anthem_url,intermission_music_url,logo_url,description,status,created_at").order("created_at",{ascending:false});
+ if(error){$("#teamsList").textContent="Błąd pobierania zgłoszeń: "+error.message;return}
+ const filter=$("#statusFilter").value, rows=(data||[]).filter(t=>filter==="all"||t.status===filter);
+ $("#teamsList").innerHTML=rows.length?rows.map(t=>`<article class="team-row" data-id="${safe(t.id)}"><div><h3>${safe(t.name)} <span class="tag">${safe(t.status)}</span></h3><p><b>Kapitan:</b> ${safe(t.captain)} · <b>Data zgłoszenia:</b> ${new Date(t.created_at).toLocaleString("pl-PL")}</p><div class="team-details hidden"><p><b>Discord:</b> ${safe(t.discord)}</p><p><b>Skład:</b> ${(Array.isArray(t.players)?t.players:[]).map(safe).join(", ")}</p><p><b>Rezerwowy:</b> ${safe(t.reserve||"brak")}</p><p><b>Hymn drużyny:</b> ${safeHttps(t.anthem_url)?`<a href="${safeHttps(t.anthem_url)}" target="_blank" rel="noopener noreferrer">OTWÓRZ LINK</a>`:"brak"}</p><p><b>Muzyka między rundami:</b> ${safeHttps(t.intermission_music_url)?`<a href="${safeHttps(t.intermission_music_url)}" target="_blank" rel="noopener noreferrer">OTWÓRZ LINK</a>`:"brak"}</p><p><b>Logo drużyny:</b> ${safeHttps(t.logo_url)?`<a href="${safeHttps(t.logo_url)}" target="_blank" rel="noopener noreferrer">OTWÓRZ OBRAZ</a><br><img src="${safeHttps(t.logo_url)}" alt="Logo ${safe(t.name)}" loading="lazy" style="max-width:160px;max-height:120px;object-fit:contain;margin-top:8px;border:1px solid #343039;padding:6px">`:"brak"}</p><p><b>Opis drużyny:</b><br>${safe(t.description||"brak")}</p><p><b>ID konta:</b> ${safe(t.user_id)}</p></div></div><div class="actions"><button type="button" data-action="preview">PODGLĄD</button><button type="button" class="approve" data-action="approved">ZATWIERDŹ</button><button type="button" data-action="rejected">ODRZUĆ</button><button type="button" data-action="edit">EDYTUJ</button><button type="button" class="danger" data-action="delete">USUŃ</button></div></article>`).join(""):"Brak zgłoszeń dla wybranego filtra.";
+}
+$("#teamsList").addEventListener("click",async e=>{
+ const b=e.target.closest("button[data-action]");if(!b)return;const row=b.closest("[data-id]"),id=row.dataset.id,action=b.dataset.action;
+ if(action==="preview"){const details=row.querySelector(".team-details");details.classList.toggle("hidden");b.textContent=details.classList.contains("hidden")?"PODGLĄD":"ZAMKNIJ PODGLĄD";return}
+ try{
+ if(action==="delete"){if(!confirm("Na pewno usunąć to zgłoszenie?"))return;const {error}=await db.from("teams").delete().eq("id",id);if(error)throw error}
+ else if(action==="edit"){const {data,error}=await db.from("teams").select("*").eq("id",id).single();if(error)throw error;
+ const name=prompt("Nazwa drużyny:",data.name);if(name===null)return;const captain=prompt("Kapitan:",data.captain);if(captain===null)return;const discord=prompt("Discord:",data.discord);if(discord===null)return;const players=prompt("Pięciu graczy (oddziel przecinkami):",Array.isArray(data.players)?data.players.join(", "):"");if(players===null)return;const arr=players.split(",").map(x=>x.trim()).filter(Boolean);if(arr.length!==5)throw new Error("Wpisz dokładnie pięciu graczy.");const reserve=prompt("Rezerwowy (opcjonalnie):",data.reserve||"");if(reserve===null)return;const anthem_url=prompt("Link do hymnu drużyny (HTTPS, opcjonalnie):",data.anthem_url||"");if(anthem_url===null)return;const intermission_music_url=prompt("Link do muzyki między rundami (HTTPS, opcjonalnie):",data.intermission_music_url||"");if(intermission_music_url===null)return;const logo_url=prompt("Link do logo drużyny (HTTPS, opcjonalnie):",data.logo_url||"");if(logo_url===null)return;const description=prompt("Opis drużyny (opcjonalnie):",data.description||"");if(description===null)return;const validUrl=v=>!v||/^https:\/\//i.test(v);if(!validUrl(anthem_url)||!validUrl(intermission_music_url)||!validUrl(logo_url))throw new Error("Linki muszą zaczynać się od https://");const {error:upErr}=await db.from("teams").update({name,captain,discord,players:arr,reserve:reserve||null,anthem_url:anthem_url||null,intermission_music_url:intermission_music_url||null,logo_url:logo_url||null,description:description||null}).eq("id",id);if(upErr)throw upErr}
+ else{const {error}=await db.from("teams").update({status:action}).eq("id",id);if(error)throw error}
+ await loadTeams();
+ }catch(err){alert(err.message||"Operacja nie powiodła się.")}
+});
+$("#statusFilter").onchange=loadTeams;
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x===b));$("#submissionsTab").classList.toggle("hidden",b.dataset.tab!=="submissions");$("#adminsTab").classList.toggle("hidden",b.dataset.tab!=="admins")});
+async function loadAdmins(){const {data,error}=await db.from("admin_users").select("user_id,email,created_at").order("created_at");if(error){$("#adminsList").textContent="Nie udało się pobrać listy administratorów: "+error.message;return}
+ $("#adminsList").innerHTML=(data||[]).map(a=>`<div class="team-row"><div><b>${safe(a.email||a.user_id)}</b><p>Dodano: ${new Date(a.created_at).toLocaleString("pl-PL")}</p></div><button class="smallbtn danger" data-remove="${safe(a.user_id)}">ODBIERZ</button></div>`).join("")||"Brak administratorów.";
+}
+$("#addAdmin").onclick=async()=>{const email=$("#newAdminEmail").value.trim();if(!email)return say($("#adminStatus"),"Wpisz adres e-mail.","error");const {error}=await db.rpc("add_admin_by_email",{target_email:email});if(error)return say($("#adminStatus"),error.message,"error");$("#newAdminEmail").value="";say($("#adminStatus"),"Administrator dodany.","ok");loadAdmins()};
+$("#adminsList").addEventListener("click",async e=>{const b=e.target.closest("[data-remove]");if(!b)return;if(!confirm("Odebrać uprawnienia temu administratorowi?"))return;const {error}=await db.rpc("remove_admin",{target_user_id:b.dataset.remove});if(error)say($("#adminStatus"),error.message,"error");else{say($("#adminStatus"),"Uprawnienia odebrane.","ok");loadAdmins()}});
+$("#logout").onclick=async()=>{await db.auth.signOut();location.href="login.html"};
+db?.auth.onAuthStateChange(()=>{});
+init();
+</script></body></html>
