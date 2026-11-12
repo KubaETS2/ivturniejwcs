@@ -143,7 +143,7 @@ h1 span{color:#f28a0b}
 <div id="adminApp" class="hidden">
  <div class="topline"><p class="note">Zalogowano jako <strong id="adminEmail"></strong> · 2FA aktywne</p><span class="tag">ADMIN</span></div>
  <div class="tabs"><button class="active" data-tab="submissions">ZGŁOSZENIA</button><button data-tab="tournament">TURNIEJ</button><button data-tab="admins">ADMINISTRATORZY</button></div>
- <section id="submissionsTab" class="panel"><div class="topline"><div><h3>ZGŁOSZENIA DRUŻYN</h3><p class="note">Zarządzaj zgłoszeniami uczestników.</p></div><select id="statusFilter" style="max-width:180px;background:#0c0c10;color:white;padding:10px;border:1px solid var(--line)"><option value="all">Wszystkie</option><option value="pending">Oczekujące</option><option value="approved">Zatwierdzone</option><option value="rejected">Odrzucone</option></select></div><div id="teamsList">Ładowanie…</div></section>
+ <section id="submissionsTab" class="panel"><div class="panel" style="margin-bottom:18px;background:#111116;border:1px solid var(--line)"><div class="topline"><div><h3>ZARZĄDZANIE ZAPISAMI</h3><p class="note">Zapisy zamkną się automatycznie 26 listopada 2026 r. o 00:00 czasu polskiego. Możesz też ręcznie zamknąć lub ponownie otworzyć formularz.</p><p id="registrationState" class="note">Sprawdzanie statusu zapisów…</p></div><button class="btn" id="toggleRegistration" type="button" disabled>ŁADOWANIE…</button></div><div id="registrationStatus" class="status"></div></div><div class="topline"><div><h3>ZGŁOSZENIA DRUŻYN</h3><p class="note">Zarządzaj zgłoszeniami uczestników.</p></div><select id="statusFilter" style="max-width:180px;background:#0c0c10;color:white;padding:10px;border:1px solid var(--line)"><option value="all">Wszystkie</option><option value="pending">Oczekujące</option><option value="approved">Zatwierdzone</option><option value="rejected">Odrzucone</option></select></div><div id="teamsList">Ładowanie…</div></section>
  <section id="tournamentTab" class="panel hidden"><h3>ZARZĄDZANIE TURNIEJEM</h3><p class="note">Grupy po 4 drużyny, każdy z każdym. BO2: wpisz rundy z obu map. Punkty = liczba wygranych map. Tabela: punkty, bilans rund, rundy wygrane.</p><div id="tournamentStatus" class="status"></div><div id="tournamentAdmin"></div></section>
  <section id="adminsTab" class="panel hidden"><h3>ZARZĄDZANIE ADMINISTRATORAMI</h3><p class="note">Dodawaj administratorów po adresie e-mail. Nowy administrator musi mieć konto i skonfigurować 2FA.</p><div class="field"><label>E-MAIL KONTA</label><input id="newAdminEmail" type="email" placeholder="admin@example.com"></div><button class="btn" id="addAdmin">DODAJ ADMINISTRATORA</button><div id="adminsList"></div><div id="adminStatus" class="status"></div></section>
 </div></section></main>
@@ -176,7 +176,7 @@ async function init(){
 async function loadAdmin(){
  const {data,error}=await db.rpc("is_current_user_admin");
  if(error||data!==true){$("#adminApp").classList.add("hidden");$("#mfaPanel").classList.remove("hidden");say($("#mfaStatus"),"Wymagane jest świeże potwierdzenie kodem 2FA. Wpisz aktualny kod z aplikacji.","error");return}
- $("#mfaPanel").classList.add("hidden");$("#loginPanel").classList.add("hidden");$("#adminApp").classList.remove("hidden");await loadTeams();await loadAdmins();await loadTournament();
+ $("#mfaPanel").classList.add("hidden");$("#loginPanel").classList.add("hidden");$("#adminApp").classList.remove("hidden");await loadTeams();await loadAdmins();await loadTournament();await loadRegistrationSettings();
 }
 $("#enrollBtn").onclick=async()=>{
  try{const {data,error}=await db.auth.mfa.enroll({factorType:"totp",friendlyName:"BlazePL007 Admin"});if(error)throw error;activeFactor=data.id;$("#qrImg").src=data.totp.qr_code;$("#qrArea").classList.remove("hidden");$("#secretText").textContent="Klucz ręczny: "+data.totp.secret;$("#enrollArea").classList.add("hidden");$("#verifyArea").classList.remove("hidden");say($("#mfaStatus"),"Zeskanuj kod QR w aplikacji, a następnie wpisz wygenerowany kod.")}catch(e){say($("#mfaStatus"),e.message,"error")}
@@ -186,6 +186,27 @@ $("#verifyBtn").onclick=async()=>{
  try{let challenge;if(challengeId){challenge={data:{id:challengeId}}}else{const c=await db.auth.mfa.challenge({factorId:activeFactor});if(c.error)throw c.error;challengeId=c.data.id;challenge=c}
  const {error}=await db.auth.mfa.verify({factorId:activeFactor,challengeId:challenge.data.id,code});if(error)throw error;await loadAdmin()}catch(e){say($("#mfaStatus"),e.message||"Nieprawidłowy kod.","error")}
 };
+let registrationSettings=null;
+const REGISTRATION_DEADLINE="2026-11-25T23:00:00.000Z"; // 26.11.2026 00:00 Europe/Warsaw
+function registrationIsOpen(s){return !!s?.is_open && (s.manual_override || Date.now()<new Date(s.closes_at).getTime())}
+async function loadRegistrationSettings(){
+ const stateEl=$("#registrationState"),btn=$("#toggleRegistration");
+ try{
+  const {data,error}=await db.from("tournament_registration").select("id,is_open,closes_at,manual_override,updated_at").eq("id",1).single();
+  if(error)throw error;registrationSettings=data;
+  const open=registrationIsOpen(data),deadline=new Date(data.closes_at);
+  stateEl.textContent=open?`ZAPISY OTWARTE · automatyczne zamknięcie: ${deadline.toLocaleString("pl-PL",{timeZone:"Europe/Warsaw"})}`:`ZAPISY ZAMKNIĘTE${Date.now()>=deadline.getTime()&&!data.manual_override?" · termin regulaminowy minął":" · zamknięte ręcznie"}`;
+  stateEl.style.color=open?"#65d68a":"#ff795f";btn.disabled=false;btn.textContent=open?"ZAMKNIJ ZAPISY":"OTWÓRZ ZAPISY";btn.classList.toggle("danger",open);
+ }catch(e){stateEl.textContent="Nie udało się pobrać statusu zapisów: "+e.message;btn.disabled=true}
+}
+$("#toggleRegistration").addEventListener("click",async()=>{
+ const btn=$("#toggleRegistration");if(!registrationSettings)return;
+ const open=registrationIsOpen(registrationSettings),nextOpen=!open;
+ const promptText=nextOpen?"Ponownie otworzyć zapisy? Formularz zgłoszeniowy znów będzie dostępny.":"Zamknąć zapisy? Nowe zgłoszenia nie będą już przyjmowane.";
+ if(!confirm(promptText))return;btn.disabled=true;
+ try{const patch={is_open:nextOpen,manual_override:nextOpen,updated_at:new Date().toISOString()};const {error}=await db.from("tournament_registration").update(patch).eq("id",1);if(error)throw error;await loadRegistrationSettings();say($("#registrationStatus"),nextOpen?"Zapisy zostały ponownie otwarte.":"Zapisy zostały zamknięte.","ok")}
+ catch(e){say($("#registrationStatus"),e.message,"error");btn.disabled=false}
+});
 async function loadTeams(){
  const {data,error}=await db.from("teams").select("id,user_id,name,captain,discord,players,reserve,anthem_url,intermission_music_url,logo_url,description,status,created_at").order("created_at",{ascending:false});
  if(error){$("#teamsList").textContent="Błąd pobierania zgłoszeń: "+error.message;return}
