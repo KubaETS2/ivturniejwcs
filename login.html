@@ -12,6 +12,40 @@ section{padding:30px 0 55px}.head{display:flex;justify-content:space-between;ali
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin:12px 0}.field label{display:block;font-size:10px;color:#c6c0d1;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;background:#09090f;border:1px solid #343342;border-radius:8px;padding:11px;color:white;font:12px Inter;outline:none}.field input:focus,.field textarea:focus{border-color:var(--purple)}.field textarea{min-height:105px;resize:vertical}.note{font-size:10px;line-height:1.7;color:var(--muted)}.notice{padding:11px;border-radius:8px;font-size:11px;line-height:1.5;margin:10px 0;background:#211b2d;border:1px solid #49356b;color:#d9c8ff}.hidden{display:none!important}.twitch{display:flex;align-items:center;justify-content:space-between;gap:20px;background:linear-gradient(110deg,#24143c,#14121d);border:1px solid #5b3785;border-radius:14px;padding:23px}.twitch h3{font-size:27px;margin:10px 0}.twitch p{color:#bdb5ca;font-size:11px;line-height:1.6;margin:0}
 footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:10px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#171520;border:1px solid #373143;color:#ddd;padding:9px 13px;border-radius:8px;cursor:pointer}.tabs button.active{background:#382052;border-color:#9147ff}.status{font-size:11px;color:var(--muted);margin-top:10px}.status.error{color:var(--red)}.status.ok{color:var(--green)}
 @media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:52px;gap:25px}.hero-art{min-height:210px}.stats{margin-bottom:22px}.rounds,.grid2{grid-template-columns:1fr}.results,.teamlist{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.twitch{align-items:start;flex-direction:column}.wrap{padding:0 17px}}
+
+/* BLAZEPL007 Twitch identity: orange, charcoal and gold */
+:root{--bg:#09090c;--panel:#17171d;--line:#343039;--purple:#e87908;--pale:#ffad24;--white:#f4f1e9;--muted:#aaa39a;--green:#b8d77a;--red:#ff6b35}
+body{background-color:#09090c;background-image:repeating-linear-gradient(0deg,transparent 0 52px,rgba(232,121,8,.025) 52px 54px),radial-gradient(ellipse at 50% 0%,#3b200b 0,transparent 45%);color:var(--white)}
+nav{background:#111116ed;border-bottom:2px solid #d87508}
+.logo{border-radius:4px;background:linear-gradient(145deg,#ffad24,#b94b00);box-shadow:0 0 22px #e8790844;color:#111}
+.brand small{color:#d99b37}
+.navlinks{color:#e2d8c9}
+.navlinks a:hover{color:#ff9a18}
+.btn{border-radius:3px;background:#e87908;color:#111;font-weight:900}
+.btn:hover{background:#ff9b1c}
+.btn.ghost{background:#17171d;border:1px solid #a85b19;color:#f4e9d9}
+.hero{padding-top:44px}
+.eyebrow{color:#f0a326}
+.dot{background:#ed810b}
+h1 span{color:#f28a0b}
+.hero-art{border-radius:3px;border:1px solid #a85b19;background:linear-gradient(135deg,#ed870b,#c85a05 58%,#191923 58%);color:#171720}
+.emblem{text-shadow:none}
+.emblem small{color:#211b18}
+.stat,.panel{border-radius:3px;border-color:#3c342b;background:#17171de8}
+.match,.result,.teamcard{border-radius:3px;border-color:#3c342b;background:#111116}
+.round h3,.scorebig{color:#f0a326}
+.field input,.field textarea{border-radius:3px;border-color:#4a3b2c;background:#0c0c10}
+.field input:focus,.field textarea:focus{border-color:#e87908}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{border-radius:3px;border-color:#694018}
+#twitch-live .twitch-embed{display:grid;grid-template-columns:minmax(0,3fr) minmax(320px,1fr);gap:14px;width:100%;align-items:stretch}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{min-width:0;overflow:hidden;background:#09090c}
+#twitch-live .twitch-player{height:min(68vw,760px);min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px);min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+.event-banner{width:100%;margin:26px 0 0;overflow:hidden;border:1px solid #a85b19;background:#15151b}
+.event-banner img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
+@media(max-width:850px){#twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}#twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}#twitch-live .twitch-chat{height:480px;min-height:480px}.event-banner img{max-height:none}}
+
 </style></head><body><nav><div class="wrap inner"><a class="brand" href="index.html"><div class="logo">B7</div><div>BLAZEPL007<small>COMMUNITY TOURNAMENT</small></div></a><div class="navlinks"><a href="index.html#drabinka">DRABINKA</a><a href="index.html#wyniki">WYNIKI</a><a href="index.html#druzyny">DRUŻYNY</a><a href="login.html">LOGOWANIE</a></div><a class="btn ghost" href="index.html">STRONA GŁÓWNA</a></div></nav><main class="wrap"><section><div class="head"><div><div class="eyebrow">STREFA UCZESTNIKA</div><h2>LOGOWANIE</h2><p>Zaloguj się, aby zarządzać swoim zgłoszeniem turniejowym.</p></div></div><div class="grid2"><div class="panel"><form id="loginForm"><div class="field"><label>EMAIL *</label><input name="email" type="email" required autocomplete="email" placeholder="adres@email.com"></div><div class="field"><label>HASŁO *</label><input name="password" type="password" required autocomplete="current-password" placeholder="Hasło do konta"></div><button class="btn" id="loginSubmit" type="submit" style="width:100%">ZALOGUJ SIĘ</button></form><div id="loginMsg" class="status"></div><p class="note">Nie masz konta? <a href="register.html" style="color:var(--pale)">Zarejestruj się tutaj.</a></p></div><div class="panel"><div class="eyebrow">BLAZEPL007</div><h3 style="font-size:27px;margin:12px 0">DOŁĄCZ DO TURNIEJU</h3><p class="note">Po zalogowaniu wrócisz do strony zgłoszeń. Jeśli dopiero zaczynasz, utwórz konto i zgłoś drużynę.</p><a class="btn" href="register.html">REJESTRACJA →</a></div></div></section></main><footer><div class="wrap foot"><span>© 2026 BLAZEPL007 · TURNIEJ CS2</span><a href="index.html">Powrót na stronę główną</a></div></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script>
 const $=s=>document.querySelector(s);const configured=window.SUPABASE_URL&&window.SUPABASE_PUBLISHABLE_KEY?.startsWith("sb_publishable_")&&!window.SUPABASE_PUBLISHABLE_KEY.includes("WSTAW_TUTAJ");const db=configured&&window.supabase?window.supabase.createClient(window.SUPABASE_URL,window.SUPABASE_PUBLISHABLE_KEY):null;
 $("#loginForm").addEventListener("submit",async e=>{e.preventDefault();if(!db){$("#loginMsg").textContent="Uzupełnij klucz Supabase w supabase-config.js.";return}const f=new FormData(e.target);$("#loginSubmit").disabled=true;try{const {error}=await db.auth.signInWithPassword({email:String(f.get("email")).trim(),password:String(f.get("password"))});if(error)throw error;$("#loginMsg").textContent="Zalogowano. Przechodzę do zgłoszeń…";location.href="register.html"}catch(err){$("#loginMsg").textContent=err.message||"Nie udało się zalogować."}finally{$("#loginSubmit").disabled=false}});

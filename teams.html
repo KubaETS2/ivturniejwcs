@@ -21,6 +21,40 @@ footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:1
 .navlinks a{padding:10px 0;border-bottom:2px solid transparent}
 .navlinks a:hover,.navlinks a.active{color:#fff;border-color:var(--purple)}
 @media(max-width:760px){.twitch-embed{grid-template-columns:1fr}.twitch-chat{height:450px;min-height:450px}}
+
+/* BLAZEPL007 Twitch identity: orange, charcoal and gold */
+:root{--bg:#09090c;--panel:#17171d;--line:#343039;--purple:#e87908;--pale:#ffad24;--white:#f4f1e9;--muted:#aaa39a;--green:#b8d77a;--red:#ff6b35}
+body{background-color:#09090c;background-image:repeating-linear-gradient(0deg,transparent 0 52px,rgba(232,121,8,.025) 52px 54px),radial-gradient(ellipse at 50% 0%,#3b200b 0,transparent 45%);color:var(--white)}
+nav{background:#111116ed;border-bottom:2px solid #d87508}
+.logo{border-radius:4px;background:linear-gradient(145deg,#ffad24,#b94b00);box-shadow:0 0 22px #e8790844;color:#111}
+.brand small{color:#d99b37}
+.navlinks{color:#e2d8c9}
+.navlinks a:hover{color:#ff9a18}
+.btn{border-radius:3px;background:#e87908;color:#111;font-weight:900}
+.btn:hover{background:#ff9b1c}
+.btn.ghost{background:#17171d;border:1px solid #a85b19;color:#f4e9d9}
+.hero{padding-top:44px}
+.eyebrow{color:#f0a326}
+.dot{background:#ed810b}
+h1 span{color:#f28a0b}
+.hero-art{border-radius:3px;border:1px solid #a85b19;background:linear-gradient(135deg,#ed870b,#c85a05 58%,#191923 58%);color:#171720}
+.emblem{text-shadow:none}
+.emblem small{color:#211b18}
+.stat,.panel{border-radius:3px;border-color:#3c342b;background:#17171de8}
+.match,.result,.teamcard{border-radius:3px;border-color:#3c342b;background:#111116}
+.round h3,.scorebig{color:#f0a326}
+.field input,.field textarea{border-radius:3px;border-color:#4a3b2c;background:#0c0c10}
+.field input:focus,.field textarea:focus{border-color:#e87908}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{border-radius:3px;border-color:#694018}
+#twitch-live .twitch-embed{display:grid;grid-template-columns:minmax(0,3fr) minmax(320px,1fr);gap:14px;width:100%;align-items:stretch}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{min-width:0;overflow:hidden;background:#09090c}
+#twitch-live .twitch-player{height:min(68vw,760px);min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px);min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+.event-banner{width:100%;margin:26px 0 0;overflow:hidden;border:1px solid #a85b19;background:#15151b}
+.event-banner img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
+@media(max-width:850px){#twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}#twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}#twitch-live .twitch-chat{height:480px;min-height:480px}.event-banner img{max-height:none}}
+
 </style></head><body><nav><div class="wrap inner"><a class="brand" href="index.html"><div class="logo">B7</div><div>BLAZEPL007<small>COMMUNITY TOURNAMENT</small></div></a><div class="navlinks"><a href="bracket.html">DRABINKA</a><a href="results.html">WYNIKI</a><a href="teams.html">DRUŻYNY</a><a href="login.html">LOGOWANIE</a></div><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ</a></div></nav><main class="wrap"><section><div class="head"><div><div class="eyebrow">UCZESTNICY TURNIEJU</div><h2>ZAKWALIFIKOWANE DRUŻYNY</h2><p>Lista zespołów zatwierdzonych przez organizatora.</p></div><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ</a></div><div id="teams" class="teamlist"><div class="panel note">Ładowanie drużyn…</div></div></section></main><footer><div class="wrap foot"><span>© 2026 BLAZEPL007 · TURNIEJ CS2</span><a href="https://www.twitch.tv/blazepl007" target="_blank" rel="noopener">TWITCH</a></div></footer><script>
 const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 fetch("data/teams.json").then(r=>r.json()).then(rows=>{document.querySelector("#teams").innerHTML=rows.length?rows.map(x=>`<div class="teamcard"><div><small>ZATWIERDZONA DRUŻYNA</small><strong>${safe(x.name)}</strong></div><span class="tag">CS2 · 5V5</span></div>`).join(""):'<div class="panel note">Brak zatwierdzonych drużyn.</div>'}).catch(()=>document.querySelector("#teams").textContent="Nie udało się wczytać drużyn.");
