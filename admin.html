@@ -118,17 +118,22 @@ async function init(){
  const {data:{session}}=await db.auth.getSession();
  if(!session){$("#loginPanel").classList.remove("hidden");return}
  $("#loginPanel").classList.add("hidden");$("#adminEmail").textContent=session.user.email||"";
- const {data:aal}=await db.auth.mfa.getAuthenticatorAssuranceLevel();
- if(aal?.currentLevel==="aal2"){await loadAdmin();return}
+ // Najpierw sprawdzamy członkostwo administratora. Samo członkostwo nie daje dostępu do danych.
+ const {data:isMember,error:memberError}=await db.rpc("is_admin_member");
+ if(memberError||isMember!==true){$("#loginPanel").classList.remove("hidden");say($("#loginStatus"),"To konto nie ma uprawnień administratora.","error");return}
+ // Serwer uznaje MFA tylko przez 5 minut od ostatniego poprawnego kodu TOTP.
+ const {data:freshAdmin}=await db.rpc("is_current_user_admin");
+ if(freshAdmin===true){await loadAdmin();return}
  const {data:factorData,error}=await db.auth.mfa.listFactors();
  if(error){$("#mfaPanel").classList.remove("hidden");say($("#mfaStatus"),error.message,"error");return}
  const verified=(factorData?.totp||[]).find(f=>f.status==="verified");
  $("#mfaPanel").classList.remove("hidden");
- if(verified){activeFactor=verified.id;$("#enrollArea").classList.add("hidden");$("#verifyArea").classList.remove("hidden");$("#mfaIntro").textContent="Wpisz aktualny kod z aplikacji uwierzytelniającej, aby potwierdzić tożsamość."}
+ if(verified){activeFactor=verified.id;$("#enrollArea").classList.add("hidden");$("#verifyArea").classList.remove("hidden");$("#mfaIntro").textContent="Aby wejść do panelu, ponownie potwierdź dostęp kodem z aplikacji uwierzytelniającej."}
+ else {$("#mfaIntro").textContent="To konto administratora nie ma aktywnego 2FA. Skonfiguruj aplikację, aby uzyskać dostęp do panelu."}
 }
 async function loadAdmin(){
  const {data,error}=await db.rpc("is_current_user_admin");
- if(error||data!==true){$("#mfaPanel").classList.add("hidden");$("#adminApp").classList.add("hidden");$("#loginPanel").classList.remove("hidden");say($("#loginStatus"),"To konto nie ma uprawnień administratora.","error");return}
+ if(error||data!==true){$("#adminApp").classList.add("hidden");$("#mfaPanel").classList.remove("hidden");say($("#mfaStatus"),"Wymagane jest świeże potwierdzenie kodem 2FA. Wpisz aktualny kod z aplikacji.","error");return}
  $("#mfaPanel").classList.add("hidden");$("#loginPanel").classList.add("hidden");$("#adminApp").classList.remove("hidden");await loadTeams();await loadAdmins();
 }
 $("#enrollBtn").onclick=async()=>{
