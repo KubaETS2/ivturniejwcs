@@ -83,8 +83,8 @@ async function initAccountSecurity(){
   const {data:admin,error:adminError}=await db.rpc("is_admin_member");
   if(!adminError&&admin===true){
    const {data:stepUp}=await db.rpc("is_current_user_admin");
-   if(stepUp===true){adminLink.classList.remove("hidden");status.textContent="Potwierdzenie 2FA jest aktualne. Możesz otworzyć panel administratora."}
-   else if(verified){status.textContent="Aby otworzyć panel administratora, wpisz ponownie aktualny kod 2FA. Potwierdzenie będzie ważne przez 5 minut."}
+   if(stepUp===true){verify.classList.add("hidden");adminLink.classList.remove("hidden");status.textContent="2FA potwierdzone. Możesz otworzyć panel administratora."}
+   else if(verified){verify.classList.remove("hidden");adminLink.classList.add("hidden");status.textContent="Aby otworzyć panel administratora, wpisz aktualny kod 2FA. Po potwierdzeniu pole zniknie, a pojawi się przycisk do panelu (ważność 5 minut)."}
   }
  }catch(e){status.textContent="Nie udało się sprawdzić 2FA/uprawnień. Upewnij się, że uruchomiono migrację SQL z paczki. "+(e.message||"")}
 }
