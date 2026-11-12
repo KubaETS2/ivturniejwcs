@@ -79,4 +79,19 @@ h1 span{color:#f28a0b}
  db.auth.onAuthStateChange((_event,session)=>update(session));
 })();
 </script>
-<style>.group-tables{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.group-table{min-width:0;padding:22px}.group-table h3{margin-bottom:16px}.table-scroll{overflow-x:auto;margin:8px 0 14px}table{width:100%;min-width:580px;border-collapse:separate;border-spacing:0;font-size:13px}th,td{padding:13px 12px;text-align:center;border-bottom:1px solid #ffffff18;white-space:nowrap}th:first-child,td:first-child{text-align:left;min-width:190px}th{color:#ffad24;background:#19151f;font-size:12px}tbody tr:nth-child(even){background:#ffffff05}.results{gap:14px}.result{padding:18px;min-height:78px}.result strong{line-height:1.5}@media(max-width:760px){.group-tables{grid-template-columns:1fr;gap:16px}.group-table{padding:16px}}</style><script src="tournament.js"></script></body></html>
+<style>.group-tables{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.group-table{min-width:0;padding:22px}.group-table h3{margin-bottom:16px}.table-scroll{overflow-x:auto;margin:8px 0 14px}table{width:100%;min-width:580px;border-collapse:separate;border-spacing:0;font-size:13px}th,td{padding:13px 12px;text-align:center;border-bottom:1px solid #ffffff18;white-space:nowrap}th:first-child,td:first-child{text-align:left;min-width:190px}th{color:#ffad24;background:#19151f;font-size:12px}tbody tr:nth-child(even){background:#ffffff05}.results{gap:14px}.result{padding:18px;min-height:78px}.result strong{line-height:1.5}@media(max-width:760px){.group-tables{grid-template-columns:1fr;gap:16px}.group-table{padding:16px}}
+<style>
+/* Czytelny, dwuwierszowy nagłówek zwijanej fazy grupowej */
+.group-stage-accordion{padding:0;overflow:hidden}
+.group-stage-accordion>summary{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px 20px;cursor:pointer;list-style:none;user-select:none}
+.group-stage-accordion>summary::-webkit-details-marker{display:none}
+.group-stage-accordion>summary>span:first-child{display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-width:0}
+.group-stage-accordion>summary b{display:block;font-size:17px;line-height:1.25}
+.group-stage-accordion>summary small{display:block;color:var(--muted);font-size:11px;line-height:1.4}
+.group-stage-accordion .accordion-mark{flex:0 0 auto;color:#ffad24;font-size:20px;font-weight:900;line-height:1}
+.group-stage-accordion[open] .accordion-mark{transform:rotate(45deg)}
+.group-stage-content{padding:20px;border-top:1px solid var(--line)}
+.group-stage-content>h3{display:block;margin:0 0 14px;line-height:1.2}
+.group-stage-content>.group-tables{margin-top:0}
+@media(max-width:760px){.group-stage-accordion>summary{padding:15px}.group-stage-content{padding:14px}}
+</style><script src="tournament.js"></script></body></html>
