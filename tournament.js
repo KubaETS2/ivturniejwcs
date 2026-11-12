@@ -12,6 +12,8 @@
   const groups=calc(state);
   let html='';
   const playoffMatches=Array.isArray(state.playoffs)?state.playoffs:[];
+  const finalStandings=Array.isArray(state.finalStandings)?state.finalStandings:[];
+  if(state.playoffsClosed&&finalStandings.length){html+='<section class="panel final-standings"><div class="eyebrow">OFICJALNE WYNIKI</div><h2>KLASYFIKACJA KOŃCOWA</h2><ol class="final-standings-list">'+finalStandings.slice().sort((a,b)=>a.place-b.place).map(r=>`<li><span class="final-place">${fmt(r.place)}.</span><strong>${safe(r.name)}</strong>${r.place===1?'<span class="champion-tag">MISTRZ</span>':''}</li>`).join('')+'</ol></section>'; }
   const labels={R16:'1/8 FINAŁU',QF:'ĆWIERĆFINAŁY',SF:'PÓŁFINAŁY',FINAL:'WIELKI FINAŁ',THIRD:'MECZ O 3. MIEJSCE'};
   const order=['R16','QF','SF','THIRD','FINAL'];
 
