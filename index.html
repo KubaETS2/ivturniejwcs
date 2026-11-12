@@ -20,15 +20,22 @@ section{padding:30px 0 55px}.head{display:flex;justify-content:space-between;ali
 footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:10px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#171520;border:1px solid #373143;color:#ddd;padding:9px 13px;border-radius:8px;cursor:pointer}.tabs button.active{background:#382052;border-color:#9147ff}.status{font-size:11px;color:var(--muted);margin-top:10px}.status.error{color:var(--red)}.status.ok{color:var(--green)}
 @media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:52px;gap:25px}.hero-art{min-height:210px}.stats{margin-bottom:22px}.rounds,.grid2{grid-template-columns:1fr}.results,.teamlist{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.twitch{align-items:start;flex-direction:column}.wrap{padding:0 17px}}
 </style></head><body>
-<nav><div class="wrap inner"><a class="brand" href="#"><div class="logo">B7</div><div>BLAZEPL007<small>COMMUNITY TOURNAMENT</small></div></a><div class="navlinks"><a href="#drabinka">DRABINKA</a><a href="#wyniki">WYNIKI</a><a href="#druzyny">DRUŻYNY</a><a href="login.html">LOGOWANIE</a></div><a class="btn" href="login.html">ZALOGUJ SIĘ</a></div></nav>
+<nav><div class="wrap inner"><a class="brand" href="index.html"><div class="logo">B7</div><div>BLAZEPL007<small>COMMUNITY TOURNAMENT</small></div></a><div class="navlinks"><a href="bracket.html">DRABINKA</a><a href="results.html">WYNIKI</a><a href="teams.html">DRUŻYNY</a><a href="login.html">LOGOWANIE</a></div><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ</a></div></nav>
 <main class="wrap">
 <div class="hero"><div><div class="eyebrow"><i class="dot"></i> TURNIEJ SPOŁECZNOŚCI · COUNTER-STRIKE 2</div><h1>WALCZ O <span>ZWYCIĘSTWO.</span></h1><p class="lead">Turniej CS2 społeczności BlazePL007. Załóż konto, stwórz drużynę i śledź rywalizację. Drabinka i wyniki będą aktualizowane na tej stronie.</p><div class="actions"><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ →</a><a class="btn ghost" href="#drabinka">ZOBACZ DRABINKĘ</a></div></div><div class="hero-art"><div class="emblem"><b>B7</b><small>BLAZEPL007 · CS2</small></div></div></div>
+<section id="twitch-live">
+ <div class="head"><div><div class="eyebrow"><i class="dot"></i> TRANSMISJA NA ŻYWO</div><h2>BLAZEPL007 LIVE</h2><p>Oglądaj transmisję i rozmawiaj z czatem bezpośrednio na stronie.</p></div><a class="btn ghost" href="https://www.twitch.tv/blazepl007" target="_blank" rel="noopener">OTWÓRZ TWITCH ↗</a></div>
+ <div class="twitch-embed">
+  <div class="twitch-player"><iframe src="https://player.twitch.tv/?channel=blazepl007&parent=kubaets2.github.io&muted=true" allowfullscreen="true" scrolling="no" title="Transmisja BlazePL007"></iframe></div>
+  <div class="twitch-chat"><iframe src="https://www.twitch.tv/embed/blazepl007/chat?parent=kubaets2.github.io&darkpopout" scrolling="no" title="Czat Twitch BlazePL007"></iframe></div>
+ </div>
+</section>
 <div class="stats"><div class="stat"><strong id="statTeams">—</strong><span>ZATWIERDZONE DRUŻYNY</span></div><div class="stat"><strong>5 VS 5</strong><span>FORMAT MECZÓW</span></div><div class="stat"><strong id="statMatches">—</strong><span>ROZEGRANE MECZE</span></div></div>
 <section id="zapisy"><div class="twitch"><div><div class="eyebrow"><i class="dot"></i> ZAPISY DO TURNIEJU</div><h3>STWÓRZ KONTO I ZGŁOŚ DRUŻYNĘ</h3><p>Rejestracja, logowanie i formularz zgłoszeniowy znajdują się na osobnej stronie.</p></div><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ →</a></div></section>
 <section id="drabinka"><div class="head"><div><div class="eyebrow">RYWALIZACJA</div><h2>DRABINKA TURNIEJOWA</h2></div><span class="tag">SINGLE ELIMINATION</span></div><div id="bracket" class="panel"></div></section>
 <section id="wyniki"><div class="head"><div><div class="eyebrow">OSTATNIE SPOTKANIA</div><h2>WYNIKI</h2></div></div><div id="results" class="results"></div></section>
 <section id="druzyny"><div class="head"><div><div class="eyebrow">UCZESTNICY</div><h2>ZAKWALIFIKOWANE DRUŻYNY</h2><p>Lista zatwierdzonych zespołów.</p></div></div><div id="teams" class="teamlist"></div></section>
-<section><div class="twitch"><div><div class="eyebrow"><i class="dot"></i> OGLĄDAJ NA ŻYWO</div><h3>BLAZEPL007 NA TWITCHU</h3><p>Nie przegap meczów, transmisji i turniejowych emocji.</p></div><a class="btn" href="https://www.twitch.tv/blazepl007" target="_blank" rel="noopener">OTWÓRZ TWITCH ↗</a></div></section>
+
 </main><footer><div class="wrap foot"><span>© 2026 BLAZEPL007 · TURNIEJ CS2</span><span>Community tournament · Counter-Strike 2</span></div></footer>
 <script>
 const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
