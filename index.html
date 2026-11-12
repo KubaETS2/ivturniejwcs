@@ -20,80 +20,19 @@ section{padding:30px 0 55px}.head{display:flex;justify-content:space-between;ali
 footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:10px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#171520;border:1px solid #373143;color:#ddd;padding:9px 13px;border-radius:8px;cursor:pointer}.tabs button.active{background:#382052;border-color:#9147ff}.status{font-size:11px;color:var(--muted);margin-top:10px}.status.error{color:var(--red)}.status.ok{color:var(--green)}
 @media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:52px;gap:25px}.hero-art{min-height:210px}.stats{margin-bottom:22px}.rounds,.grid2{grid-template-columns:1fr}.results,.teamlist{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.twitch{align-items:start;flex-direction:column}.wrap{padding:0 17px}}
 </style></head><body>
-<nav><div class="wrap inner"><a class="brand" href="#"><div class="logo">B7</div><div>BLAZEPL007<small>COMMUNITY TOURNAMENT</small></div></a><div class="navlinks"><a href="#drabinka">DRABINKA</a><a href="#wyniki">WYNIKI</a><a href="#druzyny">DRUŻYNY</a><a href="#konto">KONTO</a></div><a class="btn" href="#konto">ZALOGUJ / ZAREJESTRUJ</a></div></nav>
+<nav><div class="wrap inner"><a class="brand" href="#"><div class="logo">B7</div><div>BLAZEPL007<small>COMMUNITY TOURNAMENT</small></div></a><div class="navlinks"><a href="#drabinka">DRABINKA</a><a href="#wyniki">WYNIKI</a><a href="#druzyny">DRUŻYNY</a><a href="login.html">LOGOWANIE</a></div><a class="btn" href="login.html">ZALOGUJ SIĘ</a></div></nav>
 <main class="wrap">
-<div class="hero"><div><div class="eyebrow"><i class="dot"></i> TURNIEJ SPOŁECZNOŚCI · COUNTER-STRIKE 2</div><h1>WALCZ O <span>ZWYCIĘSTWO.</span></h1><p class="lead">Turniej CS2 społeczności BlazePL007. Załóż konto, stwórz drużynę i śledź rywalizację. Drabinka i wyniki będą aktualizowane na tej stronie.</p><div class="actions"><a class="btn" href="#konto">DOŁĄCZ DO TURNIEJU →</a><a class="btn ghost" href="#drabinka">ZOBACZ DRABINKĘ</a></div></div><div class="hero-art"><div class="emblem"><b>B7</b><small>BLAZEPL007 · CS2</small></div></div></div>
+<div class="hero"><div><div class="eyebrow"><i class="dot"></i> TURNIEJ SPOŁECZNOŚCI · COUNTER-STRIKE 2</div><h1>WALCZ O <span>ZWYCIĘSTWO.</span></h1><p class="lead">Turniej CS2 społeczności BlazePL007. Załóż konto, stwórz drużynę i śledź rywalizację. Drabinka i wyniki będą aktualizowane na tej stronie.</p><div class="actions"><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ →</a><a class="btn ghost" href="#drabinka">ZOBACZ DRABINKĘ</a></div></div><div class="hero-art"><div class="emblem"><b>B7</b><small>BLAZEPL007 · CS2</small></div></div></div>
 <div class="stats"><div class="stat"><strong id="statTeams">—</strong><span>ZATWIERDZONE DRUŻYNY</span></div><div class="stat"><strong>5 VS 5</strong><span>FORMAT MECZÓW</span></div><div class="stat"><strong id="statMatches">—</strong><span>ROZEGRANE MECZE</span></div></div>
-<section id="konto"><div class="head"><div><div class="eyebrow">TWOJE KONTO</div><h2>LOGOWANIE I REJESTRACJA</h2><p>Utwórz konto, a następnie zgłoś swoją drużynę bez opuszczania strony.</p></div></div>
-<div class="grid2"><div class="panel"><div id="authForms"><div class="tabs"><button id="loginTab" class="active" type="button">LOGOWANIE</button><button id="registerTab" type="button">REJESTRACJA</button></div>
-<form id="authForm"><div class="field"><label>EMAIL *</label><input name="email" type="email" required autocomplete="email" placeholder="adres@email.com"></div><div class="field"><label>HASŁO *</label><input name="password" type="password" required minlength="8" autocomplete="current-password" placeholder="Minimum 8 znaków"></div><div class="field hidden" id="nickField"><label>NICK GRACZA</label><input name="nickname" maxlength="32" placeholder="Twój nick"></div><button class="btn" id="authSubmit" type="submit" style="width:100%">ZALOGUJ SIĘ</button></form></div>
-<div id="signedIn" class="hidden"><div class="eyebrow">ZALOGOWANO</div><h3 id="userEmail" style="font-size:25px;margin:12px 0"></h3><p class="note">Możesz teraz zgłosić drużynę w formularzu poniżej.</p><button class="btn ghost" id="logoutBtn" type="button">WYLOGUJ SIĘ</button></div><div id="authMsg" class="status"></div></div>
-
-<div class="panel">
-  <div class="eyebrow">PRYWATNOŚĆ</div>
-  <h3 style="font-size:27px;margin:12px 0">INFORMACJA O DANYCH</h3>
-
-  <p class="note">
-    Dane podane podczas rejestracji i zgłoszenia drużyny wykorzystujemy wyłącznie do obsługi kont, zapisów oraz organizacji turnieju BlazePL007.
-  </p>
-
-  <div class="notice">
-    <strong>Jakie dane przetwarzamy?</strong><br>
-    Adres e-mail konta, nazwę drużyny, nick kapitana i zawodników, kontakt Discord oraz nick rezerwowego, jeśli zostanie podany. Zapisujemy również datę zgłoszenia i jego status.
-  </div>
-
-  <p class="note">
-    <strong>W jakim celu?</strong><br>
-    Dane wykorzystujemy do obsługi kont, weryfikacji zgłoszeń, kontaktu z uczestnikami, organizacji meczów i prowadzenia turnieju.
-  </p>
-
-  <p class="note">
-    <strong>Kto ma dostęp do danych?</strong><br>
-    Dane zgłoszeniowe są dostępne dla właściciela konta oraz upoważnionych organizatorów. Publicznie prezentujemy wyłącznie informacje potrzebne do przedstawienia turnieju, np. nazwy zatwierdzonych drużyn i wyniki. Nie publikujemy adresów e-mail ani prywatnych danych kontaktowych.
-  </p>
-
-  <p class="note">
-    <strong>Bezpieczeństwo</strong><br>
-    Logowanie i obsługę haseł zapewnia Supabase. Hasła nie są przechowywane w kodzie strony. Dostęp do danych jest ograniczany za pomocą odpowiednich uprawnień.
-  </p>
-
-  <p class="note">
-    <strong>Twoje prawa</strong><br>
-    Możesz skontaktować się z organizatorem w sprawie dostępu do swoich danych, ich sprostowania lub usunięcia. Dane nie będą wykorzystywane do celów reklamowych ani sprzedawane.
-  </p>
-
-  <p class="note">
-    Szczegółowe informacje o administratorze danych, podstawie prawnej, okresie przechowywania oraz prawach uczestników znajdują się w pełnej Polityce Prywatności turnieju.
-  </p>
-</div>
-
-<section id="zglos"><div class="head"><div><div class="eyebrow">DOŁĄCZ DO GRY</div><h2>ZGŁOŚ SWOJĄ DRUŻYNĘ</h2><p>Wymagane jest zalogowanie. Zgłoszenie trafi do organizatora do zatwierdzenia.</p></div></div>
-<div class="grid2"><div class="panel"><form id="teamForm"><div class="field"><label>NAZWA DRUŻYNY *</label><input name="team" required maxlength="40" placeholder="np. Blaze Warriors"></div><div class="field"><label>KAPITAN / NICK W GRZE *</label><input name="captain" required maxlength="40" placeholder="Nick kapitana"></div><div class="field"><label>KONTAKT DISCORD *</label><input name="contact" required maxlength="80" placeholder="Nazwa użytkownika Discord"></div><div class="field"><label>5 ZAWODNIKÓW — PO JEDNYM NICKU W LINII *</label><textarea name="players" required placeholder="Gracz 1&#10;Gracz 2&#10;Gracz 3&#10;Gracz 4&#10;Gracz 5"></textarea></div><div class="field"><label>REZERWOWY (OPCJONALNIE)</label><input name="reserve" maxlength="40" placeholder="Nick rezerwowego"></div><label class="note"><input type="checkbox" required> Potwierdzam poprawność danych i akceptuję regulamin turnieju.</label><button class="btn" id="teamSubmit" style="width:100%;margin-top:15px" type="submit">WYŚLIJ ZGŁOSZENIE</button></form><div id="teamMsg" class="status"></div></div>
-<div class="panel"><div class="eyebrow">STATUS ZGŁOSZENIA</div><h3 style="font-size:27px;margin:12px 0">TWOJE ZGŁOSZENIA</h3><div id="myTeams" class="note">Zaloguj się, aby zobaczyć zgłoszenia przypisane do konta.</div></div></div></section>
+<section id="zapisy"><div class="twitch"><div><div class="eyebrow"><i class="dot"></i> ZAPISY DO TURNIEJU</div><h3>STWÓRZ KONTO I ZGŁOŚ DRUŻYNĘ</h3><p>Rejestracja, logowanie i formularz zgłoszeniowy znajdują się na osobnej stronie.</p></div><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ →</a></div></section>
 <section id="drabinka"><div class="head"><div><div class="eyebrow">RYWALIZACJA</div><h2>DRABINKA TURNIEJOWA</h2></div><span class="tag">SINGLE ELIMINATION</span></div><div id="bracket" class="panel"></div></section>
 <section id="wyniki"><div class="head"><div><div class="eyebrow">OSTATNIE SPOTKANIA</div><h2>WYNIKI</h2></div></div><div id="results" class="results"></div></section>
 <section id="druzyny"><div class="head"><div><div class="eyebrow">UCZESTNICY</div><h2>ZAKWALIFIKOWANE DRUŻYNY</h2><p>Lista zatwierdzonych zespołów.</p></div></div><div id="teams" class="teamlist"></div></section>
 <section><div class="twitch"><div><div class="eyebrow"><i class="dot"></i> OGLĄDAJ NA ŻYWO</div><h3>BLAZEPL007 NA TWITCHU</h3><p>Nie przegap meczów, transmisji i turniejowych emocji.</p></div><a class="btn" href="https://www.twitch.tv/blazepl007" target="_blank" rel="noopener">OTWÓRZ TWITCH ↗</a></div></section>
 </main><footer><div class="wrap foot"><span>© 2026 BLAZEPL007 · TURNIEJ CS2</span><span>Community tournament · Counter-Strike 2</span></div></footer>
 <script>
-// WSTAW TUTAJ DANE Z SUPABASE → Project Settings → API
-const SUPABASE_URL = "https://jtxdufxxtjuhmliupeyu.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_IbCQYEQKIiEMBVhsze906w_uI7x__YV";
-
-const $=s=>document.querySelector(s),safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const configured=SUPABASE_URL.startsWith("https://") && SUPABASE_PUBLISHABLE_KEY.startsWith("sb_publishable_");
-const db=configured && window.supabase ? window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY) : null;
-let mode="login",currentUser=null;
-function msg(el,text,kind=""){el.textContent=text;el.className="status "+kind}
-function setMode(next){mode=next;$("#loginTab").classList.toggle("active",mode==="login");$("#registerTab").classList.toggle("active",mode==="register");$("#nickField").classList.toggle("hidden",mode!=="register");$("#authSubmit").textContent=mode==="login"?"ZALOGUJ SIĘ":"UTWÓRZ KONTO"}
-$("#loginTab").onclick=()=>setMode("login");$("#registerTab").onclick=()=>setMode("register");
-$("#authForm").addEventListener("submit",async e=>{e.preventDefault();if(!db){msg($("#authMsg"),"Uzupełnij SUPABASE_PUBLISHABLE_KEY w index.html i wgraj plik ponownie.","error");return}const f=new FormData(e.target),email=String(f.get("email")).trim(),password=String(f.get("password"));$("#authSubmit").disabled=true;try{if(mode==="register"){const {data,error}=await db.auth.signUp({email,password,options:{data:{nickname:String(f.get("nickname")||"").trim()}}});if(error)throw error;msg($("#authMsg"),data.session?"Konto utworzone. Jesteś zalogowany.":"Konto utworzone. Sprawdź pocztę i potwierdź adres e-mail.","ok");}else{const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;msg($("#authMsg"),"Zalogowano pomyślnie.","ok")}await refreshAuth()}catch(err){msg($("#authMsg"),err.message||"Wystąpił błąd logowania.","error")}finally{$("#authSubmit").disabled=false}});
-$("#logoutBtn").onclick=async()=>{await db.auth.signOut();await refreshAuth();msg($("#authMsg"),"Wylogowano.","ok")};
-async function refreshAuth(){if(!db)return;const {data}=await db.auth.getSession();currentUser=data.session?.user||null;$("#authForms").classList.toggle("hidden",!!currentUser);$("#signedIn").classList.toggle("hidden",!currentUser);$("#userEmail").textContent=currentUser?.email||"";$("#myTeams").textContent=currentUser?"Ładowanie zgłoszeń…":"Zaloguj się, aby zobaczyć zgłoszenia przypisane do konta.";if(currentUser)loadMyTeams()}
-async function loadMyTeams(){const {data,error}=await db.from("teams").select("id,name,status,created_at").order("created_at",{ascending:false});if(error){$("#myTeams").textContent="Nie udało się pobrać zgłoszeń: "+error.message;return}const mine=(data||[]).filter(t=>t.user_id===currentUser.id);$("#myTeams").innerHTML=mine.length?mine.map(t=>`<div class="teamcard"><div><strong>${safe(t.name)}</strong><small>${new Date(t.created_at).toLocaleString("pl-PL")}</small></div><span class="tag">${safe(t.status)}</span></div>`).join(""):"Nie masz jeszcze zgłoszonej drużyny."}
-$("#teamForm").addEventListener("submit",async e=>{e.preventDefault();if(!db){msg($("#teamMsg"),"Najpierw skonfiguruj klucz Supabase w index.html.","error");return}if(!currentUser){msg($("#teamMsg"),"Zaloguj się przed wysłaniem zgłoszenia.","error");location.hash="#konto";return}const f=new FormData(e.target),players=String(f.get("players")).split(/\n/).map(x=>x.trim()).filter(Boolean);if(players.length!==5){msg($("#teamMsg"),"Wpisz dokładnie 5 zawodników, po jednym nicku w każdej linii.","error");return}const team={user_id:currentUser.id,name:String(f.get("team")).trim(),captain:String(f.get("captain")).trim(),discord:String(f.get("contact")).trim(),players,reserve:String(f.get("reserve")||"").trim()||null,status:"pending"};$("#teamSubmit").disabled=true;try{const {error}=await db.from("teams").insert(team);if(error)throw error;msg($("#teamMsg"),"Zgłoszenie wysłane! Oczekuje na zatwierdzenie organizatora.","ok");e.target.reset();loadMyTeams()}catch(err){msg($("#teamMsg"),err.message||"Nie udało się wysłać zgłoszenia.","error")}finally{$("#teamSubmit").disabled=false}});
-function renderBracket(matches){if(!matches.length){$("#bracket").innerHTML='<p class="note">Drabinka zostanie opublikowana po zamknięciu zapisów.</p>';return}const rounds={};matches.forEach(m=>(rounds[m.round]??=[]).push(m));$("#bracket").innerHTML=`<div class="rounds">${Object.entries(rounds).map(([r,ms])=>`<div><h3>RUNDA ${safe(r)}</h3>${ms.map(m=>`<div class="match"><div class="tag">MECZ ${safe(m.number)}</div><div class="teamline"><span>${safe(m.team1||"Do ustalenia")}</span><b>${safe(m.score1??"—")}</b></div><div class="teamline"><span>${safe(m.team2||"Do ustalenia")}</span><b>${safe(m.score2??"—")}</b></div></div>`).join("")}</div>`).join("")}</div>`}
-async function loadPublic(){try{const [t,m,r]=await Promise.all([fetch("data/teams.json").then(x=>x.json()),fetch("data/bracket.json").then(x=>x.json()),fetch("data/results.json").then(x=>x.json())]);$("#teams").innerHTML=t.length?t.map(x=>`<div class="teamcard"><div><small>ZATWIERDZONA DRUŻYNA</small><strong>${safe(x.name)}</strong></div><span class="tag">CS2 · 5V5</span></div>`).join(""):'<div class="panel note">Brak zatwierdzonych drużyn.</div>';$("#statTeams").textContent=t.length;renderBracket(m);$("#results").innerHTML=r.length?r.map(x=>`<div class="result"><div><small>${safe(x.round||"MECZ")}</small><strong>${safe(x.team1)} vs ${safe(x.team2)}</strong></div><div class="scorebig">${safe(x.score1)} : ${safe(x.score2)}</div></div>`).join(""):'<div class="panel note">Nie rozegrano jeszcze meczów.</div>';$("#statMatches").textContent=r.length}catch(e){$("#teams").textContent="Nie udało się pobrać danych turnieju."}}
-if(!configured)msg($("#authMsg"),"Strona czeka na wklejenie klucza sb_publishable w index.html.","error");else if(!db)msg($("#authMsg"),"Nie udało się załadować biblioteki Supabase. Odśwież stronę.","error");else{db.auth.onAuthStateChange(()=>refreshAuth());refreshAuth()}
+const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function renderBracket(matches){if(!matches.length){document.querySelector("#bracket").innerHTML='<p class="note">Drabinka zostanie opublikowana po zamknięciu zapisów.</p>';return}const rounds={};matches.forEach(m=>(rounds[m.round]??=[]).push(m));document.querySelector("#bracket").innerHTML=`<div class="rounds">${Object.entries(rounds).map(([r,ms])=>`<div><h3>RUNDA ${safe(r)}</h3>${ms.map(m=>`<div class="match"><div class="tag">MECZ ${safe(m.number)}</div><div class="teamline"><span>${safe(m.team1||"Do ustalenia")}</span><b>${safe(m.score1??"—")}</b></div><div class="teamline"><span>${safe(m.team2||"Do ustalenia")}</span><b>${safe(m.score2??"—")}</b></div></div>`).join("")}</div>`).join("")}</div>`}
+async function loadPublic(){try{const [t,m,r]=await Promise.all([fetch("data/teams.json").then(x=>x.json()),fetch("data/bracket.json").then(x=>x.json()),fetch("data/results.json").then(x=>x.json())]);document.querySelector("#teams").innerHTML=t.length?t.map(x=>`<div class="teamcard"><div><small>ZATWIERDZONA DRUŻYNA</small><strong>${safe(x.name)}</strong></div><span class="tag">CS2 · 5V5</span></div>`).join(""):'<div class="panel note">Brak zatwierdzonych drużyn.</div>';document.querySelector("#statTeams").textContent=t.length;renderBracket(m);document.querySelector("#results").innerHTML=r.length?r.map(x=>`<div class="result"><div><small>${safe(x.round||"MECZ")}</small><strong>${safe(x.team1)} vs ${safe(x.team2)}</strong></div><div class="scorebig">${safe(x.score1)} : ${safe(x.score2)}</div></div>`).join(""):'<div class="panel note">Nie rozegrano jeszcze meczów.</div>';document.querySelector("#statMatches").textContent=r.length}catch(e){document.querySelector("#teams").textContent="Nie udało się pobrać danych turnieju."}}
 loadPublic();
 </script></body></html>
