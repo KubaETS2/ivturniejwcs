@@ -82,11 +82,19 @@ h1 span{color:#f28a0b}
 .event-banner img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
 @media(max-width:850px){#twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}#twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}#twitch-live .twitch-chat{height:480px;min-height:480px}.event-banner img{max-height:none}}
 
+
+/* Logo i plakat */
+.logo{overflow:hidden;padding:0;border-radius:8px;background:#e87908}
+.logo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-art{min-height:0;aspect-ratio:16/9;padding:0;overflow:hidden;border-radius:3px;background:#111}
+.hero-banner-img{display:block;width:100%;height:100%;object-fit:contain}
+.event-banner{display:none}
+@media(max-width:760px){.hero-art{aspect-ratio:16/9;min-height:0}.hero-banner-img{object-fit:contain}}
+
 </style></head><body>
-<nav><div class="wrap inner"><a class="brand" href="index.html"><div class="logo">B7</div><div>BLAZEPL007<small>COMMUNITY TOURNAMENT</small></div></a><div class="navlinks"><a href="bracket.html">DRABINKA</a><a href="results.html">WYNIKI</a><a href="teams.html">DRUŻYNY</a><a href="login.html">LOGOWANIE</a></div><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ</a></div></nav>
+<nav><div class="wrap inner"><a class="brand" href="index.html"><div class="logo"><img src="assets/blaze-icon.png" alt="Grafika turnieju"></div><div>BLAZEPL007<small>COMMUNITY TOURNAMENT</small></div></a><div class="navlinks"><a href="bracket.html">DRABINKA</a><a href="results.html">WYNIKI</a><a href="teams.html">DRUŻYNY</a><a href="login.html">LOGOWANIE</a></div><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ</a></div></nav>
 <main class="wrap">
-<div class="event-banner"><img src="assets/turniej-banner.png" alt="Plakat turnieju CS2 BlazePL007"></div>
-<div class="hero"><div><div class="eyebrow"><i class="dot"></i> TURNIEJ SPOŁECZNOŚCI · COUNTER-STRIKE 2</div><h1>WALCZ O <span>ZWYCIĘSTWO.</span></h1><p class="lead">Turniej CS2 społeczności BlazePL007. Załóż konto, stwórz drużynę i śledź rywalizację. Drabinka i wyniki będą aktualizowane na tej stronie.</p><div class="actions"><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ →</a><a class="btn ghost" href="#drabinka">ZOBACZ DRABINKĘ</a></div></div><div class="hero-art"><div class="emblem"><b>B7</b><small>BLAZEPL007 · CS2</small></div></div></div>
+<div class="hero"><div><div class="eyebrow"><i class="dot"></i> TURNIEJ SPOŁECZNOŚCI · COUNTER-STRIKE 2</div><h1>WALCZ O <span>ZWYCIĘSTWO.</span></h1><p class="lead">Turniej CS2 społeczności BlazePL007. Załóż konto, stwórz drużynę i śledź rywalizację. Drabinka i wyniki będą aktualizowane na tej stronie.</p><div class="actions"><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ →</a><a class="btn ghost" href="#drabinka">ZOBACZ DRABINKĘ</a></div></div><div class="hero-art"><img class="hero-banner-img" src="assets/turniej-banner.png" alt="Baner turnieju CS2 BlazePL007"></div></div>
 <section id="twitch-live">
  <div class="head"><div><div class="eyebrow"><i class="dot"></i> TRANSMISJA NA ŻYWO</div><h2>BLAZEPL007 LIVE</h2><p>Oglądaj transmisję i rozmawiaj z czatem bezpośrednio na stronie.</p></div><a class="btn ghost" href="https://www.twitch.tv/blazepl007" target="_blank" rel="noopener">OTWÓRZ TWITCH ↗</a></div>
  <div class="twitch-embed">
