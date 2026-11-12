@@ -73,7 +73,7 @@ h1 span{color:#f28a0b}
    const signedIn=!!session?.user;
    btn.textContent=signedIn?"KONTO":"LOGOWANIE";
    btn.href=signedIn?"register.html":"login.html";
-   if(adminBtn){adminBtn.classList.add("hidden");if(signedIn){const id=++checkId;try{const {data,error}=await db.rpc("is_current_user_admin");if(id===checkId&&!error&&data===true)adminBtn.classList.remove("hidden");}catch(_){/* brak uprawnień lub sesji AAL2 — przycisk pozostaje ukryty */}}}
+   if(adminBtn){adminBtn.classList.add("hidden");if(signedIn){const id=++checkId;try{const {data,error}=await db.rpc("is_admin_member");if(id===checkId&&!error&&data===true)adminBtn.classList.remove("hidden");}catch(_){/* nie udało się sprawdzić członkostwa administratora — przycisk pozostaje ukryty */}}}
  };
  db.auth.getSession().then(({data})=>update(data.session));
  db.auth.onAuthStateChange((_event,session)=>update(session));
