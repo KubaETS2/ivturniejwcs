@@ -68,7 +68,7 @@ const $=s=>document.querySelector(s),safe=s=>String(s??"").replace(/[&<>"']/g,c=
 const configured=window.SUPABASE_URL && window.SUPABASE_PUBLISHABLE_KEY?.startsWith("sb_publishable_") && !window.SUPABASE_PUBLISHABLE_KEY.includes("WSTAW_TUTAJ");
 const db=configured&&window.supabase?window.supabase.createClient(window.SUPABASE_URL,window.SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.localStorage}}):null;let currentUser=null;
 function msg(el,t,k=""){el.textContent=t;el.className="status "+k}
-async function refresh(){if(!db)return;const {data}=await db.auth.getSession();currentUser=data.session?.user||null;$("#authForms").classList.toggle("hidden",!!currentUser);$("#signedIn").classList.toggle("hidden",!currentUser);$("#teamSection").classList.toggle("hidden",!currentUser);$("#teamForm").classList.remove("hidden");$("#userEmail").textContent=currentUser?.email||"";if(currentUser)loadMine()}
+async function refresh(){if(!db)return;const {data}=await db.auth.getSession();currentUser=data.session?.user||null;$("#authForms").classList.toggle("hidden",!!currentUser);$("#signedIn").classList.toggle("hidden",!currentUser);$("#teamSection").classList.toggle("hidden",!currentUser);$("#teamForm").classList.remove("hidden");$("#userEmail").textContent=currentUser?.user_metadata?.nickname?.trim()||currentUser?.user_metadata?.name?.trim()||currentUser?.email||"";if(currentUser)loadMine()}
 async function loadMine(){
  const {data,error}=await db.from("teams").select("id,user_id,name,captain,discord,players,reserve,status,created_at").eq("user_id",currentUser.id).order("created_at",{ascending:false}).limit(2);
  if(error){$("#myTeams").textContent="Nie udało się pobrać zgłoszenia.";return}
