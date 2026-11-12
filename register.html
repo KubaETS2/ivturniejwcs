@@ -134,10 +134,12 @@ $("#teamForm").addEventListener("submit",async e=>{
  e.preventDefault();if(!currentUser){msg($("#teamMsg"),"Zaloguj się, aby wysłać zgłoszenie.","error");return}
  const f=new FormData(e.target),players=String(f.get("players")).split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
  if(players.length!==5){msg($("#teamMsg"),"Wpisz dokładnie 5 zawodników, po jednym nicku w każdej linii.","error");return}
- const optionalUrl=(key)=>{const value=String(f.get(key)||"").trim();if(!value)return null;try{const u=new URL(value);if(u.protocol!=="https:")throw new Error();return value}catch{return "INVALID_URL"}};
- const anthemUrl=optionalUrl("anthem_url"),intermissionUrl=optionalUrl("intermission_music_url"),logoUrl=optionalUrl("logo_url");
- if([anthemUrl,intermissionUrl,logoUrl].includes("INVALID_URL")){msg($("#teamMsg"),"Linki muszą być poprawnymi adresami HTTPS (zaczynającymi się od https://).","error");return}
- const team={name:String(f.get("team")).trim(),captain:String(f.get("captain")).trim(),discord:String(f.get("contact")).trim(),players,reserve:String(f.get("reserve")||"").trim()||null,anthem_url:anthemUrl,intermission_music_url:intermissionUrl,logo_url:logoUrl,description:String(f.get("description")||"").trim()||null};
+ const requiredUrl=(key,label)=>{const value=String(f.get(key)||"").trim();if(!value){msg($("#teamMsg"),`Uzupełnij wymagane pole: ${label}.`,"error");return null}try{const u=new URL(value);if(u.protocol!=="https:")throw new Error();return value}catch{msg($("#teamMsg"),`Pole „${label}” musi zawierać poprawny link HTTPS zaczynający się od https://.`,"error");return "INVALID_URL"}};
+ const anthemUrl=requiredUrl("anthem_url","Hymn drużyny");if(!anthemUrl||anthemUrl==="INVALID_URL")return;
+ const intermissionUrl=requiredUrl("intermission_music_url","Muzyka między rundami");if(!intermissionUrl||intermissionUrl==="INVALID_URL")return;
+ const logoUrl=requiredUrl("logo_url","Logo drużyny");if(!logoUrl||logoUrl==="INVALID_URL")return;
+ const description=String(f.get("description")||"").trim();if(!description){msg($("#teamMsg"),"Uzupełnij wymagane pole: Opis drużyny.","error");return}
+ const team={name:String(f.get("team")).trim(),captain:String(f.get("captain")).trim(),discord:String(f.get("contact")).trim(),players,reserve:String(f.get("reserve")||"").trim()||null,anthem_url:anthemUrl,intermission_music_url:intermissionUrl,logo_url:logoUrl,description};
  const id=String(f.get("teamId")||"");$("#teamSubmit").disabled=true;
  try{
   let result;
