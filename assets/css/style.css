@@ -732,3 +732,87 @@ h1 span{color:#f28a0b}
 .result-scoreblock{display:flex;flex-direction:column;align-items:flex-end;gap:3px;min-width:0;text-align:right}
 .result-map-names{display:block;color:var(--muted);font-size:9px;line-height:1.35;white-space:normal;max-width:100%;margin:0!important}
 @media(max-width:600px){.result-scoreblock{max-width:48%;}.result-map-names{font-size:8px}}
+
+
+/* POPRAWKA RESPONSYWNOŚCI TELEFONÓW I WĄSKICH EKRANÓW */
+html, body { max-width:100%; overflow-x:hidden; }
+img, iframe, video { max-width:100%; }
+.wrap { min-width:0; }
+@media (max-width: 900px) {
+  #site-navbar .site-nav {
+    height:auto !important;
+    min-height:74px;
+  }
+  #site-navbar .site-nav .inner {
+    min-height:74px;
+    height:auto;
+    flex-wrap:wrap !important;
+    gap:0 10px;
+    padding-top:10px;
+    padding-bottom:10px;
+  }
+  #site-navbar .nav-toggle {
+    display:block !important;
+    flex:0 0 auto;
+    margin-left:auto;
+  }
+  #site-navbar .site-nav .navlinks {
+    display:none !important;
+    order:5;
+    flex:0 0 100%;
+    width:100%;
+    min-width:0;
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:8px 0 2px;
+    white-space:normal;
+  }
+  #site-navbar .site-nav.menu-open .navlinks {
+    display:flex !important;
+  }
+  #site-navbar .site-nav .navlinks a {
+    display:block;
+    width:100%;
+    padding:12px 8px;
+    border-top:1px solid #ffffff18;
+    line-height:1.3;
+  }
+  #site-navbar .site-nav .nav-actions {
+    margin-left:0 !important;
+    flex:0 0 auto;
+  }
+  #site-navbar .brand {
+    min-width:0;
+    flex:0 1 auto;
+  }
+  .hero {
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:24px;
+    padding-top:34px;
+  }
+  .hero > div { min-width:0; }
+  .hero h1 {
+    font-size:clamp(48px, 11vw, 76px) !important;
+    line-height:.92;
+    overflow-wrap:anywhere;
+  }
+  .hero .lead { max-width:100%; }
+  .hero-art { min-width:0; width:100%; min-height:0; aspect-ratio:16/9; }
+  .hero-banner-img { width:100%; height:100%; max-height:100%; object-fit:contain; }
+  .stats { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+@media (max-width: 560px) {
+  .wrap { padding-left:14px !important; padding-right:14px !important; }
+  .brand { gap:8px; font-size:13px; }
+  .brand small { font-size:8px; letter-spacing:1px; }
+  .logo { width:36px; height:36px; }
+  #site-navbar .nav-actions .btn { padding:9px 10px; font-size:10px; }
+  .hero { padding-top:26px; }
+  .hero h1 { font-size:clamp(42px, 12vw, 60px) !important; }
+  .actions { gap:8px; }
+  .actions .btn { max-width:100%; }
+  .stats { grid-template-columns:1fr; }
+  .result { min-width:0; }
+  .result-scoreblock { max-width:52%; }
+}
