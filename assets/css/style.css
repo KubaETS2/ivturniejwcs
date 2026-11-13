@@ -727,3 +727,8 @@ h1 span{color:#f28a0b}
 .public-playoffs .result-teams .table-team-logo,.public-playoffs .result-teams .table-team-logo-placeholder{width:26px!important;height:26px!important;min-width:26px!important;min-height:26px!important;max-width:26px!important;max-height:26px!important;flex:0 0 26px!important;object-fit:cover!important;}
 .public-playoffs .result{min-width:0;overflow:hidden;}
 @media(max-width:600px){.public-playoffs .result-teams .table-team-logo,.public-playoffs .result-teams .table-team-logo-placeholder{width:22px!important;height:22px!important;min-width:22px!important;min-height:22px!important;max-width:22px!important;max-height:22px!important;flex-basis:22px!important}.public-playoffs .result-teams .table-team-cell{font-size:10px;gap:4px}}
+
+/* Nazwy map wyświetlane pod wynikiem meczu na stronach Wyniki i Drabinka. */
+.result-scoreblock{display:flex;flex-direction:column;align-items:flex-end;gap:3px;min-width:0;text-align:right}
+.result-map-names{display:block;color:var(--muted);font-size:9px;line-height:1.35;white-space:normal;max-width:100%;margin:0!important}
+@media(max-width:600px){.result-scoreblock{max-width:48%;}.result-map-names{font-size:8px}}
