@@ -5,10 +5,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<link rel="stylesheet" href="assets/css/style.css?v=4"></head><body>
-<div id="site-navbar"></div><script src="assets/js/navbar.js?v=4"></script>
+<link rel="stylesheet" href="assets/css/style.css?v=5"></head><body>
+<div id="site-navbar"></div><script src="assets/js/navbar.js?v=5"></script>
 <main class="wrap">
-<div class="hero"><div><div class="eyebrow"><i class="dot"></i> TURNIEJ SPOŁECZNOŚCI · COUNTER-STRIKE 2</div><h1>WALCZ O <span>ZWYCIĘSTWO.</span></h1><p class="lead">Turniej CS2 społeczności BlazePL007. Załóż konto, stwórz drużynę i śledź rywalizację. Drabinka, wyniki i lista drużyn są dostępne na osobnych podstronach.</p><div class="actions"><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ →</a><a class="btn ghost" href="bracket.html">ZOBACZ DRABINKĘ</a></div></div><div class="hero-art"><img class="hero-banner-img" src="assets/turniej-banner.png" alt="Baner turnieju CS2 BlazePL007"></div></div>
+<div class="hero"><div><div class="eyebrow"><i class="dot"></i> TURNIEJ SPOŁECZNOŚCI · COUNTER-STRIKE 2</div><h1>WALCZ O <span>ZWYCIĘSTWO.</span></h1><p class="lead">Turniej CS2 społeczności BlazePL007. Załóż konto, stwórz drużynę i śledź rywalizację. Drabinka, wyniki i lista drużyn są dostępne na osobnych podstronach.</p><div class="actions"><a class="btn" href="register.html">ZAPISZ DRUŻYNĘ →</a><a class="btn ghost" id="phaseCta" href="results.html">ZOBACZ WYNIKI</a></div></div><div class="hero-art"><img class="hero-banner-img" src="assets/turniej-banner.png" alt="Baner turnieju CS2 BlazePL007"></div></div>
 <section id="twitch-live">
  <div class="head"><div><div class="eyebrow"><i class="dot"></i> TRANSMISJA NA ŻYWO</div><h2>BLAZEPL007 LIVE</h2><p>Oglądaj transmisję i rozmawiaj z czatem bezpośrednio na stronie.</p></div><a class="btn ghost" href="https://www.twitch.tv/blazepl007" target="_blank" rel="noopener">OTWÓRZ TWITCH ↗</a></div>
  <div class="twitch-embed">
@@ -38,18 +38,41 @@
 })();
 </script>
 <script>
-async function loadPublic(){
+(async function loadHomepageTournamentStats(){
+ const teamsEl=document.getElementById("statTeams");
+ const matchesEl=document.getElementById("statMatches");
+ const phaseCta=document.getElementById("phaseCta");
+ const fallback=()=>{teamsEl.textContent="—";matchesEl.textContent="—";};
  try{
-  const [teams,results]=await Promise.all([
-   fetch("data/teams.json").then(r=>{if(!r.ok) throw new Error("teams"); return r.json()}),
-   fetch("data/results.json").then(r=>{if(!r.ok) throw new Error("results"); return r.json()})
+  if(!window.supabase || !window.SUPABASE_URL || !window.SUPABASE_PUBLISHABLE_KEY){fallback();return;}
+  const db=window.supabase.createClient(window.SUPABASE_URL,window.SUPABASE_PUBLISHABLE_KEY);
+  const [teamsRes,stateRes]=await Promise.all([
+   db.from("teams").select("id",{count:"exact",head:true}).eq("status","approved"),
+   db.from("tournament_state").select("state").eq("id",1).maybeSingle()
   ]);
-  document.querySelector("#statTeams").textContent=Array.isArray(teams)?teams.length:0;
-  document.querySelector("#statMatches").textContent=Array.isArray(results)?results.length:0;
- }catch(e){
-  document.querySelector("#statTeams").textContent="—";
-  document.querySelector("#statMatches").textContent="—";
+  if(teamsRes.error) throw teamsRes.error;
+  if(stateRes.error) throw stateRes.error;
+  teamsEl.textContent=String(teamsRes.count ?? 0);
+  const state=stateRes.data?.state || {};
+  const groupMatches=Array.isArray(state.matches)?state.matches:[];
+  const playoffMatches=Array.isArray(state.playoffs)?state.playoffs:[];
+  const groupPlayed=groupMatches.filter(m=>m.played===true).length;
+  const playoffPlayed=playoffMatches.filter(m=>{
+   if(m.played===true || m.winnerName) return true;
+   const maps=(Array.isArray(m.maps)?m.maps:[]).filter(x=>x && x.a!==null && x.a!==undefined && x.b!==null && x.b!==undefined);
+   const winsA=maps.filter(x=>Number(x.a)>Number(x.b)).length;
+   const winsB=maps.filter(x=>Number(x.b)>Number(x.a)).length;
+   return winsA>=2 || winsB>=2;
+  }).length;
+  matchesEl.textContent=String(groupPlayed+playoffPlayed);
+  // Do czasu utworzenia drabinki główny przycisk prowadzi do wyników grup.
+  // Gdy administrator wygeneruje fazę pucharową, kieruje bezpośrednio do drabinki.
+  const playoffsCreated=playoffMatches.length>0;
+  phaseCta.href=playoffsCreated?"bracket.html":"results.html";
+  phaseCta.textContent=playoffsCreated?"ZOBACZ DRABINKĘ":"ZOBACZ WYNIKI";
+ }catch(error){
+  console.error("Nie udało się pobrać statystyk turnieju:",error);
+  fallback();
  }
-}
-loadPublic();
+})();
 </script></body></html>
