@@ -1,0 +1,720 @@
+/* IV TURNIEJ CS2 — wspólny arkusz stylów. Sekcje stron zachowują dotychczasowe style. */
+
+/* ==================== INDEX ==================== */
+
+
+
+/* --- extracted from index.html:root{--bg:#09090d;--panel:#12121a;--line:#292936;--purple:#9147ff;--pale:#c6a5ff;--white:#f5f3fa;--muted:#9692a5;--green:#4ade80;--red:#fb7185}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% 0%,#25143d 0,transparent 34%),var(--bg);color:var(--white);font-family:Inter,Arial,sans-serif}a{color:inherit;text-decoration:none}.wrap{max-width:1160px;margin:auto;padding:0 24px}
+nav{height:74px;display:flex;align-items:center;border-bottom:1px solid #ffffff12;background:#09090de8;position:sticky;top:0;z-index:10;backdrop-filter:blur(14px)}nav .inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#c6a5ff,#6523c9);display:grid;place-items:center;font:900 22px 'Barlow Condensed';box-shadow:0 0 24px #9147ff55}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:3px}.navlinks{display:flex;gap:22px;color:#c5c0d0;font-size:12px;font-weight:800}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:12px 17px;font-weight:800;font-size:12px;cursor:pointer;background:var(--purple);color:white}.btn:hover{background:#a66cff}.btn.ghost{background:#ffffff0a;border:1px solid #ffffff24}
+.hero{padding:76px 0 46px;display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center}.eyebrow{color:var(--pale);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;display:flex;gap:10px;align-items:center}.dot{width:7px;height:7px;background:var(--purple);border-radius:50%}
+h1,h2,h3{font-family:'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:0;line-height:.95}h1{font-size:clamp(54px,7vw,88px);margin:18px 0}h1 span{color:var(--pale);display:block}.lead{color:#b5b0c1;line-height:1.75;font-size:14px;max-width:530px}.actions{display:flex;gap:11px;margin-top:25px;flex-wrap:wrap}.hero-art{min-height:285px;border:1px solid #ffffff18;border-radius:18px;background:linear-gradient(135deg,#201431,#101018 65%);display:flex;align-items:center;justify-content:center}.emblem{text-align:center;text-shadow:0 0 45px #9147ff88}.emblem b{font:900 104px/.8 'Barlow Condensed';letter-spacing:-5px}.emblem small{display:block;color:var(--pale);font-weight:800;letter-spacing:6px;margin-top:18px;font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 45px}.stat,.panel{padding:19px;border:1px solid var(--line);background:#111119d9;border-radius:12px}.stat strong{display:block;font:800 27px 'Barlow Condensed'}.stat span{font-size:9px;color:var(--muted);letter-spacing:1.5px}
+section{padding:30px 0 55px}.head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.head h2{font-size:40px;margin-top:8px}.head p{color:var(--muted);font-size:11px;margin:7px 0 0}.tag{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.rounds{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.round h3{font-size:20px;color:var(--pale);margin-bottom:14px}.match{background:#0c0c12;border:1px solid #292936;border-radius:9px;padding:12px;margin:9px 0}.teamline{display:flex;justify-content:space-between;gap:8px;padding:7px 0;font-size:12px;color:#d6d2df}.teamline+.teamline{border-top:1px solid #ffffff10}.winner{color:var(--green)}.results,.teamlist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.result,.teamcard{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;background:#0d0d13;border:1px solid var(--line);border-radius:9px}.result small,.teamcard small{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}.result strong,.teamcard strong{font-size:12px}.scorebig{font:800 22px 'Barlow Condensed';color:var(--pale);white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin:12px 0}.field label{display:block;font-size:10px;color:#c6c0d1;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;background:#09090f;border:1px solid #343342;border-radius:8px;padding:11px;color:white;font:12px Inter;outline:none}.field input:focus,.field textarea:focus{border-color:var(--purple)}.field textarea{min-height:105px;resize:vertical}.note{font-size:10px;line-height:1.7;color:var(--muted)}.notice{padding:11px;border-radius:8px;font-size:11px;line-height:1.5;margin:10px 0;background:#211b2d;border:1px solid #49356b;color:#d9c8ff}.hidden{display:none!important}.twitch{display:flex;align-items:center;justify-content:space-between;gap:20px;background:linear-gradient(110deg,#24143c,#14121d);border:1px solid #5b3785;border-radius:14px;padding:23px}.twitch h3{font-size:27px;margin:10px 0}.twitch p{color:#bdb5ca;font-size:11px;line-height:1.6;margin:0}
+footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:10px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#171520;border:1px solid #373143;color:#ddd;padding:9px 13px;border-radius:8px;cursor:pointer}.tabs button.active{background:#382052;border-color:#9147ff}.status{font-size:11px;color:var(--muted);margin-top:10px}.status.error{color:var(--red)}.status.ok{color:var(--green)}
+@media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:52px;gap:25px}.hero-art{min-height:210px}.stats{margin-bottom:22px}.rounds,.grid2{grid-template-columns:1fr}.results,.teamlist{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.twitch{align-items:start;flex-direction:column}.wrap{padding:0 17px}}
+
+/* Twitch embed — szeroki odtwarzacz po lewej, czat po prawej */
+.wrap{max-width:1600px;padding-left:32px;padding-right:32px}
+#twitch-live{width:100%}
+#twitch-live .twitch-embed{
+  display:grid;
+  grid-template-columns:minmax(0, 3fr) minmax(320px, 1fr);
+  gap:14px;
+  width:100%;
+  align-items:stretch;
+}
+#twitch-live .twitch-player,
+#twitch-live .twitch-chat{
+  min-width:0;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#09090d;
+}
+#twitch-live .twitch-player{height: min(68vw, 760px); min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px); min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+@media(max-width:850px){
+  .wrap{padding-left:18px;padding-right:18px}
+  #twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}
+  #twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}
+  #twitch-live .twitch-chat{height:480px;min-height:480px}
+}
+
+
+/* BLAZEPL007 Twitch identity: orange, charcoal and gold */
+:root{--bg:#09090c;--panel:#17171d;--line:#343039;--purple:#e87908;--pale:#ffad24;--white:#f4f1e9;--muted:#aaa39a;--green:#b8d77a;--red:#ff6b35}
+body{background-color:#09090c;background-image:repeating-linear-gradient(0deg,transparent 0 52px,rgba(232,121,8,.025) 52px 54px),radial-gradient(ellipse at 50% 0%,#3b200b 0,transparent 45%);color:var(--white)}
+nav{background:#111116ed;border-bottom:2px solid #d87508}
+.logo{border-radius:4px;background:linear-gradient(145deg,#ffad24,#b94b00);box-shadow:0 0 22px #e8790844;color:#111}
+.brand small{color:#d99b37}
+.navlinks{color:#e2d8c9}
+.navlinks a:hover{color:#ff9a18}
+.btn{border-radius:3px;background:#e87908;color:#111;font-weight:900}
+.btn:hover{background:#ff9b1c}
+.btn.ghost{background:#17171d;border:1px solid #a85b19;color:#f4e9d9}
+.hero{padding-top:44px}
+.eyebrow{color:#f0a326}
+.dot{background:#ed810b}
+h1 span{color:#f28a0b}
+.hero-art{border-radius:3px;border:1px solid #a85b19;background:linear-gradient(135deg,#ed870b,#c85a05 58%,#191923 58%);color:#171720}
+.emblem{text-shadow:none}
+.emblem small{color:#211b18}
+.stat,.panel{border-radius:3px;border-color:#3c342b;background:#17171de8}
+.match,.result,.teamcard{border-radius:3px;border-color:#3c342b;background:#111116}
+.round h3,.scorebig{color:#f0a326}
+.field input,.field textarea{border-radius:3px;border-color:#4a3b2c;background:#0c0c10}
+.field input:focus,.field textarea:focus{border-color:#e87908}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{border-radius:3px;border-color:#694018}
+#twitch-live .twitch-embed{display:grid;grid-template-columns:minmax(0,3fr) minmax(320px,1fr);gap:14px;width:100%;align-items:stretch}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{min-width:0;overflow:hidden;background:#09090c}
+#twitch-live .twitch-player{height:min(68vw,760px);min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px);min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+.event-banner{width:100%;margin:26px 0 0;overflow:hidden;border:1px solid #a85b19;background:#15151b}
+.event-banner img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
+@media(max-width:850px){#twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}#twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}#twitch-live .twitch-chat{height:480px;min-height:480px}.event-banner img{max-height:none}}
+
+
+/* Logo i plakat */
+.logo{overflow:hidden;padding:0;border-radius:8px;background:#e87908}
+.logo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-art{min-height:0;aspect-ratio:16/9;padding:0;overflow:hidden;border-radius:3px;background:#111}
+.hero-banner-img{display:block;width:100%;height:100%;object-fit:contain}
+.event-banner{display:none}
+@media(max-width:760px){.hero-art{aspect-ratio:16/9;min-height:0}.hero-banner-img{object-fit:contain}}
+
+
+.logo{width:42px;height:42px;min-width:42px;overflow:hidden;padding:0;border-radius:50%;background:#17171d;border:2px solid #e87908;box-shadow:0 0 16px #e8790844}
+.logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+
+.nav-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.nav-actions .btn{white-space:nowrap}
+@media(max-width:760px){.nav-actions{gap:6px}.nav-actions .btn{padding:10px 11px;font-size:10px}}
+
+
+/* ==================== BRACKET ==================== */
+
+
+
+/* --- extracted from bracket.html:root{--bg:#09090d;--panel:#12121a;--line:#292936;--purple:#9147ff;--pale:#c6a5ff;--white:#f5f3fa;--muted:#9692a5;--green:#4ade80;--red:#fb7185}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% 0%,#25143d 0,transparent 34%),var(--bg);color:var(--white);font-family:Inter,Arial,sans-serif}a{color:inherit;text-decoration:none}.wrap{max-width:1160px;margin:auto;padding:0 24px}
+nav{height:74px;display:flex;align-items:center;border-bottom:1px solid #ffffff12;background:#09090de8;position:sticky;top:0;z-index:10;backdrop-filter:blur(14px)}nav .inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#c6a5ff,#6523c9);display:grid;place-items:center;font:900 22px 'Barlow Condensed';box-shadow:0 0 24px #9147ff55}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:3px}.navlinks{display:flex;gap:22px;color:#c5c0d0;font-size:12px;font-weight:800}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:12px 17px;font-weight:800;font-size:12px;cursor:pointer;background:var(--purple);color:white}.btn:hover{background:#a66cff}.btn.ghost{background:#ffffff0a;border:1px solid #ffffff24}
+.hero{padding:76px 0 46px;display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center}.eyebrow{color:var(--pale);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;display:flex;gap:10px;align-items:center}.dot{width:7px;height:7px;background:var(--purple);border-radius:50%}
+h1,h2,h3{font-family:'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:0;line-height:.95}h1{font-size:clamp(54px,7vw,88px);margin:18px 0}h1 span{color:var(--pale);display:block}.lead{color:#b5b0c1;line-height:1.75;font-size:14px;max-width:530px}.actions{display:flex;gap:11px;margin-top:25px;flex-wrap:wrap}.hero-art{min-height:285px;border:1px solid #ffffff18;border-radius:18px;background:linear-gradient(135deg,#201431,#101018 65%);display:flex;align-items:center;justify-content:center}.emblem{text-align:center;text-shadow:0 0 45px #9147ff88}.emblem b{font:900 104px/.8 'Barlow Condensed';letter-spacing:-5px}.emblem small{display:block;color:var(--pale);font-weight:800;letter-spacing:6px;margin-top:18px;font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 45px}.stat,.panel{padding:19px;border:1px solid var(--line);background:#111119d9;border-radius:12px}.stat strong{display:block;font:800 27px 'Barlow Condensed'}.stat span{font-size:9px;color:var(--muted);letter-spacing:1.5px}
+section{padding:30px 0 55px}.head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.head h2{font-size:40px;margin-top:8px}.head p{color:var(--muted);font-size:11px;margin:7px 0 0}.tag{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.rounds{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.round h3{font-size:20px;color:var(--pale);margin-bottom:14px}.match{background:#0c0c12;border:1px solid #292936;border-radius:9px;padding:12px;margin:9px 0}.teamline{display:flex;justify-content:space-between;gap:8px;padding:7px 0;font-size:12px;color:#d6d2df}.teamline+.teamline{border-top:1px solid #ffffff10}.winner{color:var(--green)}.results,.teamlist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.result,.teamcard{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;background:#0d0d13;border:1px solid var(--line);border-radius:9px}.result small,.teamcard small{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}.result strong,.teamcard strong{font-size:12px}.scorebig{font:800 22px 'Barlow Condensed';color:var(--pale);white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin:12px 0}.field label{display:block;font-size:10px;color:#c6c0d1;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;background:#09090f;border:1px solid #343342;border-radius:8px;padding:11px;color:white;font:12px Inter;outline:none}.field input:focus,.field textarea:focus{border-color:var(--purple)}.field textarea{min-height:105px;resize:vertical}.note{font-size:10px;line-height:1.7;color:var(--muted)}.notice{padding:11px;border-radius:8px;font-size:11px;line-height:1.5;margin:10px 0;background:#211b2d;border:1px solid #49356b;color:#d9c8ff}.hidden{display:none!important}.twitch{display:flex;align-items:center;justify-content:space-between;gap:20px;background:linear-gradient(110deg,#24143c,#14121d);border:1px solid #5b3785;border-radius:14px;padding:23px}.twitch h3{font-size:27px;margin:10px 0}.twitch p{color:#bdb5ca;font-size:11px;line-height:1.6;margin:0}
+footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:10px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#171520;border:1px solid #373143;color:#ddd;padding:9px 13px;border-radius:8px;cursor:pointer}.tabs button.active{background:#382052;border-color:#9147ff}.status{font-size:11px;color:var(--muted);margin-top:10px}.status.error{color:var(--red)}.status.ok{color:var(--green)}
+@media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:52px;gap:25px}.hero-art{min-height:210px}.stats{margin-bottom:22px}.rounds,.grid2{grid-template-columns:1fr}.results,.teamlist{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.twitch{align-items:start;flex-direction:column}.wrap{padding:0 17px}}
+
+.twitch-embed{display:grid;grid-template-columns:minmax(0,2fr) minmax(280px,1fr);gap:12px;width:100%}
+.twitch-player,.twitch-chat{overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#09090d}
+.twitch-player{aspect-ratio:16/9}
+.twitch-player iframe,.twitch-chat iframe{width:100%;height:100%;border:0}
+.twitch-chat{height:100%;min-height:480px}
+.navlinks a{padding:10px 0;border-bottom:2px solid transparent}
+.navlinks a:hover,.navlinks a.active{color:#fff;border-color:var(--purple)}
+@media(max-width:760px){.twitch-embed{grid-template-columns:1fr}.twitch-chat{height:450px;min-height:450px}}
+
+/* BLAZEPL007 Twitch identity: orange, charcoal and gold */
+:root{--bg:#09090c;--panel:#17171d;--line:#343039;--purple:#e87908;--pale:#ffad24;--white:#f4f1e9;--muted:#aaa39a;--green:#b8d77a;--red:#ff6b35}
+body{background-color:#09090c;background-image:repeating-linear-gradient(0deg,transparent 0 52px,rgba(232,121,8,.025) 52px 54px),radial-gradient(ellipse at 50% 0%,#3b200b 0,transparent 45%);color:var(--white)}
+nav{background:#111116ed;border-bottom:2px solid #d87508}
+.logo{border-radius:4px;background:linear-gradient(145deg,#ffad24,#b94b00);box-shadow:0 0 22px #e8790844;color:#111}
+.brand small{color:#d99b37}
+.navlinks{color:#e2d8c9}
+.navlinks a:hover{color:#ff9a18}
+.btn{border-radius:3px;background:#e87908;color:#111;font-weight:900}
+.btn:hover{background:#ff9b1c}
+.btn.ghost{background:#17171d;border:1px solid #a85b19;color:#f4e9d9}
+.hero{padding-top:44px}
+.eyebrow{color:#f0a326}
+.dot{background:#ed810b}
+h1 span{color:#f28a0b}
+.hero-art{border-radius:3px;border:1px solid #a85b19;background:linear-gradient(135deg,#ed870b,#c85a05 58%,#191923 58%);color:#171720}
+.emblem{text-shadow:none}
+.emblem small{color:#211b18}
+.stat,.panel{border-radius:3px;border-color:#3c342b;background:#17171de8}
+.match,.result,.teamcard{border-radius:3px;border-color:#3c342b;background:#111116}
+.round h3,.scorebig{color:#f0a326}
+.field input,.field textarea{border-radius:3px;border-color:#4a3b2c;background:#0c0c10}
+.field input:focus,.field textarea:focus{border-color:#e87908}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{border-radius:3px;border-color:#694018}
+#twitch-live .twitch-embed{display:grid;grid-template-columns:minmax(0,3fr) minmax(320px,1fr);gap:14px;width:100%;align-items:stretch}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{min-width:0;overflow:hidden;background:#09090c}
+#twitch-live .twitch-player{height:min(68vw,760px);min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px);min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+.event-banner{width:100%;margin:26px 0 0;overflow:hidden;border:1px solid #a85b19;background:#15151b}
+.event-banner img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
+@media(max-width:850px){#twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}#twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}#twitch-live .twitch-chat{height:480px;min-height:480px}.event-banner img{max-height:none}}
+
+
+.logo{width:42px;height:42px;min-width:42px;overflow:hidden;padding:0;border-radius:50%;background:#17171d;border:2px solid #e87908;box-shadow:0 0 16px #e8790844}
+.logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+
+.nav-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.nav-actions .btn{white-space:nowrap}
+@media(max-width:760px){.nav-actions{gap:6px}.nav-actions .btn{padding:10px 11px;font-size:10px}}
+.map-public-list{display:grid;gap:10px}.map-public-row{display:grid;grid-template-columns:150px 1fr auto;gap:16px;align-items:center;padding:12px;background:#111116;border:1px solid #3c342b}.map-public-row img{width:150px;height:84px;object-fit:cover}.map-public-row strong{font-size:24px;color:#ffad24}.map-placeholder{width:150px;height:84px;display:grid;place-items:center;background:#24242b;color:#ffad24;font-weight:900}@media(max-width:600px){.map-public-row{grid-template-columns:90px 1fr auto}.map-public-row img,.map-placeholder{width:90px;height:56px}}; original order preserved --- */
+
+.playoff-rounds{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:14px}.playoff-round{min-width:0;padding:14px}.playoff-round>h3{color:#ffad24;margin:0 0 12px}.playoff-round .results{display:grid;grid-template-columns:1fr;gap:10px}.playoff-round .result{min-width:0}.playoff-round .result strong{display:block;overflow-wrap:anywhere}; original order preserved --- */
+
+.group-stage-accordion{padding:0!important;margin-top:24px;overflow:hidden}
+.group-stage-accordion>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;background:#1a1715;border-bottom:1px solid #3c342b}
+.group-stage-accordion>summary::-webkit-details-marker{display:none}
+.group-stage-accordion>summary b{display:block;font:800 25px 'Barlow Condensed';color:#f0a326}
+.group-stage-accordion>summary small{display:block;color:var(--muted);font-size:10px;margin-top:5px}
+.group-stage-accordion[open]>summary .accordion-mark{transform:rotate(45deg)}
+.accordion-mark{font-size:25px;color:#f0a326;font-weight:800;transition:transform .15s}
+.group-stage-content{padding:20px}
+.public-playoffs{margin-bottom:26px}
+@media(max-width:760px){.group-stage-content{padding:13px}.group-stage-accordion>summary{padding:15px}}; original order preserved --- */
+
+.final-standings{margin:0 0 24px;padding:24px}.final-standings h2{margin:6px 0 18px}.final-standings-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px}.final-standings-list li{display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid #ffffff18}.final-place{color:#ffad24;font-weight:900;font-size:18px;min-width:28px}.champion-tag{margin-left:auto;color:#ffad24;font-size:10px;font-weight:900;letter-spacing:1px}@media(max-width:650px){.final-standings-list{grid-template-columns:1fr}}; original order preserved --- */
+
+.group-tables{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.group-table{min-width:0}.table-scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:11px}th,td{padding:9px 7px;text-align:center;border-bottom:1px solid #ffffff18;white-space:nowrap}th:first-child,td:first-child{text-align:left}th{color:#ffad24}@media(max-width:760px){.group-tables{grid-template-columns:1fr}}
+
+/* Compact team logos in public standings and match tables */
+.table-team-cell{display:inline-flex;align-items:center;gap:8px;min-width:0;max-width:100%;vertical-align:middle;text-align:left;white-space:nowrap}
+.table-team-cell>span:last-child{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.table-team-logo,.table-team-logo-placeholder{display:inline-flex;flex:0 0 28px;width:28px;height:28px;max-width:28px;max-height:28px;box-sizing:border-box;border-radius:5px;object-fit:cover;overflow:hidden;align-items:center;justify-content:center}
+.table-team-logo{background:#24242b;border:1px solid #514333}
+.table-team-logo-placeholder{background:#28232a;color:#ffad24;font-weight:900;font-size:13px}
+.group-table table{table-layout:auto;width:100%;min-width:0}
+.group-table th:first-child,.group-table td:first-child{min-width:0;width:44%;max-width:210px}
+.group-table th:not(:first-child),.group-table td:not(:first-child){width:1%;padding-left:5px;padding-right:5px}
+.group-table tbody tr{height:44px}
+.group-table td{vertical-align:middle}
+@media(max-width:520px){.table-team-cell{gap:5px}.table-team-logo,.table-team-logo-placeholder{flex-basis:24px;width:24px;height:24px;max-width:24px;max-height:24px}.group-table th,.group-table td{padding:7px 4px;font-size:10px}.group-table th:first-child,.group-table td:first-child{max-width:150px}}
+
+
+
+/* ==================== RESULTS ==================== */
+
+
+
+/* --- extracted from results.html:root{--bg:#09090d;--panel:#12121a;--line:#292936;--purple:#9147ff;--pale:#c6a5ff;--white:#f5f3fa;--muted:#9692a5;--green:#4ade80;--red:#fb7185}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% 0%,#25143d 0,transparent 34%),var(--bg);color:var(--white);font-family:Inter,Arial,sans-serif}a{color:inherit;text-decoration:none}.wrap{max-width:1160px;margin:auto;padding:0 24px}
+nav{height:74px;display:flex;align-items:center;border-bottom:1px solid #ffffff12;background:#09090de8;position:sticky;top:0;z-index:10;backdrop-filter:blur(14px)}nav .inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#c6a5ff,#6523c9);display:grid;place-items:center;font:900 22px 'Barlow Condensed';box-shadow:0 0 24px #9147ff55}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:3px}.navlinks{display:flex;gap:22px;color:#c5c0d0;font-size:12px;font-weight:800}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:12px 17px;font-weight:800;font-size:12px;cursor:pointer;background:var(--purple);color:white}.btn:hover{background:#a66cff}.btn.ghost{background:#ffffff0a;border:1px solid #ffffff24}
+.hero{padding:76px 0 46px;display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center}.eyebrow{color:var(--pale);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;display:flex;gap:10px;align-items:center}.dot{width:7px;height:7px;background:var(--purple);border-radius:50%}
+h1,h2,h3{font-family:'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:0;line-height:.95}h1{font-size:clamp(54px,7vw,88px);margin:18px 0}h1 span{color:var(--pale);display:block}.lead{color:#b5b0c1;line-height:1.75;font-size:14px;max-width:530px}.actions{display:flex;gap:11px;margin-top:25px;flex-wrap:wrap}.hero-art{min-height:285px;border:1px solid #ffffff18;border-radius:18px;background:linear-gradient(135deg,#201431,#101018 65%);display:flex;align-items:center;justify-content:center}.emblem{text-align:center;text-shadow:0 0 45px #9147ff88}.emblem b{font:900 104px/.8 'Barlow Condensed';letter-spacing:-5px}.emblem small{display:block;color:var(--pale);font-weight:800;letter-spacing:6px;margin-top:18px;font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 45px}.stat,.panel{padding:19px;border:1px solid var(--line);background:#111119d9;border-radius:12px}.stat strong{display:block;font:800 27px 'Barlow Condensed'}.stat span{font-size:9px;color:var(--muted);letter-spacing:1.5px}
+section{padding:30px 0 55px}.head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.head h2{font-size:40px;margin-top:8px}.head p{color:var(--muted);font-size:11px;margin:7px 0 0}.tag{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.rounds{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.round h3{font-size:20px;color:var(--pale);margin-bottom:14px}.match{background:#0c0c12;border:1px solid #292936;border-radius:9px;padding:12px;margin:9px 0}.teamline{display:flex;justify-content:space-between;gap:8px;padding:7px 0;font-size:12px;color:#d6d2df}.teamline+.teamline{border-top:1px solid #ffffff10}.winner{color:var(--green)}.results,.teamlist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.result,.teamcard{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;background:#0d0d13;border:1px solid var(--line);border-radius:9px}.result small,.teamcard small{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}.result strong,.teamcard strong{font-size:12px}.scorebig{font:800 22px 'Barlow Condensed';color:var(--pale);white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin:12px 0}.field label{display:block;font-size:10px;color:#c6c0d1;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;background:#09090f;border:1px solid #343342;border-radius:8px;padding:11px;color:white;font:12px Inter;outline:none}.field input:focus,.field textarea:focus{border-color:var(--purple)}.field textarea{min-height:105px;resize:vertical}.note{font-size:10px;line-height:1.7;color:var(--muted)}.notice{padding:11px;border-radius:8px;font-size:11px;line-height:1.5;margin:10px 0;background:#211b2d;border:1px solid #49356b;color:#d9c8ff}.hidden{display:none!important}.twitch{display:flex;align-items:center;justify-content:space-between;gap:20px;background:linear-gradient(110deg,#24143c,#14121d);border:1px solid #5b3785;border-radius:14px;padding:23px}.twitch h3{font-size:27px;margin:10px 0}.twitch p{color:#bdb5ca;font-size:11px;line-height:1.6;margin:0}
+footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:10px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#171520;border:1px solid #373143;color:#ddd;padding:9px 13px;border-radius:8px;cursor:pointer}.tabs button.active{background:#382052;border-color:#9147ff}.status{font-size:11px;color:var(--muted);margin-top:10px}.status.error{color:var(--red)}.status.ok{color:var(--green)}
+@media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:52px;gap:25px}.hero-art{min-height:210px}.stats{margin-bottom:22px}.rounds,.grid2{grid-template-columns:1fr}.results,.teamlist{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.twitch{align-items:start;flex-direction:column}.wrap{padding:0 17px}}
+
+.twitch-embed{display:grid;grid-template-columns:minmax(0,2fr) minmax(280px,1fr);gap:12px;width:100%}
+.twitch-player,.twitch-chat{overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#09090d}
+.twitch-player{aspect-ratio:16/9}
+.twitch-player iframe,.twitch-chat iframe{width:100%;height:100%;border:0}
+.twitch-chat{height:100%;min-height:480px}
+.navlinks a{padding:10px 0;border-bottom:2px solid transparent}
+.navlinks a:hover,.navlinks a.active{color:#fff;border-color:var(--purple)}
+@media(max-width:760px){.twitch-embed{grid-template-columns:1fr}.twitch-chat{height:450px;min-height:450px}}
+
+/* BLAZEPL007 Twitch identity: orange, charcoal and gold */
+:root{--bg:#09090c;--panel:#17171d;--line:#343039;--purple:#e87908;--pale:#ffad24;--white:#f4f1e9;--muted:#aaa39a;--green:#b8d77a;--red:#ff6b35}
+body{background-color:#09090c;background-image:repeating-linear-gradient(0deg,transparent 0 52px,rgba(232,121,8,.025) 52px 54px),radial-gradient(ellipse at 50% 0%,#3b200b 0,transparent 45%);color:var(--white)}
+nav{background:#111116ed;border-bottom:2px solid #d87508}
+.logo{border-radius:4px;background:linear-gradient(145deg,#ffad24,#b94b00);box-shadow:0 0 22px #e8790844;color:#111}
+.brand small{color:#d99b37}
+.navlinks{color:#e2d8c9}
+.navlinks a:hover{color:#ff9a18}
+.btn{border-radius:3px;background:#e87908;color:#111;font-weight:900}
+.btn:hover{background:#ff9b1c}
+.btn.ghost{background:#17171d;border:1px solid #a85b19;color:#f4e9d9}
+.hero{padding-top:44px}
+.eyebrow{color:#f0a326}
+.dot{background:#ed810b}
+h1 span{color:#f28a0b}
+.hero-art{border-radius:3px;border:1px solid #a85b19;background:linear-gradient(135deg,#ed870b,#c85a05 58%,#191923 58%);color:#171720}
+.emblem{text-shadow:none}
+.emblem small{color:#211b18}
+.stat,.panel{border-radius:3px;border-color:#3c342b;background:#17171de8}
+.match,.result,.teamcard{border-radius:3px;border-color:#3c342b;background:#111116}
+.round h3,.scorebig{color:#f0a326}
+.field input,.field textarea{border-radius:3px;border-color:#4a3b2c;background:#0c0c10}
+.field input:focus,.field textarea:focus{border-color:#e87908}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{border-radius:3px;border-color:#694018}
+#twitch-live .twitch-embed{display:grid;grid-template-columns:minmax(0,3fr) minmax(320px,1fr);gap:14px;width:100%;align-items:stretch}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{min-width:0;overflow:hidden;background:#09090c}
+#twitch-live .twitch-player{height:min(68vw,760px);min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px);min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+.event-banner{width:100%;margin:26px 0 0;overflow:hidden;border:1px solid #a85b19;background:#15151b}
+.event-banner img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
+@media(max-width:850px){#twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}#twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}#twitch-live .twitch-chat{height:480px;min-height:480px}.event-banner img{max-height:none}}
+
+
+.logo{width:42px;height:42px;min-width:42px;overflow:hidden;padding:0;border-radius:50%;background:#17171d;border:2px solid #e87908;box-shadow:0 0 16px #e8790844}
+.logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+
+.nav-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.nav-actions .btn{white-space:nowrap}
+@media(max-width:760px){.nav-actions{gap:6px}.nav-actions .btn{padding:10px 11px;font-size:10px}}; original order preserved --- */
+
+.final-standings{margin:0 0 24px;padding:24px}.final-standings h2{margin:6px 0 18px}.final-standings-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px}.final-standings-list li{display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid #ffffff18}.final-place{color:#ffad24;font-weight:900;font-size:18px;min-width:28px}.champion-tag{margin-left:auto;color:#ffad24;font-size:10px;font-weight:900;letter-spacing:1px}@media(max-width:650px){.final-standings-list{grid-template-columns:1fr}}; original order preserved --- */
+
+.group-stage-accordion{padding:0!important;margin-top:24px;overflow:hidden}
+.group-stage-accordion>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;background:#1a1715;border-bottom:1px solid #3c342b}
+.group-stage-accordion>summary::-webkit-details-marker{display:none}
+.group-stage-accordion>summary b{display:block;font:800 25px 'Barlow Condensed';color:#f0a326}
+.group-stage-accordion>summary small{display:block;color:var(--muted);font-size:10px;margin-top:5px}
+.group-stage-accordion[open]>summary .accordion-mark{transform:rotate(45deg)}
+.accordion-mark{font-size:25px;color:#f0a326;font-weight:800;transition:transform .15s}
+.group-stage-content{padding:20px}
+.public-playoffs{margin-bottom:26px}
+@media(max-width:760px){.group-stage-content{padding:13px}.group-stage-accordion>summary{padding:15px}}; original order preserved --- */
+
+/* Kompaktowe logotypy w tabelach wyników — stała szerokość kolumny, bez rozsuwania tabel. */
+.table-team-cell{display:flex;align-items:center;gap:8px;min-width:0;text-align:left;white-space:normal;font-weight:700}.table-team-cell>span:last-child{min-width:0;overflow-wrap:anywhere}.table-team-logo,.table-team-logo-placeholder{width:28px;height:28px;min-width:28px;max-width:28px;object-fit:contain;border:1px solid #694018;border-radius:4px;background:#09090c;padding:2px;display:inline-grid;place-items:center}.table-team-logo-placeholder{color:#ffad24;font:800 15px 'Barlow Condensed'}.result-teams{display:flex;align-items:center;gap:9px;min-width:0;flex-wrap:wrap}.result-teams .table-team-cell{font-size:11px}.versus{font-size:9px;color:#f0a326;font-weight:900;flex:none}.group-table table{min-width:0;table-layout:fixed}.group-table th:first-child,.group-table td:first-child{width:42%;min-width:0}.group-table th:not(:first-child),.group-table td:not(:first-child){width:9.66%;padding-left:5px;padding-right:5px}.group-table td:first-child{padding-left:8px;padding-right:5px}.group-table .table-team-cell{gap:6px;font-size:11px}.group-table .table-team-logo,.group-table .table-team-logo-placeholder{width:24px;height:24px;min-width:24px;max-width:24px}@media(max-width:560px){.group-table th,.group-table td{font-size:10px;padding:9px 3px}.group-table th:first-child,.group-table td:first-child{width:43%}.group-table .table-team-cell{font-size:10px;gap:4px}.group-table .table-team-logo,.group-table .table-team-logo-placeholder{width:20px;height:20px;min-width:20px;max-width:20px}.result-teams{gap:6px}}; original order preserved --- */
+
+.group-tables{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.group-table{min-width:0;padding:22px}.group-table h3{margin-bottom:16px}.table-scroll{overflow-x:auto;margin:8px 0 14px}table{width:100%;min-width:580px;border-collapse:separate;border-spacing:0;font-size:13px}th,td{padding:13px 12px;text-align:center;border-bottom:1px solid #ffffff18;white-space:nowrap}th:first-child,td:first-child{text-align:left;min-width:190px}th{color:#ffad24;background:#19151f;font-size:12px}tbody tr:nth-child(even){background:#ffffff05}.results{gap:14px}.result{padding:18px;min-height:78px}.result strong{line-height:1.5}@media(max-width:760px){.group-tables{grid-template-columns:1fr;gap:16px}.group-table{padding:16px}}
+
+/* Compact team logos in public standings and match tables */
+.table-team-cell{display:inline-flex;align-items:center;gap:8px;min-width:0;max-width:100%;vertical-align:middle;text-align:left;white-space:nowrap}
+.table-team-cell>span:last-child{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.table-team-logo,.table-team-logo-placeholder{display:inline-flex;flex:0 0 28px;width:28px;height:28px;max-width:28px;max-height:28px;box-sizing:border-box;border-radius:5px;object-fit:cover;overflow:hidden;align-items:center;justify-content:center}
+.table-team-logo{background:#24242b;border:1px solid #514333}
+.table-team-logo-placeholder{background:#28232a;color:#ffad24;font-weight:900;font-size:13px}
+.group-table table{table-layout:auto;width:100%;min-width:0}
+.group-table th:first-child,.group-table td:first-child{min-width:0;width:44%;max-width:210px}
+.group-table th:not(:first-child),.group-table td:not(:first-child){width:1%;padding-left:5px;padding-right:5px}
+.group-table tbody tr{height:44px}
+.group-table td{vertical-align:middle}
+@media(max-width:520px){.table-team-cell{gap:5px}.table-team-logo,.table-team-logo-placeholder{flex-basis:24px;width:24px;height:24px;max-width:24px;max-height:24px}.group-table th,.group-table td{padding:7px 4px;font-size:10px}.group-table th:first-child,.group-table td:first-child{max-width:150px}}
+
+
+
+/* ==================== TEAMS ==================== */
+
+
+
+/* --- extracted from teams.html:root{--bg:#09090d;--panel:#12121a;--line:#292936;--purple:#9147ff;--pale:#c6a5ff;--white:#f5f3fa;--muted:#9692a5;--green:#4ade80;--red:#fb7185}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% 0%,#25143d 0,transparent 34%),var(--bg);color:var(--white);font-family:Inter,Arial,sans-serif}a{color:inherit;text-decoration:none}.wrap{max-width:1160px;margin:auto;padding:0 24px}
+nav{height:74px;display:flex;align-items:center;border-bottom:1px solid #ffffff12;background:#09090de8;position:sticky;top:0;z-index:10;backdrop-filter:blur(14px)}nav .inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#c6a5ff,#6523c9);display:grid;place-items:center;font:900 22px 'Barlow Condensed';box-shadow:0 0 24px #9147ff55}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:3px}.navlinks{display:flex;gap:22px;color:#c5c0d0;font-size:12px;font-weight:800}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:12px 17px;font-weight:800;font-size:12px;cursor:pointer;background:var(--purple);color:white}.btn:hover{background:#a66cff}.btn.ghost{background:#ffffff0a;border:1px solid #ffffff24}
+.hero{padding:76px 0 46px;display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center}.eyebrow{color:var(--pale);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;display:flex;gap:10px;align-items:center}.dot{width:7px;height:7px;background:var(--purple);border-radius:50%}
+h1,h2,h3{font-family:'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:0;line-height:.95}h1{font-size:clamp(54px,7vw,88px);margin:18px 0}h1 span{color:var(--pale);display:block}.lead{color:#b5b0c1;line-height:1.75;font-size:14px;max-width:530px}.actions{display:flex;gap:11px;margin-top:25px;flex-wrap:wrap}.hero-art{min-height:285px;border:1px solid #ffffff18;border-radius:18px;background:linear-gradient(135deg,#201431,#101018 65%);display:flex;align-items:center;justify-content:center}.emblem{text-align:center;text-shadow:0 0 45px #9147ff88}.emblem b{font:900 104px/.8 'Barlow Condensed';letter-spacing:-5px}.emblem small{display:block;color:var(--pale);font-weight:800;letter-spacing:6px;margin-top:18px;font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 45px}.stat,.panel{padding:19px;border:1px solid var(--line);background:#111119d9;border-radius:12px}.stat strong{display:block;font:800 27px 'Barlow Condensed'}.stat span{font-size:9px;color:var(--muted);letter-spacing:1.5px}
+section{padding:30px 0 55px}.head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.head h2{font-size:40px;margin-top:8px}.head p{color:var(--muted);font-size:11px;margin:7px 0 0}.tag{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.rounds{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.round h3{font-size:20px;color:var(--pale);margin-bottom:14px}.match{background:#0c0c12;border:1px solid #292936;border-radius:9px;padding:12px;margin:9px 0}.teamline{display:flex;justify-content:space-between;gap:8px;padding:7px 0;font-size:12px;color:#d6d2df}.teamline+.teamline{border-top:1px solid #ffffff10}.winner{color:var(--green)}.results,.teamlist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.result,.teamcard{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;background:#0d0d13;border:1px solid var(--line);border-radius:9px}.result small,.teamcard small{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}.result strong,.teamcard strong{font-size:12px}.scorebig{font:800 22px 'Barlow Condensed';color:var(--pale);white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin:12px 0}.field label{display:block;font-size:10px;color:#c6c0d1;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;background:#09090f;border:1px solid #343342;border-radius:8px;padding:11px;color:white;font:12px Inter;outline:none}.field input:focus,.field textarea:focus{border-color:var(--purple)}.field textarea{min-height:105px;resize:vertical}.note{font-size:10px;line-height:1.7;color:var(--muted)}.notice{padding:11px;border-radius:8px;font-size:11px;line-height:1.5;margin:10px 0;background:#211b2d;border:1px solid #49356b;color:#d9c8ff}.hidden{display:none!important}.twitch{display:flex;align-items:center;justify-content:space-between;gap:20px;background:linear-gradient(110deg,#24143c,#14121d);border:1px solid #5b3785;border-radius:14px;padding:23px}.twitch h3{font-size:27px;margin:10px 0}.twitch p{color:#bdb5ca;font-size:11px;line-height:1.6;margin:0}
+footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:10px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#171520;border:1px solid #373143;color:#ddd;padding:9px 13px;border-radius:8px;cursor:pointer}.tabs button.active{background:#382052;border-color:#9147ff}.status{font-size:11px;color:var(--muted);margin-top:10px}.status.error{color:var(--red)}.status.ok{color:var(--green)}
+@media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:52px;gap:25px}.hero-art{min-height:210px}.stats{margin-bottom:22px}.rounds,.grid2{grid-template-columns:1fr}.results,.teamlist{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.twitch{align-items:start;flex-direction:column}.wrap{padding:0 17px}}
+
+.twitch-embed{display:grid;grid-template-columns:minmax(0,2fr) minmax(280px,1fr);gap:12px;width:100%}
+.twitch-player,.twitch-chat{overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#09090d}
+.twitch-player{aspect-ratio:16/9}
+.twitch-player iframe,.twitch-chat iframe{width:100%;height:100%;border:0}
+.twitch-chat{height:100%;min-height:480px}
+.navlinks a{padding:10px 0;border-bottom:2px solid transparent}
+.navlinks a:hover,.navlinks a.active{color:#fff;border-color:var(--purple)}
+@media(max-width:760px){.twitch-embed{grid-template-columns:1fr}.twitch-chat{height:450px;min-height:450px}}
+
+/* BLAZEPL007 Twitch identity: orange, charcoal and gold */
+:root{--bg:#09090c;--panel:#17171d;--line:#343039;--purple:#e87908;--pale:#ffad24;--white:#f4f1e9;--muted:#aaa39a;--green:#b8d77a;--red:#ff6b35}
+body{background-color:#09090c;background-image:repeating-linear-gradient(0deg,transparent 0 52px,rgba(232,121,8,.025) 52px 54px),radial-gradient(ellipse at 50% 0%,#3b200b 0,transparent 45%);color:var(--white)}
+nav{background:#111116ed;border-bottom:2px solid #d87508}
+.logo{border-radius:4px;background:linear-gradient(145deg,#ffad24,#b94b00);box-shadow:0 0 22px #e8790844;color:#111}
+.brand small{color:#d99b37}
+.navlinks{color:#e2d8c9}
+.navlinks a:hover{color:#ff9a18}
+.btn{border-radius:3px;background:#e87908;color:#111;font-weight:900}
+.btn:hover{background:#ff9b1c}
+.btn.ghost{background:#17171d;border:1px solid #a85b19;color:#f4e9d9}
+.hero{padding-top:44px}
+.eyebrow{color:#f0a326}
+.dot{background:#ed810b}
+h1 span{color:#f28a0b}
+.hero-art{border-radius:3px;border:1px solid #a85b19;background:linear-gradient(135deg,#ed870b,#c85a05 58%,#191923 58%);color:#171720}
+.emblem{text-shadow:none}
+.emblem small{color:#211b18}
+.stat,.panel{border-radius:3px;border-color:#3c342b;background:#17171de8}
+.match,.result,.teamcard{border-radius:3px;border-color:#3c342b;background:#111116}
+.round h3,.scorebig{color:#f0a326}
+.field input,.field textarea{border-radius:3px;border-color:#4a3b2c;background:#0c0c10}
+.field input:focus,.field textarea:focus{border-color:#e87908}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{border-radius:3px;border-color:#694018}
+#twitch-live .twitch-embed{display:grid;grid-template-columns:minmax(0,3fr) minmax(320px,1fr);gap:14px;width:100%;align-items:stretch}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{min-width:0;overflow:hidden;background:#09090c}
+#twitch-live .twitch-player{height:min(68vw,760px);min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px);min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+.event-banner{width:100%;margin:26px 0 0;overflow:hidden;border:1px solid #a85b19;background:#15151b}
+.event-banner img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
+@media(max-width:850px){#twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}#twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}#twitch-live .twitch-chat{height:480px;min-height:480px}.event-banner img{max-height:none}}
+
+
+.logo{width:42px;height:42px;min-width:42px;overflow:hidden;padding:0;border-radius:50%;background:#17171d;border:2px solid #e87908;box-shadow:0 0 16px #e8790844}
+.logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+
+.nav-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.nav-actions .btn{white-space:nowrap}
+@media(max-width:760px){.nav-actions{gap:6px}.nav-actions .btn{padding:10px 11px;font-size:10px}}; original order preserved --- */
+
+.team-card-full{justify-content:space-between;align-items:center;min-width:0}.team-card-main{display:flex;align-items:center;gap:14px;min-width:0}.team-emblem{width:68px;height:68px;min-width:68px;object-fit:contain;border:1px solid #5b3a20;background:#09090c;padding:5px;border-radius:5px}.team-emblem-fallback{display:grid;place-items:center;color:#ffad24;font:900 32px 'Barlow Condensed'}.team-card-info{min-width:0}.team-card-info strong{display:block;font-size:15px;overflow-wrap:anywhere}.team-captain,.team-players{display:block;color:var(--muted);font-size:10px;margin-top:5px;overflow-wrap:anywhere}.team-description{color:#c9c0b4;font-size:11px;line-height:1.5;margin:8px 0 0;overflow-wrap:anywhere}@media(max-width:520px){.team-card-full{align-items:flex-start}.team-emblem{width:54px;height:54px;min-width:54px}.team-card-full>.tag{display:none}}
+
+
+/* ==================== STATS ==================== */
+
+
+
+/* --- extracted from stats.html:root{--bg:#09090d;--panel:#12121a;--line:#292936;--purple:#9147ff;--pale:#c6a5ff;--white:#f5f3fa;--muted:#9692a5;--green:#4ade80;--red:#fb7185}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% 0%,#25143d 0,transparent 34%),var(--bg);color:var(--white);font-family:Inter,Arial,sans-serif}a{color:inherit;text-decoration:none}.wrap{max-width:1160px;margin:auto;padding:0 24px}
+nav{height:74px;display:flex;align-items:center;border-bottom:1px solid #ffffff12;background:#09090de8;position:sticky;top:0;z-index:10;backdrop-filter:blur(14px)}nav .inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#c6a5ff,#6523c9);display:grid;place-items:center;font:900 22px 'Barlow Condensed';box-shadow:0 0 24px #9147ff55}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:3px}.navlinks{display:flex;gap:22px;color:#c5c0d0;font-size:12px;font-weight:800}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:12px 17px;font-weight:800;font-size:12px;cursor:pointer;background:var(--purple);color:white}.btn:hover{background:#a66cff}.btn.ghost{background:#ffffff0a;border:1px solid #ffffff24}
+.hero{padding:76px 0 46px;display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center}.eyebrow{color:var(--pale);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;display:flex;gap:10px;align-items:center}.dot{width:7px;height:7px;background:var(--purple);border-radius:50%}
+h1,h2,h3{font-family:'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:0;line-height:.95}h1{font-size:clamp(54px,7vw,88px);margin:18px 0}h1 span{color:var(--pale);display:block}.lead{color:#b5b0c1;line-height:1.75;font-size:14px;max-width:530px}.actions{display:flex;gap:11px;margin-top:25px;flex-wrap:wrap}.hero-art{min-height:285px;border:1px solid #ffffff18;border-radius:18px;background:linear-gradient(135deg,#201431,#101018 65%);display:flex;align-items:center;justify-content:center}.emblem{text-align:center;text-shadow:0 0 45px #9147ff88}.emblem b{font:900 104px/.8 'Barlow Condensed';letter-spacing:-5px}.emblem small{display:block;color:var(--pale);font-weight:800;letter-spacing:6px;margin-top:18px;font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 45px}.stat,.panel{padding:19px;border:1px solid var(--line);background:#111119d9;border-radius:12px}.stat strong{display:block;font:800 27px 'Barlow Condensed'}.stat span{font-size:9px;color:var(--muted);letter-spacing:1.5px}
+section{padding:30px 0 55px}.head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.head h2{font-size:40px;margin-top:8px}.head p{color:var(--muted);font-size:11px;margin:7px 0 0}.tag{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.rounds{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.round h3{font-size:20px;color:var(--pale);margin-bottom:14px}.match{background:#0c0c12;border:1px solid #292936;border-radius:9px;padding:12px;margin:9px 0}.teamline{display:flex;justify-content:space-between;gap:8px;padding:7px 0;font-size:12px;color:#d6d2df}.teamline+.teamline{border-top:1px solid #ffffff10}.winner{color:var(--green)}.results,.teamlist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.result,.teamcard{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;background:#0d0d13;border:1px solid var(--line);border-radius:9px}.result small,.teamcard small{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}.result strong,.teamcard strong{font-size:12px}.scorebig{font:800 22px 'Barlow Condensed';color:var(--pale);white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin:12px 0}.field label{display:block;font-size:10px;color:#c6c0d1;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;background:#09090f;border:1px solid #343342;border-radius:8px;padding:11px;color:white;font:12px Inter;outline:none}.field input:focus,.field textarea:focus{border-color:var(--purple)}.field textarea{min-height:105px;resize:vertical}.note{font-size:10px;line-height:1.7;color:var(--muted)}.notice{padding:11px;border-radius:8px;font-size:11px;line-height:1.5;margin:10px 0;background:#211b2d;border:1px solid #49356b;color:#d9c8ff}.hidden{display:none!important}.twitch{display:flex;align-items:center;justify-content:space-between;gap:20px;background:linear-gradient(110deg,#24143c,#14121d);border:1px solid #5b3785;border-radius:14px;padding:23px}.twitch h3{font-size:27px;margin:10px 0}.twitch p{color:#bdb5ca;font-size:11px;line-height:1.6;margin:0}
+footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:10px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#171520;border:1px solid #373143;color:#ddd;padding:9px 13px;border-radius:8px;cursor:pointer}.tabs button.active{background:#382052;border-color:#9147ff}.status{font-size:11px;color:var(--muted);margin-top:10px}.status.error{color:var(--red)}.status.ok{color:var(--green)}
+@media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:52px;gap:25px}.hero-art{min-height:210px}.stats{margin-bottom:22px}.rounds,.grid2{grid-template-columns:1fr}.results,.teamlist{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.twitch{align-items:start;flex-direction:column}.wrap{padding:0 17px}}
+
+.twitch-embed{display:grid;grid-template-columns:minmax(0,2fr) minmax(280px,1fr);gap:12px;width:100%}
+.twitch-player,.twitch-chat{overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#09090d}
+.twitch-player{aspect-ratio:16/9}
+.twitch-player iframe,.twitch-chat iframe{width:100%;height:100%;border:0}
+.twitch-chat{height:100%;min-height:480px}
+.navlinks a{padding:10px 0;border-bottom:2px solid transparent}
+.navlinks a:hover,.navlinks a.active{color:#fff;border-color:var(--purple)}
+@media(max-width:760px){.twitch-embed{grid-template-columns:1fr}.twitch-chat{height:450px;min-height:450px}}
+
+/* BLAZEPL007 Twitch identity: orange, charcoal and gold */
+:root{--bg:#09090c;--panel:#17171d;--line:#343039;--purple:#e87908;--pale:#ffad24;--white:#f4f1e9;--muted:#aaa39a;--green:#b8d77a;--red:#ff6b35}
+body{background-color:#09090c;background-image:repeating-linear-gradient(0deg,transparent 0 52px,rgba(232,121,8,.025) 52px 54px),radial-gradient(ellipse at 50% 0%,#3b200b 0,transparent 45%);color:var(--white)}
+nav{background:#111116ed;border-bottom:2px solid #d87508}
+.logo{border-radius:4px;background:linear-gradient(145deg,#ffad24,#b94b00);box-shadow:0 0 22px #e8790844;color:#111}
+.brand small{color:#d99b37}
+.navlinks{color:#e2d8c9}
+.navlinks a:hover{color:#ff9a18}
+.btn{border-radius:3px;background:#e87908;color:#111;font-weight:900}
+.btn:hover{background:#ff9b1c}
+.btn.ghost{background:#17171d;border:1px solid #a85b19;color:#f4e9d9}
+.hero{padding-top:44px}
+.eyebrow{color:#f0a326}
+.dot{background:#ed810b}
+h1 span{color:#f28a0b}
+.hero-art{border-radius:3px;border:1px solid #a85b19;background:linear-gradient(135deg,#ed870b,#c85a05 58%,#191923 58%);color:#171720}
+.emblem{text-shadow:none}
+.emblem small{color:#211b18}
+.stat,.panel{border-radius:3px;border-color:#3c342b;background:#17171de8}
+.match,.result,.teamcard{border-radius:3px;border-color:#3c342b;background:#111116}
+.round h3,.scorebig{color:#f0a326}
+.field input,.field textarea{border-radius:3px;border-color:#4a3b2c;background:#0c0c10}
+.field input:focus,.field textarea:focus{border-color:#e87908}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{border-radius:3px;border-color:#694018}
+#twitch-live .twitch-embed{display:grid;grid-template-columns:minmax(0,3fr) minmax(320px,1fr);gap:14px;width:100%;align-items:stretch}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{min-width:0;overflow:hidden;background:#09090c}
+#twitch-live .twitch-player{height:min(68vw,760px);min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px);min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+.event-banner{width:100%;margin:26px 0 0;overflow:hidden;border:1px solid #a85b19;background:#15151b}
+.event-banner img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
+@media(max-width:850px){#twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}#twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}#twitch-live .twitch-chat{height:480px;min-height:480px}.event-banner img{max-height:none}}
+
+
+.logo{width:42px;height:42px;min-width:42px;overflow:hidden;padding:0;border-radius:50%;background:#17171d;border:2px solid #e87908;box-shadow:0 0 16px #e8790844}
+.logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+
+.nav-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.nav-actions .btn{white-space:nowrap}
+@media(max-width:760px){.nav-actions{gap:6px}.nav-actions .btn{padding:10px 11px;font-size:10px}}
+.map-public-list{display:grid;gap:10px}.map-public-row{display:grid;grid-template-columns:150px 1fr auto;gap:16px;align-items:center;padding:12px;background:#111116;border:1px solid #3c342b}.map-public-row img{width:150px;height:84px;object-fit:cover}.map-public-row strong{font-size:24px;color:#ffad24}.map-placeholder{width:150px;height:84px;display:grid;place-items:center;background:#24242b;color:#ffad24;font-weight:900}@media(max-width:600px){.map-public-row{grid-template-columns:90px 1fr auto}.map-public-row img,.map-placeholder{width:90px;height:56px}}.stats-panel{margin:18px 0;padding:22px}.stats-panel h2{margin:8px 0 14px}.stats-panel ol{padding-left:24px}.stats-panel li{padding:8px 4px;border-bottom:1px solid #ffffff18}; original order preserved --- */
+
+.final-standings{margin:0 0 24px;padding:24px}.final-standings h2{margin:6px 0 18px}.final-standings-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px}.final-standings-list li{display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid #ffffff18}.final-place{color:#ffad24;font-weight:900;font-size:18px;min-width:28px}.champion-tag{margin-left:auto;color:#ffad24;font-size:10px;font-weight:900;letter-spacing:1px}@media(max-width:650px){.final-standings-list{grid-template-columns:1fr}}; original order preserved --- */
+
+.group-tables{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.group-table{min-width:0;padding:22px}.group-table h3{margin-bottom:16px}.table-scroll{overflow-x:auto;margin:8px 0 14px}table{width:100%;min-width:580px;border-collapse:separate;border-spacing:0;font-size:13px}th,td{padding:13px 12px;text-align:center;border-bottom:1px solid #ffffff18;white-space:nowrap}th:first-child,td:first-child{text-align:left;min-width:190px}th{color:#ffad24;background:#19151f;font-size:12px}tbody tr:nth-child(even){background:#ffffff05}.results{gap:14px}.result{padding:18px;min-height:78px}.result strong{line-height:1.5}@media(max-width:760px){.group-tables{grid-template-columns:1fr;gap:16px}.group-table{padding:16px}}
+
+
+/* ==================== LOGIN ==================== */
+
+
+
+/* --- extracted from login.html:root{--bg:#09090d;--panel:#12121a;--line:#292936;--purple:#9147ff;--pale:#c6a5ff;--white:#f5f3fa;--muted:#9692a5;--green:#4ade80;--red:#fb7185}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% 0%,#25143d 0,transparent 34%),var(--bg);color:var(--white);font-family:Inter,Arial,sans-serif}a{color:inherit;text-decoration:none}.wrap{max-width:1160px;margin:auto;padding:0 24px}
+nav{height:74px;display:flex;align-items:center;border-bottom:1px solid #ffffff12;background:#09090de8;position:sticky;top:0;z-index:10;backdrop-filter:blur(14px)}nav .inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#c6a5ff,#6523c9);display:grid;place-items:center;font:900 22px 'Barlow Condensed';box-shadow:0 0 24px #9147ff55}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:3px}.navlinks{display:flex;gap:22px;color:#c5c0d0;font-size:12px;font-weight:800}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:12px 17px;font-weight:800;font-size:12px;cursor:pointer;background:var(--purple);color:white}.btn:hover{background:#a66cff}.btn.ghost{background:#ffffff0a;border:1px solid #ffffff24}
+.hero{padding:76px 0 46px;display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center}.eyebrow{color:var(--pale);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;display:flex;gap:10px;align-items:center}.dot{width:7px;height:7px;background:var(--purple);border-radius:50%}
+h1,h2,h3{font-family:'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:0;line-height:.95}h1{font-size:clamp(54px,7vw,88px);margin:18px 0}h1 span{color:var(--pale);display:block}.lead{color:#b5b0c1;line-height:1.75;font-size:14px;max-width:530px}.actions{display:flex;gap:11px;margin-top:25px;flex-wrap:wrap}.hero-art{min-height:285px;border:1px solid #ffffff18;border-radius:18px;background:linear-gradient(135deg,#201431,#101018 65%);display:flex;align-items:center;justify-content:center}.emblem{text-align:center;text-shadow:0 0 45px #9147ff88}.emblem b{font:900 104px/.8 'Barlow Condensed';letter-spacing:-5px}.emblem small{display:block;color:var(--pale);font-weight:800;letter-spacing:6px;margin-top:18px;font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 45px}.stat,.panel{padding:19px;border:1px solid var(--line);background:#111119d9;border-radius:12px}.stat strong{display:block;font:800 27px 'Barlow Condensed'}.stat span{font-size:9px;color:var(--muted);letter-spacing:1.5px}
+section{padding:30px 0 55px}.head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.head h2{font-size:40px;margin-top:8px}.head p{color:var(--muted);font-size:11px;margin:7px 0 0}.tag{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.rounds{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.round h3{font-size:20px;color:var(--pale);margin-bottom:14px}.match{background:#0c0c12;border:1px solid #292936;border-radius:9px;padding:12px;margin:9px 0}.teamline{display:flex;justify-content:space-between;gap:8px;padding:7px 0;font-size:12px;color:#d6d2df}.teamline+.teamline{border-top:1px solid #ffffff10}.winner{color:var(--green)}.results,.teamlist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.result,.teamcard{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;background:#0d0d13;border:1px solid var(--line);border-radius:9px}.result small,.teamcard small{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}.result strong,.teamcard strong{font-size:12px}.scorebig{font:800 22px 'Barlow Condensed';color:var(--pale);white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin:12px 0}.field label{display:block;font-size:10px;color:#c6c0d1;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;background:#09090f;border:1px solid #343342;border-radius:8px;padding:11px;color:white;font:12px Inter;outline:none}.field input:focus,.field textarea:focus{border-color:var(--purple)}.field textarea{min-height:105px;resize:vertical}.note{font-size:10px;line-height:1.7;color:var(--muted)}.notice{padding:11px;border-radius:8px;font-size:11px;line-height:1.5;margin:10px 0;background:#211b2d;border:1px solid #49356b;color:#d9c8ff}.hidden{display:none!important}.twitch{display:flex;align-items:center;justify-content:space-between;gap:20px;background:linear-gradient(110deg,#24143c,#14121d);border:1px solid #5b3785;border-radius:14px;padding:23px}.twitch h3{font-size:27px;margin:10px 0}.twitch p{color:#bdb5ca;font-size:11px;line-height:1.6;margin:0}
+footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:10px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#171520;border:1px solid #373143;color:#ddd;padding:9px 13px;border-radius:8px;cursor:pointer}.tabs button.active{background:#382052;border-color:#9147ff}.status{font-size:11px;color:var(--muted);margin-top:10px}.status.error{color:var(--red)}.status.ok{color:var(--green)}
+@media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:52px;gap:25px}.hero-art{min-height:210px}.stats{margin-bottom:22px}.rounds,.grid2{grid-template-columns:1fr}.results,.teamlist{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.twitch{align-items:start;flex-direction:column}.wrap{padding:0 17px}}
+
+/* BLAZEPL007 Twitch identity: orange, charcoal and gold */
+:root{--bg:#09090c;--panel:#17171d;--line:#343039;--purple:#e87908;--pale:#ffad24;--white:#f4f1e9;--muted:#aaa39a;--green:#b8d77a;--red:#ff6b35}
+body{background-color:#09090c;background-image:repeating-linear-gradient(0deg,transparent 0 52px,rgba(232,121,8,.025) 52px 54px),radial-gradient(ellipse at 50% 0%,#3b200b 0,transparent 45%);color:var(--white)}
+nav{background:#111116ed;border-bottom:2px solid #d87508}
+.logo{border-radius:4px;background:linear-gradient(145deg,#ffad24,#b94b00);box-shadow:0 0 22px #e8790844;color:#111}
+.brand small{color:#d99b37}
+.navlinks{color:#e2d8c9}
+.navlinks a:hover{color:#ff9a18}
+.btn{border-radius:3px;background:#e87908;color:#111;font-weight:900}
+.btn:hover{background:#ff9b1c}
+.btn.ghost{background:#17171d;border:1px solid #a85b19;color:#f4e9d9}
+.hero{padding-top:44px}
+.eyebrow{color:#f0a326}
+.dot{background:#ed810b}
+h1 span{color:#f28a0b}
+.hero-art{border-radius:3px;border:1px solid #a85b19;background:linear-gradient(135deg,#ed870b,#c85a05 58%,#191923 58%);color:#171720}
+.emblem{text-shadow:none}
+.emblem small{color:#211b18}
+.stat,.panel{border-radius:3px;border-color:#3c342b;background:#17171de8}
+.match,.result,.teamcard{border-radius:3px;border-color:#3c342b;background:#111116}
+.round h3,.scorebig{color:#f0a326}
+.field input,.field textarea{border-radius:3px;border-color:#4a3b2c;background:#0c0c10}
+.field input:focus,.field textarea:focus{border-color:#e87908}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{border-radius:3px;border-color:#694018}
+#twitch-live .twitch-embed{display:grid;grid-template-columns:minmax(0,3fr) minmax(320px,1fr);gap:14px;width:100%;align-items:stretch}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{min-width:0;overflow:hidden;background:#09090c}
+#twitch-live .twitch-player{height:min(68vw,760px);min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px);min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+.event-banner{width:100%;margin:26px 0 0;overflow:hidden;border:1px solid #a85b19;background:#15151b}
+.event-banner img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
+@media(max-width:850px){#twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}#twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}#twitch-live .twitch-chat{height:480px;min-height:480px}.event-banner img{max-height:none}}
+
+ .hidden{display:none!important}
+
+.logo{width:42px;height:42px;min-width:42px;overflow:hidden;padding:0;border-radius:50%;background:#17171d;border:2px solid #e87908;box-shadow:0 0 16px #e8790844}
+.logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+
+/* ==================== REGISTER ==================== */
+
+
+
+/* --- extracted from register.html:root{--bg:#09090d;--panel:#12121a;--line:#292936;--purple:#9147ff;--pale:#c6a5ff;--white:#f5f3fa;--muted:#9692a5;--green:#4ade80;--red:#fb7185}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% 0%,#25143d 0,transparent 34%),var(--bg);color:var(--white);font-family:Inter,Arial,sans-serif}a{color:inherit;text-decoration:none}.wrap{max-width:1160px;margin:auto;padding:0 24px}
+nav{height:74px;display:flex;align-items:center;border-bottom:1px solid #ffffff12;background:#09090de8;position:sticky;top:0;z-index:10;backdrop-filter:blur(14px)}nav .inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#c6a5ff,#6523c9);display:grid;place-items:center;font:900 22px 'Barlow Condensed';box-shadow:0 0 24px #9147ff55}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:3px}.navlinks{display:flex;gap:22px;color:#c5c0d0;font-size:12px;font-weight:800}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:12px 17px;font-weight:800;font-size:12px;cursor:pointer;background:var(--purple);color:white}.btn:hover{background:#a66cff}.btn.ghost{background:#ffffff0a;border:1px solid #ffffff24}
+.hero{padding:76px 0 46px;display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center}.eyebrow{color:var(--pale);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;display:flex;gap:10px;align-items:center}.dot{width:7px;height:7px;background:var(--purple);border-radius:50%}
+h1,h2,h3{font-family:'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:0;line-height:.95}h1{font-size:clamp(54px,7vw,88px);margin:18px 0}h1 span{color:var(--pale);display:block}.lead{color:#b5b0c1;line-height:1.75;font-size:14px;max-width:530px}.actions{display:flex;gap:11px;margin-top:25px;flex-wrap:wrap}.hero-art{min-height:285px;border:1px solid #ffffff18;border-radius:18px;background:linear-gradient(135deg,#201431,#101018 65%);display:flex;align-items:center;justify-content:center}.emblem{text-align:center;text-shadow:0 0 45px #9147ff88}.emblem b{font:900 104px/.8 'Barlow Condensed';letter-spacing:-5px}.emblem small{display:block;color:var(--pale);font-weight:800;letter-spacing:6px;margin-top:18px;font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 45px}.stat,.panel{padding:19px;border:1px solid var(--line);background:#111119d9;border-radius:12px}.stat strong{display:block;font:800 27px 'Barlow Condensed'}.stat span{font-size:9px;color:var(--muted);letter-spacing:1.5px}
+section{padding:30px 0 55px}.head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.head h2{font-size:40px;margin-top:8px}.head p{color:var(--muted);font-size:11px;margin:7px 0 0}.tag{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.rounds{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.round h3{font-size:20px;color:var(--pale);margin-bottom:14px}.match{background:#0c0c12;border:1px solid #292936;border-radius:9px;padding:12px;margin:9px 0}.teamline{display:flex;justify-content:space-between;gap:8px;padding:7px 0;font-size:12px;color:#d6d2df}.teamline+.teamline{border-top:1px solid #ffffff10}.winner{color:var(--green)}.results,.teamlist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.result,.teamcard{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;background:#0d0d13;border:1px solid var(--line);border-radius:9px}.result small,.teamcard small{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}.result strong,.teamcard strong{font-size:12px}.scorebig{font:800 22px 'Barlow Condensed';color:var(--pale);white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin:12px 0}.field label{display:block;font-size:10px;color:#c6c0d1;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;background:#09090f;border:1px solid #343342;border-radius:8px;padding:11px;color:white;font:12px Inter;outline:none}.field input:focus,.field textarea:focus{border-color:var(--purple)}.field textarea{min-height:105px;resize:vertical}.note{font-size:10px;line-height:1.7;color:var(--muted)}.notice{padding:11px;border-radius:8px;font-size:11px;line-height:1.5;margin:10px 0;background:#211b2d;border:1px solid #49356b;color:#d9c8ff}.hidden{display:none!important}.twitch{display:flex;align-items:center;justify-content:space-between;gap:20px;background:linear-gradient(110deg,#24143c,#14121d);border:1px solid #5b3785;border-radius:14px;padding:23px}.twitch h3{font-size:27px;margin:10px 0}.twitch p{color:#bdb5ca;font-size:11px;line-height:1.6;margin:0}
+footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:10px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#171520;border:1px solid #373143;color:#ddd;padding:9px 13px;border-radius:8px;cursor:pointer}.tabs button.active{background:#382052;border-color:#9147ff}.status{font-size:11px;color:var(--muted);margin-top:10px}.status.error{color:var(--red)}.status.ok{color:var(--green)}
+@media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:52px;gap:25px}.hero-art{min-height:210px}.stats{margin-bottom:22px}.rounds,.grid2{grid-template-columns:1fr}.results,.teamlist{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.twitch{align-items:start;flex-direction:column}.wrap{padding:0 17px}}
+
+/* BLAZEPL007 Twitch identity: orange, charcoal and gold */
+:root{--bg:#09090c;--panel:#17171d;--line:#343039;--purple:#e87908;--pale:#ffad24;--white:#f4f1e9;--muted:#aaa39a;--green:#b8d77a;--red:#ff6b35}
+body{background-color:#09090c;background-image:repeating-linear-gradient(0deg,transparent 0 52px,rgba(232,121,8,.025) 52px 54px),radial-gradient(ellipse at 50% 0%,#3b200b 0,transparent 45%);color:var(--white)}
+nav{background:#111116ed;border-bottom:2px solid #d87508}
+.logo{border-radius:4px;background:linear-gradient(145deg,#ffad24,#b94b00);box-shadow:0 0 22px #e8790844;color:#111}
+.brand small{color:#d99b37}
+.navlinks{color:#e2d8c9}
+.navlinks a:hover{color:#ff9a18}
+.btn{border-radius:3px;background:#e87908;color:#111;font-weight:900}
+.btn:hover{background:#ff9b1c}
+.btn.ghost{background:#17171d;border:1px solid #a85b19;color:#f4e9d9}
+.hero{padding-top:44px}
+.eyebrow{color:#f0a326}
+.dot{background:#ed810b}
+h1 span{color:#f28a0b}
+.hero-art{border-radius:3px;border:1px solid #a85b19;background:linear-gradient(135deg,#ed870b,#c85a05 58%,#191923 58%);color:#171720}
+.emblem{text-shadow:none}
+.emblem small{color:#211b18}
+.stat,.panel{border-radius:3px;border-color:#3c342b;background:#17171de8}
+.match,.result,.teamcard{border-radius:3px;border-color:#3c342b;background:#111116}
+.round h3,.scorebig{color:#f0a326}
+.field input,.field textarea{border-radius:3px;border-color:#4a3b2c;background:#0c0c10}
+.field input:focus,.field textarea:focus{border-color:#e87908}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{border-radius:3px;border-color:#694018}
+#twitch-live .twitch-embed{display:grid;grid-template-columns:minmax(0,3fr) minmax(320px,1fr);gap:14px;width:100%;align-items:stretch}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{min-width:0;overflow:hidden;background:#09090c}
+#twitch-live .twitch-player{height:min(68vw,760px);min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px);min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+.event-banner{width:100%;margin:26px 0 0;overflow:hidden;border:1px solid #a85b19;background:#15151b}
+.event-banner img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
+@media(max-width:850px){#twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}#twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}#twitch-live .twitch-chat{height:480px;min-height:480px}.event-banner img{max-height:none}}
+
+
+.logo{width:42px;height:42px;min-width:42px;overflow:hidden;padding:0;border-radius:50%;background:#17171d;border:2px solid #e87908;box-shadow:0 0 16px #e8790844}
+.logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+
+/* ==================== ADMIN ==================== */
+
+
+
+/* --- extracted from admin.html:root{--bg:#09090d;--panel:#12121a;--line:#292936;--purple:#9147ff;--pale:#c6a5ff;--white:#f5f3fa;--muted:#9692a5;--green:#4ade80;--red:#fb7185}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% 0%,#25143d 0,transparent 34%),var(--bg);color:var(--white);font-family:Inter,Arial,sans-serif}a{color:inherit;text-decoration:none}.wrap{max-width:1160px;margin:auto;padding:0 24px}
+nav{height:74px;display:flex;align-items:center;border-bottom:1px solid #ffffff12;background:#09090de8;position:sticky;top:0;z-index:10;backdrop-filter:blur(14px)}nav .inner{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}.logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(145deg,#c6a5ff,#6523c9);display:grid;place-items:center;font:900 22px 'Barlow Condensed';box-shadow:0 0 24px #9147ff55}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:3px}.navlinks{display:flex;gap:22px;color:#c5c0d0;font-size:12px;font-weight:800}
+.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:9px;padding:12px 17px;font-weight:800;font-size:12px;cursor:pointer;background:var(--purple);color:white}.btn:hover{background:#a66cff}.btn.ghost{background:#ffffff0a;border:1px solid #ffffff24}
+.hero{padding:76px 0 46px;display:grid;grid-template-columns:1.15fr .85fr;gap:46px;align-items:center}.eyebrow{color:var(--pale);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;display:flex;gap:10px;align-items:center}.dot{width:7px;height:7px;background:var(--purple);border-radius:50%}
+h1,h2,h3{font-family:'Barlow Condensed',Impact,sans-serif;text-transform:uppercase;margin:0;line-height:.95}h1{font-size:clamp(54px,7vw,88px);margin:18px 0}h1 span{color:var(--pale);display:block}.lead{color:#b5b0c1;line-height:1.75;font-size:14px;max-width:530px}.actions{display:flex;gap:11px;margin-top:25px;flex-wrap:wrap}.hero-art{min-height:285px;border:1px solid #ffffff18;border-radius:18px;background:linear-gradient(135deg,#201431,#101018 65%);display:flex;align-items:center;justify-content:center}.emblem{text-align:center;text-shadow:0 0 45px #9147ff88}.emblem b{font:900 104px/.8 'Barlow Condensed';letter-spacing:-5px}.emblem small{display:block;color:var(--pale);font-weight:800;letter-spacing:6px;margin-top:18px;font-size:11px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 45px}.stat,.panel{padding:19px;border:1px solid var(--line);background:#111119d9;border-radius:12px}.stat strong{display:block;font:800 27px 'Barlow Condensed'}.stat span{font-size:9px;color:var(--muted);letter-spacing:1.5px}
+section{padding:30px 0 55px}.head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:20px}.head h2{font-size:40px;margin-top:8px}.head p{color:var(--muted);font-size:11px;margin:7px 0 0}.tag{font-size:9px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.rounds{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.round h3{font-size:20px;color:var(--pale);margin-bottom:14px}.match{background:#0c0c12;border:1px solid #292936;border-radius:9px;padding:12px;margin:9px 0}.teamline{display:flex;justify-content:space-between;gap:8px;padding:7px 0;font-size:12px;color:#d6d2df}.teamline+.teamline{border-top:1px solid #ffffff10}.winner{color:var(--green)}.results,.teamlist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.result,.teamcard{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;background:#0d0d13;border:1px solid var(--line);border-radius:9px}.result small,.teamcard small{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}.result strong,.teamcard strong{font-size:12px}.scorebig{font:800 22px 'Barlow Condensed';color:var(--pale);white-space:nowrap}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{margin:12px 0}.field label{display:block;font-size:10px;color:#c6c0d1;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;background:#09090f;border:1px solid #343342;border-radius:8px;padding:11px;color:white;font:12px Inter;outline:none}.field input:focus,.field textarea:focus{border-color:var(--purple)}.field textarea{min-height:105px;resize:vertical}.note{font-size:10px;line-height:1.7;color:var(--muted)}.notice{padding:11px;border-radius:8px;font-size:11px;line-height:1.5;margin:10px 0;background:#211b2d;border:1px solid #49356b;color:#d9c8ff}.hidden{display:none!important}.twitch{display:flex;align-items:center;justify-content:space-between;gap:20px;background:linear-gradient(110deg,#24143c,#14121d);border:1px solid #5b3785;border-radius:14px;padding:23px}.twitch h3{font-size:27px;margin:10px 0}.twitch p{color:#bdb5ca;font-size:11px;line-height:1.6;margin:0}
+footer{border-top:1px solid var(--line);padding:24px 0;color:#777284;font-size:10px}.foot{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tabs button{background:#171520;border:1px solid #373143;color:#ddd;padding:9px 13px;border-radius:8px;cursor:pointer}.tabs button.active{background:#382052;border-color:#9147ff}.status{font-size:11px;color:var(--muted);margin-top:10px}.status.error{color:var(--red)}.status.ok{color:var(--green)}
+@media(max-width:760px){.navlinks{display:none}.hero{grid-template-columns:1fr;padding-top:52px;gap:25px}.hero-art{min-height:210px}.stats{margin-bottom:22px}.rounds,.grid2{grid-template-columns:1fr}.results,.teamlist{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.twitch{align-items:start;flex-direction:column}.wrap{padding:0 17px}}
+
+/* Twitch embed — szeroki odtwarzacz po lewej, czat po prawej */
+.wrap{max-width:1600px;padding-left:32px;padding-right:32px}
+#twitch-live{width:100%}
+#twitch-live .twitch-embed{
+  display:grid;
+  grid-template-columns:minmax(0, 3fr) minmax(320px, 1fr);
+  gap:14px;
+  width:100%;
+  align-items:stretch;
+}
+#twitch-live .twitch-player,
+#twitch-live .twitch-chat{
+  min-width:0;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#09090d;
+}
+#twitch-live .twitch-player{height: min(68vw, 760px); min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px); min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+@media(max-width:850px){
+  .wrap{padding-left:18px;padding-right:18px}
+  #twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}
+  #twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}
+  #twitch-live .twitch-chat{height:480px;min-height:480px}
+}
+
+
+/* BLAZEPL007 Twitch identity: orange, charcoal and gold */
+:root{--bg:#09090c;--panel:#17171d;--line:#343039;--purple:#e87908;--pale:#ffad24;--white:#f4f1e9;--muted:#aaa39a;--green:#b8d77a;--red:#ff6b35}
+body{background-color:#09090c;background-image:repeating-linear-gradient(0deg,transparent 0 52px,rgba(232,121,8,.025) 52px 54px),radial-gradient(ellipse at 50% 0%,#3b200b 0,transparent 45%);color:var(--white)}
+nav{background:#111116ed;border-bottom:2px solid #d87508}
+.logo{border-radius:4px;background:linear-gradient(145deg,#ffad24,#b94b00);box-shadow:0 0 22px #e8790844;color:#111}
+.brand small{color:#d99b37}
+.navlinks{color:#e2d8c9}
+.navlinks a:hover{color:#ff9a18}
+.btn{border-radius:3px;background:#e87908;color:#111;font-weight:900}
+.btn:hover{background:#ff9b1c}
+.btn.ghost{background:#17171d;border:1px solid #a85b19;color:#f4e9d9}
+.hero{padding-top:44px}
+.eyebrow{color:#f0a326}
+.dot{background:#ed810b}
+h1 span{color:#f28a0b}
+.hero-art{border-radius:3px;border:1px solid #a85b19;background:linear-gradient(135deg,#ed870b,#c85a05 58%,#191923 58%);color:#171720}
+.emblem{text-shadow:none}
+.emblem small{color:#211b18}
+.stat,.panel{border-radius:3px;border-color:#3c342b;background:#17171de8}
+.match,.result,.teamcard{border-radius:3px;border-color:#3c342b;background:#111116}
+.round h3,.scorebig{color:#f0a326}
+.field input,.field textarea{border-radius:3px;border-color:#4a3b2c;background:#0c0c10}
+.field input:focus,.field textarea:focus{border-color:#e87908}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{border-radius:3px;border-color:#694018}
+#twitch-live .twitch-embed{display:grid;grid-template-columns:minmax(0,3fr) minmax(320px,1fr);gap:14px;width:100%;align-items:stretch}
+#twitch-live .twitch-player,#twitch-live .twitch-chat{min-width:0;overflow:hidden;background:#09090c}
+#twitch-live .twitch-player{height:min(68vw,760px);min-height:500px}
+#twitch-live .twitch-chat{height:min(68vw,760px);min-height:500px}
+#twitch-live iframe{display:block;width:100%;height:100%;border:0}
+.event-banner{width:100%;margin:26px 0 0;overflow:hidden;border:1px solid #a85b19;background:#15151b}
+.event-banner img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
+@media(max-width:850px){#twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr)}#twitch-live .twitch-player{height:auto;aspect-ratio:16/9;min-height:0}#twitch-live .twitch-chat{height:480px;min-height:480px}.event-banner img{max-height:none}}
+
+
+/* Logo i plakat */
+.logo{overflow:hidden;padding:0;border-radius:8px;background:#e87908}
+.logo img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-art{min-height:0;aspect-ratio:16/9;padding:0;overflow:hidden;border-radius:3px;background:#111}
+.hero-banner-img{display:block;width:100%;height:100%;object-fit:contain}
+.event-banner{display:none}
+@media(max-width:760px){.hero-art{aspect-ratio:16/9;min-height:0}.hero-banner-img{object-fit:contain}}
+
+
+.logo{width:42px;height:42px;min-width:42px;overflow:hidden;padding:0;border-radius:50%;background:#17171d;border:2px solid #e87908;box-shadow:0 0 16px #e8790844}
+.logo img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+
+.hidden{display:none!important}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.panel{padding:22px}.field{margin:12px 0}.field label{display:block;font-size:11px;font-weight:800;margin-bottom:6px;color:var(--pale)}.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid var(--line);background:#0c0c10;color:var(--white);border-radius:3px}.status{font-size:13px;margin-top:12px;color:var(--muted)}.status.error{color:#ff6b35}.status.ok{color:#b8d77a}.team-row{border:1px solid var(--line);background:#111116;padding:16px;margin:10px 0;display:grid;grid-template-columns:1fr auto;gap:14px}.team-row h3{margin:0 0 8px}.team-details{margin-top:12px;padding-top:8px;border-top:1px solid #ffffff18}.team-details p{margin:7px 0}.team-row p{margin:5px 0;color:var(--muted);font-size:13px;overflow-wrap:anywhere}.actions{display:flex;gap:8px;flex-wrap:wrap;align-self:start;align-items:flex-start}.actions button,.smallbtn{cursor:pointer;border:1px solid #694018;background:#17171d;color:#f4f1e9;padding:9px 12px;border-radius:3px;font-weight:800}.actions .approve{background:#e87908;color:#111}.actions .revoke{border-color:#a85b19;color:#ffbd63}.actions button{height:42px;display:inline-flex;align-items:center;justify-content:center}.actions .preview-action{box-sizing:border-box;width:170px;min-width:170px;max-width:170px;height:42px;min-height:42px;white-space:nowrap;flex:0 0 170px}.actions .danger{border-color:#a33d25;color:#ff8c69}.tag{display:inline-block;border:1px solid #694018;padding:4px 8px;font-size:11px;text-transform:uppercase}.topline{display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap}.mfa-code{max-width:240px;font-size:22px;letter-spacing:5px}.qr{background:white;padding:12px;display:inline-block;max-width:220px}.qr img{max-width:190px;height:auto}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.tabs button{cursor:pointer;padding:10px 14px;background:#17171d;border:1px solid var(--line);color:var(--white)}.tabs button.active{border-color:#e87908;color:#ffad24}
+@media(max-width:760px){.admin-grid{grid-template-columns:1fr}.team-row{grid-template-columns:1fr}.wrap{padding:0 17px}}
+
+/* Czytelniejsza tabela turniejowa i wygodniejsze ustawianie par */
+#tournamentAdmin .team-row{padding:20px 22px;margin:16px 0;gap:22px;align-items:start;overflow:hidden}
+#tournamentAdmin .team-row>div:first-child{min-width:0;width:100%}
+#tournamentAdmin .table-scroll{width:100%;overflow-x:auto;margin-top:14px}
+#tournamentAdmin table{width:100%;min-width:690px;border-collapse:separate;border-spacing:0;font-size:13px}
+#tournamentAdmin th,#tournamentAdmin td{padding:13px 14px;text-align:center;border-bottom:1px solid #ffffff18;white-space:nowrap}
+#tournamentAdmin th{color:#ffad24;font-size:12px;letter-spacing:.3px;background:#19151f}
+#tournamentAdmin th:first-child,#tournamentAdmin td:first-child{text-align:left;min-width:190px}
+#tournamentAdmin tbody tr:nth-child(even){background:#ffffff05}
+#tournamentAdmin tbody tr:hover{background:#9147ff12}
+#tournamentAdmin .match-config{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;padding:12px;background:#0b0b11;border:1px solid #30283b;border-radius:8px}
+#tournamentAdmin .match-config strong{color:#c6a5ff}
+#tournamentAdmin .match-config button{margin-left:auto}
+#tournamentAdmin .team-row h3{margin-bottom:12px}
+#tournamentAdmin .match-meta{color:var(--muted);font-size:12px;line-height:1.7;margin-top:8px}
+@media(max-width:760px){#tournamentAdmin .team-row{padding:15px 12px}#tournamentAdmin th,#tournamentAdmin td{padding:11px 10px}}
+/* Hierarchia sekcji turniejowych */
+#tournamentAdmin .tourney-accordion{border:1px solid #3a3044;border-radius:10px;background:#111116;margin:16px 0;overflow:hidden}
+#tournamentAdmin .tourney-accordion>summary{list-style:none;cursor:pointer;padding:17px 19px;display:flex;align-items:center;gap:12px;background:#19151f;font-weight:900;color:#f5f0e8}
+#tournamentAdmin .tourney-accordion>summary::-webkit-details-marker{display:none}
+#tournamentAdmin .tourney-accordion>summary:after{content:'+';margin-left:auto;color:#ffad24;font-size:22px}
+#tournamentAdmin .tourney-accordion[open]>summary:after{content:'−'}
+#tournamentAdmin .tourney-accordion>summary small{display:block;font-size:11px;font-weight:500;color:#aaa;margin-top:4px}
+#tournamentAdmin .tourney-content{padding:18px}
+#tournamentAdmin .sub-accordion{border:1px solid #30283b;border-radius:8px;margin:12px 0;overflow:hidden;background:#0e0e13}
+#tournamentAdmin .sub-accordion>summary{list-style:none;cursor:pointer;padding:13px 15px;font-weight:800;color:#d9c9ef;display:flex;align-items:center;gap:10px}
+#tournamentAdmin .sub-accordion>summary::-webkit-details-marker{display:none}
+#tournamentAdmin .sub-accordion>summary:after{content:'⌄';margin-left:auto;color:#ffad24}
+#tournamentAdmin .sub-accordion[open]>summary:after{content:'⌃'}
+#tournamentAdmin .sub-content{padding:14px;border-top:1px solid #ffffff16}
+#tournamentAdmin .section-help{font-size:12px;line-height:1.6;color:#aaa;margin:0 0 12px}
+#tournamentAdmin .group-assignment{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+#tournamentAdmin .group-assignment .team-row{display:block;margin:0;padding:14px}
+#tournamentAdmin .group-assignment .team-row .smallbtn{margin-top:10px}
+#tournamentAdmin .match-card{border:1px solid #30283b;background:#0d0d12;border-radius:8px;padding:14px;margin:10px 0}
+#tournamentAdmin .match-card h4{margin:0 0 7px;color:#f5f0e8}
+#tournamentAdmin .match-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+@media(max-width:760px){#tournamentAdmin .tourney-content{padding:12px}#tournamentAdmin .tourney-accordion>summary{padding:14px}}
+
+.map-admin-list{display:grid;gap:8px;margin:12px 0}.map-admin-row{display:grid;grid-template-columns:90px 1fr auto auto auto;gap:12px;align-items:center;padding:10px;border:1px solid #3c342b;background:#111116}.map-admin-row img{width:90px;height:52px;object-fit:cover}.map-admin-row span{color:#ffad24;font-weight:800}@media(max-width:600px){.map-admin-row{grid-template-columns:70px 1fr auto}.map-admin-row img{width:70px;height:46px}.map-admin-row span{grid-column:2}.map-admin-row button{grid-row:2}}
+
+/* Wspólne okna dialogowe panelu administratora */
+.ui-modal-backdrop{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.78);display:flex;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(5px)}
+.ui-modal{width:min(560px,100%);max-height:min(88vh,820px);overflow:auto;background:#17171d;border:1px solid #a85b19;box-shadow:0 24px 80px #000b;padding:24px;border-radius:5px;color:var(--white)}
+.ui-modal h3{font-size:29px;color:#ffad24;margin:0 0 9px}.ui-modal p{font-size:12px;line-height:1.6;color:var(--muted);margin:0 0 16px}.ui-modal .field{margin:14px 0}.ui-modal .field input,.ui-modal .field textarea,.ui-modal .field select{width:100%;padding:12px;background:#0c0c10;border:1px solid #4a3b2c;color:#fff;border-radius:3px;font:13px Inter,Arial}.ui-modal-actions{display:flex;justify-content:flex-end;gap:9px;flex-wrap:wrap;margin-top:22px}.ui-modal-actions button{min-width:110px}.ui-modal .btn.cancel{background:#222127;color:#eee;border:1px solid #5a5148}.ui-modal .btn.danger{background:#a33d25;color:#fff}
+
+
+/* ==================== WSPÓLNE POPRAWKI UKŁADU ==================== */
+.table-team-cell{display:inline-flex!important;align-items:center!important;gap:7px!important;min-width:0!important;max-width:100%!important;white-space:nowrap!important;vertical-align:middle!important}
+.table-team-cell>span:last-child{min-width:0!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.table-team-logo,.table-team-logo-placeholder{display:inline-flex!important;flex:0 0 28px!important;width:28px!important;height:28px!important;min-width:28px!important;min-height:28px!important;max-width:28px!important;max-height:28px!important;aspect-ratio:1/1!important;box-sizing:border-box!important;border-radius:5px!important;object-fit:cover!important;overflow:hidden!important;vertical-align:middle!important}
+.table-team-logo{background:#24242b!important;border:1px solid #514333!important}
+.table-team-logo-placeholder{align-items:center!important;justify-content:center!important;background:#28232a!important;color:#ffad24!important;font-weight:900!important;font-size:13px!important}
+.group-table td:first-child .table-team-cell{max-width:100%!important}
+.public-playoffs .result-teams .table-team-cell{max-width:min(38vw,260px)!important}
+.public-playoffs .result-teams .table-team-logo,.public-playoffs .result-teams .table-team-logo-placeholder{width:28px!important;height:28px!important;flex-basis:28px!important}
+@media(max-width:600px){.table-team-logo,.table-team-logo-placeholder{width:24px!important;height:24px!important;min-width:24px!important;min-height:24px!important;max-width:24px!important;max-height:24px!important;flex-basis:24px!important}.public-playoffs .result-teams .table-team-cell{max-width:42vw!important}}
+
+/* Nawigacja współdzielona — różne warianty publiczny/admin/auth */
+#site-navbar .site-nav{position:sticky;top:0;z-index:1000}
+#site-navbar .nav-toggle{display:none;background:transparent;color:inherit;border:1px solid #514333;border-radius:6px;padding:8px 11px;font-size:20px;cursor:pointer}
+#site-navbar .navlinks a.active{color:#ffad24}
+@media(max-width:760px){#site-navbar .site-nav .inner{position:relative;flex-wrap:wrap}#site-navbar .nav-toggle{display:block;margin-left:auto}#site-navbar .site-nav .navlinks{display:none;order:4;flex:0 0 100%;flex-direction:column;gap:0;padding:10px 0}#site-navbar .site-nav.menu-open .navlinks{display:flex}#site-navbar .site-nav .navlinks a{padding:12px 8px;border-top:1px solid #ffffff18}#site-navbar .site-nav .nav-actions{margin-left:auto}}
