@@ -4,6 +4,9 @@
  const db=window.supabase?.createClient(window.SUPABASE_URL,window.SUPABASE_PUBLISHABLE_KEY);
  const root=document.getElementById('tournamentPublic'); if(!db||!root)return;
  const fmt=n=>Number.isFinite(+n)?+n:0;
+ let teamLogosById={},teamLogosByName={};
+ const teamLogo=(id,name)=>{const url=teamLogosById[id]||teamLogosByName[String(name||'').trim().toLocaleLowerCase('pl-PL')];return url?`<img class="table-team-logo" src="${safe(url)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`:`<span class="table-team-logo-placeholder">${safe(String(name||'?').slice(0,1).toUpperCase())}</span>`};
+ const teamCell=(id,name)=>`<span class="table-team-cell">${teamLogo(id,name)}<span>${safe(name)}</span></span>`;
  function calc(state){return (state.groups||[]).map(g=>{const rows=g.teams.map(t=>({id:t.id,name:t.name,M:0,W:0,R:0,P:0,rf:0,ra:0,Pkt:0}));
   (state.matches||[]).filter(m=>m.group===g.name&&m.played).forEach(m=>{const a=rows.find(x=>x.id===m.team1Id),b=rows.find(x=>x.id===m.team2Id);if(!a||!b)return;a.M++;b.M++;const mapsA=(m.maps||[]).filter(x=>x.a!==null&&x.b!==null).reduce((s,x)=>s+(x.a>x.b?1:0),0);const mapsB=(m.maps||[]).filter(x=>x.a!==null&&x.b!==null).reduce((s,x)=>s+(x.b>x.a?1:0),0);if(mapsA>mapsB){a.W++;b.P++}else if(mapsB>mapsA){b.W++;a.P++}else{a.R++;b.R++}a.Pkt+=mapsA;b.Pkt+=mapsB;(m.maps||[]).forEach(x=>{a.rf+=fmt(x.a);a.ra+=fmt(x.b);b.rf+=fmt(x.b);b.ra+=fmt(x.a)})});
   rows.forEach(r=>{r.diff=r.rf-r.ra;const o=state.standingsOverrides?.[r.id];if(o){['M','W','R','P','rf','ra','Pkt'].forEach(k=>{if(o[k]!==undefined&&o[k]!==null)r[k]=fmt(o[k])});r.diff=r.rf-r.ra}});
@@ -26,7 +29,7 @@
     html+=`<section class="panel playoff-round"><h3>${labels[r]}</h3><div class="results">`;
     playoffMatches.filter(m=>m.round===r).sort((a,b)=>a.index-b.index).forEach(m=>{
      const score=(m.maps||[]).filter(x=>x&&x.a!==null&&x.b!==null).map(x=>`${x.a}:${x.b}`).join(' / ');
-     html+=`<div class="result"><div><small>${m.date?safe(m.date+' · '+(m.time||'')):'Termin do ustalenia'}</small><strong>${safe(m.team1||'Oczekuje na drużynę')} vs ${safe(m.team2||'Oczekuje na drużynę')}</strong>${m.winnerName?`<small>AWANS: ${safe(m.winnerName)}</small>`:''}</div><div class="scorebig">${score||'—'}</div></div>`;
+     html+=`<div class="result"><div><small>${m.date?safe(m.date+' · '+(m.time||'')):'Termin do ustalenia'}</small><strong class="result-teams">${teamCell(m.team1Id,m.team1||'Oczekuje na drużynę')}<span class="versus">VS</span>${teamCell(m.team2Id,m.team2||'Oczekuje na drużynę')}</strong>${m.winnerName?`<small>AWANS: ${safe(m.winnerName)}</small>`:''}</div><div class="scorebig">${score||'—'}</div></div>`;
     });
     html+='</div></section>';
    });
@@ -41,14 +44,14 @@
   // Dotychczasowe tabele i mecze grupowe są schowane w rozwijanej sekcji.
   html+='<details class="panel group-stage-accordion"><summary><span><b>FAZA GRUPOWA</b><small>Tabele grupowe, wyniki i awanse</small></span><span class="accordion-mark">+</span></summary><div class="group-stage-content">';
   html+='<h3>TABELE GRUPOWE</h3><div class="group-tables">';
-  groups.forEach(g=>{html+=`<div class="panel group-table"><h3>${safe(g.name)}</h3><div class="table-scroll"><table><thead><tr><th>Drużyna</th><th>M</th><th>W</th><th>R</th><th>P</th><th>Rundy</th><th>Pkt</th></tr></thead><tbody>${g.rows.map(r=>`<tr><td>${safe(r.name)}</td><td>${r.M}</td><td>${r.W}</td><td>${r.R}</td><td>${r.P}</td><td>${r.rf}:${r.ra}</td><td><b>${r.Pkt}</b></td></tr>`).join('')}</tbody></table></div><p class="note">Awans: dwie najlepsze drużyny.</p></div>`});
+  groups.forEach(g=>{html+=`<div class="panel group-table"><h3>${safe(g.name)}</h3><div class="table-scroll"><table><thead><tr><th>Drużyna</th><th>M</th><th>W</th><th>R</th><th>P</th><th>Rundy</th><th>Pkt</th></tr></thead><tbody>${g.rows.map(r=>`<tr><td>${teamCell(r.id,r.name)}</td><td>${r.M}</td><td>${r.W}</td><td>${r.R}</td><td>${r.P}</td><td>${r.rf}:${r.ra}</td><td><b>${r.Pkt}</b></td></tr>`).join('')}</tbody></table></div><p class="note">Awans: dwie najlepsze drużyny.</p></div>`});
   html+='</div><h3 style="margin-top:28px">MECZE GRUPOWE</h3><div class="results">';
-  (state.matches||[]).forEach(m=>{html+=`<div class="result"><div><small>${safe(m.group)} · BO2</small><strong>${safe(m.team1)} vs ${safe(m.team2)}</strong></div><div class="scorebig">${m.played?(m.maps||[]).map(x=>`${x.name?safe(x.name)+' ':''}${x.a}:${x.b}`).join(' / '):'—'}</div></div>`});
+  (state.matches||[]).forEach(m=>{html+=`<div class="result"><div><small>${safe(m.group)} · BO2</small><strong class="result-teams">${teamCell(m.team1Id,m.team1)}<span class="versus">VS</span>${teamCell(m.team2Id,m.team2)}</strong></div><div class="scorebig">${m.played?(m.maps||[]).map(x=>`${x.name?safe(x.name)+' ':''}${x.a}:${x.b}`).join(' / '):'—'}</div></div>`});
   html+='</div>';
   const allDone=(state.matches||[]).length>0&&(state.matches||[]).every(m=>m.played);
-  if(allDone){const qualifiers=groups.flatMap(g=>g.rows.slice(0,2).map((r,i)=>({...r,group:g.name,place:i+1})));html+='<h3 style="margin-top:28px">AWANS DO FAZY PUCHAROWEJ</h3><div class="teamlist">'+qualifiers.map(q=>`<div class="teamcard"><div><small>${safe(q.group)} · ${q.place}. MIEJSCE</small><strong>${safe(q.name)}</strong></div></div>`).join('')+'</div>';}
+  if(allDone){const qualifiers=groups.flatMap(g=>g.rows.slice(0,2).map((r,i)=>({...r,group:g.name,place:i+1})));html+='<h3 style="margin-top:28px">AWANS DO FAZY PUCHAROWEJ</h3><div class="teamlist">'+qualifiers.map(q=>`<div class="teamcard"><div><small>${safe(q.group)} · ${q.place}. MIEJSCE</small><strong class="result-teams">${teamCell(q.id,q.name)}</strong></div></div>`).join('')+'</div>';}
   html+='</div></details>';
   root.innerHTML=html;
  }
- db.from('tournament_state').select('state').eq('id',1).maybeSingle().then(({data,error})=>{if(error){root.textContent='Nie udało się pobrać danych turnieju: '+error.message;return}render(data?.state||{});});
+ Promise.all([db.from('tournament_state').select('state').eq('id',1).maybeSingle(),db.from('teams').select('id,name,logo_url').eq('status','approved')]).then(([stateRes,teamsRes])=>{if(stateRes.error){root.textContent='Nie udało się pobrać danych turnieju: '+stateRes.error.message;return}if(!teamsRes.error){(teamsRes.data||[]).forEach(t=>{if(t.logo_url){teamLogosById[t.id]=t.logo_url;teamLogosByName[String(t.name||'').trim().toLocaleLowerCase('pl-PL')]=t.logo_url;}})}render(stateRes.data?.state||{});}).catch(e=>{root.textContent='Nie udało się pobrać danych turnieju: '+e.message;});
 })();
