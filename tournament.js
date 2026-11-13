@@ -13,9 +13,6 @@
   let html='';
   const playoffMatches=Array.isArray(state.playoffs)?state.playoffs:[];
   const finalStandings=Array.isArray(state.finalStandings)?state.finalStandings:[];
-  const allMatches=[...(state.matches||[]),...playoffMatches].filter(m=>m.played);
-  const mapStats=Array.isArray(state.mapStats)?state.mapStats:[];
-  const totals=key=>{const out={};[...(state.matches||[]),...(state.playoffs||[])].forEach(m=>(m[key]||[]).forEach(x=>{const k=x.player.trim().toLowerCase();if(!out[k])out[k]={player:x.player,count:0};out[k].count+=Number(x.count)||0;}));return Object.values(out).sort((a,b)=>b.count-a.count||a.player.localeCompare(b.player,'pl'));};const mvp=totals('mvpEntries');const audience=totals('audienceEntries');
   if(state.playoffsClosed&&finalStandings.length){html+='<section class="panel final-standings"><div class="eyebrow">OFICJALNE WYNIKI</div><h2>KLASYFIKACJA KOŃCOWA</h2><ol class="final-standings-list">'+finalStandings.slice().sort((a,b)=>a.place-b.place).map(r=>`<li><span class="final-place">${fmt(r.place)}.</span><strong>${safe(r.name)}</strong>${r.place===1?'<span class="champion-tag">MISTRZ</span>':''}</li>`).join('')+'</ol></section>'; }
   const labels={R16:'1/8 FINAŁU',QF:'ĆWIERĆFINAŁY',SF:'PÓŁFINAŁY',FINAL:'WIELKI FINAŁ',THIRD:'MECZ O 3. MIEJSCE'};
   const order=['R16','QF','SF','THIRD','FINAL'];
@@ -39,9 +36,6 @@
   }
   html+='</div>';
 
-  html+='<section class="panel stats-panel"><div class="eyebrow">STATYSTYKI INDYWIDUALNE</div><h2>KLASYFIKACJA MVP</h2>'+(mvp.length?'<ol>'+mvp.map(x=>`<li><b>${safe(x.player)}</b>${x.team?' · '+safe(x.team):''} — ${fmt(x.count)} MVP</li>`).join('')+'</ol>':'<p class="note">Klasyfikacja MVP zostanie uzupełniona podczas turnieju.</p>')+'</section>';
-  html+='<section class="panel stats-panel"><div class="eyebrow">WYRÓŻNIENIE WIDZÓW</div><h2>NAGRODA PUBLICZNOŚCI</h2>'+(audience.length?'<ol>'+audience.map(x=>`<li><b>${safe(x.player)}</b> — ${fmt(x.count)} głosów</li>`).join('')+'</ol>':'<p class="note">Głosy z czatu Twitcha będą sumowane po każdym meczu.</p>')+'</section>';
-  html+='<section class="panel stats-panel"><div class="eyebrow">MAPY TURNIEJU</div><h2>KLASYFIKACJA MAP</h2>'+(mapStats.length?'<div class="map-public-list">'+mapStats.slice().sort((a,b)=>(Number(b.count)||0)-(Number(a.count)||0)).map(m=>`<div class="map-public-row">${m.image?`<img src="${safe(m.image)}" alt="${safe(m.name)}">`:'<div class="map-placeholder">CS2</div>'}<b>${safe(m.name)}</b><strong>${Number(m.count)||0}</strong></div>`).join('')+'</div>':'<p class="note">Klasyfikacja map zostanie uzupełniona przez organizatora.</p>')+'</section>';
   if(!groups.length){html+='<div class="panel"><p class="note">Faza grupowa nie została jeszcze skonfigurowana.</p></div>';root.innerHTML=html;return;}
 
   // Dotychczasowe tabele i mecze grupowe są schowane w rozwijanej sekcji.
