@@ -2,7 +2,7 @@
 <html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Panel administratora | BLAZEPL007</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css?v=4"></head><body>
-<div id="site-navbar"></div><script src="assets/js/navbar.js?v=4"></script>
+<div id="site-navbar"></div><script src="assets/js/navbar.js?v=6"></script>
 <main class="wrap">
 <section><div class="head"><div><div class="eyebrow">STREFA ORGANIZATORA</div><h2>PANEL ADMINISTRATORA</h2><p>Zarządzanie turniejem BlazePL007.</p></div></div>
 <div id="loginPanel" class="panel"><h3>Wymagane logowanie</h3><p class="note">Zaloguj się na konto administratora. Panel wymaga dodatkowego uwierzytelnienia 2FA.</p><a class="btn" href="login.html">PRZEJDŹ DO LOGOWANIA</a><div id="loginStatus" class="status"></div></div>
@@ -20,7 +20,7 @@ const $=s=>document.querySelector(s), safe=s=>String(s??"").replace(/[&<>"']/g,c
 const safeHttps=v=>{try{const u=new URL(String(v||""));return u.protocol==="https:"?u.href:""}catch{return ""}};
 const configured=window.SUPABASE_URL&&window.SUPABASE_PUBLISHABLE_KEY?.startsWith("sb_publishable_")&&!window.SUPABASE_PUBLISHABLE_KEY.includes("WSTAW_TUTAJ");
 const db=configured&&window.supabase?window.supabase.createClient(window.SUPABASE_URL,window.SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.localStorage}}):null;
-let activeFactor=null,challengeId=null;
+let activeFactor=null,challengeId=null,registrationConfig=null;
 function say(el,msg,type=""){el.textContent=msg;el.className="status "+type}
 function uiDialog({title="",message="",fields=[],confirmText="ZAPISZ",cancelText="ANULUJ",danger=false,confirmOnly=false}){
  return new Promise(resolve=>{
@@ -105,7 +105,17 @@ let approvedTournamentTeams=[];
 async function getTournament(){const {data,error}=await db.from("tournament_state").select("state").eq("id",1).maybeSingle();if(error)throw error;tournamentState=data?.state||{teamCount:16,groups:[],matches:[],standingsOverrides:{},playoffs:[],playoffsClosed:false};if(typeof tournamentState.playoffsClosed!=="boolean")tournamentState.playoffsClosed=false;return tournamentState}
 async function saveTournament(){const {error}=await db.from("tournament_state").upsert({id:1,state:tournamentState,updated_at:new Date().toISOString()});if(error)throw error}
 function groupStats(){return tournamentState.groups.map(g=>{const rows=g.teams.map(t=>({id:t.id,name:t.name,M:0,W:0,R:0,P:0,rf:0,ra:0,Pkt:0}));tournamentState.matches.filter(m=>m.group===g.name&&m.played).forEach(m=>{const a=rows.find(x=>x.id===m.team1Id),b=rows.find(x=>x.id===m.team2Id);if(!a||!b)return;a.M++;b.M++;let aw=0,bw=0;(m.maps||[]).forEach(x=>{if(x.a>x.b)aw++;else if(x.b>x.a)bw++;a.rf+=+x.a;a.ra+=+x.b;b.rf+=+x.b;b.ra+=+x.a});if(aw>bw){a.W++;b.P++}else if(bw>aw){b.W++;a.P++}else{a.R++;b.R++}a.Pkt+=aw;b.Pkt+=bw});rows.forEach(r=>{const o=tournamentState.standingsOverrides?.[r.id];if(o)Object.keys(o).forEach(k=>r[k]=Number(o[k])||0);r.diff=r.rf-r.ra});rows.sort((a,b)=>b.Pkt-a.Pkt||b.diff-a.diff||b.rf-a.rf||a.name.localeCompare(b.name,"pl"));return {name:g.name,rows,teams:Array.isArray(g.teams)?g.teams:[]}})}
-async function loadTournament(){try{await getTournament();const {data,error}=await db.from("teams").select("id,name").eq("status","approved").order("created_at");if(error)throw error;approvedTournamentTeams=data||[];renderTournamentAdmin();$("#tournamentTeamCount").value=String(tournamentState.teamCount||16)}catch(e){$("#tournamentAdmin").textContent="Błąd pobierania danych turnieju: "+e.message;say($("#tournamentStatus"),"Uruchom najpierw migrację SQL tournament-state.sql w Supabase.","error")}}
+async function loadTournament(){try{
+ await getTournament();
+ const {data:reg,error:regError}=await db.from("tournament_registration").select("id,is_open,closes_at,manual_override").eq("id",1).single();
+ if(regError)throw new Error("Nie można pobrać ustawień zapisów: "+regError.message);
+ registrationConfig=reg;
+ const {data,error}=await db.from("teams").select("id,name").eq("status","approved").order("created_at");
+ if(error)throw error;
+ approvedTournamentTeams=data||[];
+ renderTournamentAdmin();
+ $("#tournamentTeamCount").value=String(tournamentState.teamCount||16)
+ }catch(e){$("#tournamentAdmin").textContent="Błąd pobierania danych turnieju: "+e.message;say($("#tournamentStatus"),"Sprawdź konfigurację turnieju i tabelę tournament_registration w Supabase.","error")}}
 function canFinishGroupStage(){
  const expected=(tournamentState.teamCount||16)/4*6;
  return tournamentState.groups.length===(tournamentState.teamCount||16)/4 && tournamentState.groups.every(g=>g.teams?.length===4) && tournamentState.matches.filter(m=>m.stage==='group'||!m.stage).length===expected && tournamentState.matches.filter(m=>m.stage==='group'||!m.stage).every(m=>m.played && (m.maps||[]).length===2 && m.maps.every(x=>Number.isFinite(Number(x.a))&&Number.isFinite(Number(x.b))));
@@ -176,7 +186,13 @@ function renderTournamentAdmin(){
  const groupTables=groups.map(g=>`<details class="sub-accordion"><summary>${safe(g.name)} · tabela grupy</summary><div class="sub-content"><div class="table-scroll"><table><thead><tr><th>Drużyna</th><th>M</th><th>W</th><th>R</th><th>P</th><th>Rundy</th><th>Pkt</th><th></th></tr></thead><tbody>${g.rows.map(r=>`<tr><td>${safe(r.name)}</td><td>${r.M}</td><td>${r.W}</td><td>${r.R}</td><td>${r.P}</td><td>${r.rf}:${r.ra}</td><td>${r.Pkt}</td><td><button class="smallbtn" data-edit-standing="${safe(r.id)}">EDYTUJ STATYSTYKI</button></td></tr>`).join("")}</tbody></table></div></div></details>`).join("");
  const matchGroups=groups.map(g=>{const ms=tournamentState.matches.filter(m=>m.group===g.name);return `<details class="sub-accordion"><summary>${safe(g.name)} · ${ms.length} meczów</summary><div class="sub-content">${ms.map(m=>{const a=m.maps?.[0]||{},b=m.maps?.[1]||{};return `<article class="match-card"><h4>${safe(m.team1)} <span style="color:#ffad24">VS</span> ${safe(m.team2)}</h4><p class="match-meta">${m.date?safe(m.date+' · '+(m.time||'')):'Termin nieustawiony'}<br>Mapa 1: ${m.played?(a.name?safe(a.name)+' ':'')+a.a+':'+a.b:'—'} · Mapa 2: ${m.played?(b.name?safe(b.name)+' ':'')+b.a+':'+b.b:'—'}</p><div class="match-actions"><button class="smallbtn" data-edit-pair="${safe(m.id)}">EDYTUJ PARĘ</button><button class="smallbtn" data-edit-match="${safe(m.id)}">EDYTUJ WYNIK</button><button class="smallbtn" data-edit-date="${safe(m.id)}">USTAW TERMIN</button></div></article>`}).join("")||'<p class="section-help">Brak meczów w tej grupie.</p>'}</div></details>`}).join("");
  $("#tournamentAdmin").innerHTML=`
- <details class="tourney-accordion"><summary><span>1.</span><span>USTAWIENIA I PRZYDZIAŁ DRUŻYN<small>Format turnieju, grupy i przypisanie zespołów</small></span></summary><div class="tourney-content"><details class="sub-accordion" open><summary>Format turnieju</summary><div class="sub-content"><p class="section-help">Wybierz liczbę uczestników. Utworzenie od nowa zastąpi obecną fazę grupową i wyniki.</p><div class="field"><label>LICZBA DRUŻYN</label><select id="tournamentTeamCount"><option value="16">16 drużyn · 4 grupy</option><option value="32">32 drużyny · 8 grup</option></select></div><button class="btn" id="generateGroups">UTWÓRZ / ZRESETUJ FAZĘ GRUPOWĄ</button></div></details><details class="sub-accordion"><summary>Przydział drużyn do grup</summary><div class="sub-content"><p class="section-help">Samodzielnie wybierz po 4 zatwierdzone drużyny do każdej grupy. Jedna drużyna może trafić tylko do jednej grupy. Zapisanie przydziału utworzy mecze grupowe; później możesz ręcznie zmieniać pary i terminy.</p><div class="group-assignment">${teamCards}</div><button class="btn" id="saveGroupAssignments">ZAPISZ PRZYDZIAŁ DRUŻYN</button></div></details></div></details>
+ <details class="tourney-accordion"><summary><span>1.</span><span>USTAWIENIA I PRZYDZIAŁ DRUŻYN<small>Format turnieju, grupy i przypisanie zespołów</small></span></summary><div class="tourney-content">
+ <details class="sub-accordion" open><summary>ZAPISY DO TURNIEJU</summary><div class="sub-content">
+ <p class="section-help">Ręcznie włącz lub wyłącz możliwość rejestracji i wysyłania zgłoszeń drużyn.</p>
+ <p class="note" id="registrationAdminStatus">Status zapisów: ${registrationConfig?.is_open ? "WŁĄCZONE" : "WYŁĄCZONE"}</p>
+ <button class="btn ${registrationConfig?.is_open ? "danger" : ""}" id="toggleRegistration">${registrationConfig?.is_open ? "WYŁĄCZ ZAPISY" : "WŁĄCZ ZAPISY"}</button>
+ </div></details>
+ <details class="sub-accordion"><summary>Format turnieju</summary><div class="sub-content"><p class="section-help">Wybierz liczbę uczestników. Utworzenie od nowa zastąpi obecną fazę grupową i wyniki.</p><div class="field"><label>LICZBA DRUŻYN</label><select id="tournamentTeamCount"><option value="16">16 drużyn · 4 grupy</option><option value="32">32 drużyny · 8 grup</option></select></div><button class="btn" id="generateGroups">UTWÓRZ / ZRESETUJ FAZĘ GRUPOWĄ</button></div></details><details class="sub-accordion"><summary>Przydział drużyn do grup</summary><div class="sub-content"><p class="section-help">Samodzielnie wybierz po 4 zatwierdzone drużyny do każdej grupy. Jedna drużyna może trafić tylko do jednej grupy. Zapisanie przydziału utworzy mecze grupowe; później możesz ręcznie zmieniać pary i terminy.</p><div class="group-assignment">${teamCards}</div><button class="btn" id="saveGroupAssignments">ZAPISZ PRZYDZIAŁ DRUŻYN</button></div></details></div></details>
  <details class="tourney-accordion"><summary><span>2.</span><span>PARY I TERMINARZ<small>Dobór przeciwników, daty i godziny spotkań</small></span></summary><div class="tourney-content"><p class="section-help">Rozwiń wybraną grupę. Każda para może mieć własny termin, a pary można zmieniać niezależnie.</p>${matchGroups}</div></details>
  <details class="tourney-accordion"><summary><span>3.</span><span>WYNIKI I TABELE<small>Wyniki dwóch map, automatyczne naliczanie i ręczna edycja statystyk</small></span></summary><div class="tourney-content"><p class="section-help">Wyniki meczów automatycznie przeliczają punkty i rundy. Ręczna edycja statystyk jest dostępna przy każdej drużynie.</p>${groupTables}</div></details>
  <details class="tourney-accordion"><summary><span>4.</span><span>FAZA PUCHAROWA<small>Automatyczna drabinka i mecze BO3</small></span></summary><div class="tourney-content"><p class="section-help">Po zakończeniu grup system tworzy pary automatycznie. Administrator ustawia terminy i wpisuje wyniki BO3.</p>${renderPlayoffAdmin(groups)}<div class="match-actions" style="margin-top:14px">${tournamentState.playoffs?.length?'<button class="btn ghost" id="reopenGroupStage">COFNIJ ZAKOŃCZENIE FAZY GRUPOWEJ</button>':''}${tournamentState.playoffs?.length&&!tournamentState.playoffsClosed?`<button class="btn" id="closePlayoffStage" ${tournamentState.playoffs.some(m=>!m.played||!m.winnerId)?'disabled':''}>ZAKOŃCZ FAZĘ PUCHAROWĄ</button>`:''}${!tournamentState.playoffs?.length?`<button class="btn" id="finishGroupStage" ${!canFinishGroupStage()?'disabled':''}>ZAKOŃCZ FAZĘ GRUPOWĄ I UTWÓRZ DRABINKĘ</button>`:''}</div>${tournamentState.playoffsClosed?`<details class="sub-accordion" open><summary>KLASYFIKACJA KOŃCOWA</summary><div class="sub-content"><ol>${(tournamentState.finalStandings||[]).map(r=>`<li><b>${r.place}. ${safe(r.name)}</b></li>`).join('')}</ol><button class="btn ghost" id="editFinalStandings">PODMIEŃ DANE KLASYFIKACJI</button></div></details>`:''}</div></details>
@@ -212,7 +228,23 @@ function openGroupPairEditor(match,group){
  wrap.querySelector("#saveGroupPair").addEventListener("click",async()=>{try{const t1=group.teams.find(t=>t.id===one.value),t2=group.teams.find(t=>t.id===two.value);if(!t1||!t2)throw new Error("Wybierz obie drużyny.");if(t1.id===t2.id)throw new Error("Drużyny muszą być różne.");if(t1.id===match.team1Id&&t2.id===match.team2Id){wrap.remove();return;}if(!await uiConfirm(`Ustawić mecz ${group.name}: ${t1.name} vs ${t2.name}? Dotychczasowy wynik tego meczu zostanie wyczyszczony.`))return;for(const id of [match.team1Id,match.team2Id,t1.id,t2.id])delete tournamentState.standingsOverrides[id];match.team1Id=t1.id;match.team1=t1.name;match.team2Id=t2.id;match.team2=t2.name;match.maps=[{a:null,b:null},{a:null,b:null}];match.played=false;await saveTournament();wrap.remove();renderTournamentAdmin();say($("#tournamentStatus"),"Zmieniono parę drużyn. Możesz teraz wpisać wynik.","ok");}catch(err){say($("#tournamentStatus"),err.message,"error")}});
 }
 
+async function toggleTournamentRegistration(){
+ if(!registrationConfig)throw new Error("Nie udało się pobrać aktualnego statusu zapisów.");
+ const nextOpen=!registrationConfig.is_open;
+ const action=nextOpen?"włączyć":"wyłączyć";
+ if(!await uiConfirm(`Czy na pewno chcesz ${action} zapisy do turnieju?`))return;
+ const {data,error}=await db.from("tournament_registration")
+   .update({is_open:nextOpen,manual_override:true})
+   .eq("id",1)
+   .select("id,is_open,closes_at,manual_override")
+   .single();
+ if(error)throw error;
+ registrationConfig=data;
+ renderTournamentAdmin();
+ say($("#tournamentStatus"),nextOpen?"Zapisy zostały włączone.":"Zapisy zostały wyłączone.","ok");
+}
 $("#tournamentAdmin").addEventListener("click",async e=>{try{
+ if(e.target.closest("#toggleRegistration")){await toggleTournamentRegistration();return}
  if(e.target.closest("#generateGroups")){await generateTournamentGroups();return}
  if(e.target.closest("#saveGroupAssignments")){await saveManualGroupAssignments();return}
  if(e.target.closest("#finishGroupStage")){await finishGroupStage();return}
