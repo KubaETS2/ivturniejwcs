@@ -14,7 +14,7 @@
  <section id="tournamentTab" class="panel hidden"><h3>ZARZĄDZANIE TURNIEJEM</h3><p class="note">Grupy po 4 drużyny, każdy z każdym. BO2: wpisz rundy z obu map. Punkty = liczba wygranych map. Tabela: punkty, bilans rund, rundy wygrane.</p><div id="tournamentStatus" class="status"></div><div id="tournamentAdmin"></div></section>
  <section id="adminsTab" class="panel hidden"><h3>ZARZĄDZANIE ADMINISTRATORAMI</h3><p class="note">Dodawaj administratorów po adresie e-mail. Nowy administrator musi mieć konto i skonfigurować 2FA.</p><div class="field"><label>E-MAIL KONTA</label><input id="newAdminEmail" type="email" placeholder="admin@example.com"></div><button class="btn" id="addAdmin">DODAJ ADMINISTRATORA</button><div id="adminsList"></div><div id="adminStatus" class="status"></div></section>
 </div></section></main>
-<footer><div class="wrap foot"><span>© 2026 BLAZEPL007 · PANEL ADMINISTRATORA</span><a href="index.html">Powrót na stronę główną</a></div></footer>
+<footer><div class="wrap foot"><span>© 2026 BLAZEPL007 · PANEL ADMINISTRATORA</span><a href="home.html">Powrót na stronę główną</a></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script>
 const $=s=>document.querySelector(s), safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeHttps=v=>{try{const u=new URL(String(v||""));return u.protocol==="https:"?u.href:""}catch{return ""}};
