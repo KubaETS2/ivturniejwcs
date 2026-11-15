@@ -816,3 +816,26 @@ img, iframe, video { max-width:100%; }
   .result { min-width:0; }
   .result-scoreblock { max-width:52%; }
 }
+
+
+/* Poprawka układu transmisji: proporcje 16:9 i węższy, odsunięty czat. */
+@media (min-width: 851px){
+  #twitch-live .twitch-embed{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(330px,360px);
+    gap:18px;
+    align-items:stretch;
+    width:100%;
+  }
+  #twitch-live .twitch-player{
+    width:100%;height:auto;min-height:0;aspect-ratio:16/9;
+  }
+  #twitch-live .twitch-chat{
+    width:100%;height:100%;min-height:0;
+  }
+}
+@media (max-width:850px){
+  #twitch-live .twitch-embed{grid-template-columns:minmax(0,1fr);gap:14px}
+  #twitch-live .twitch-player{height:auto;min-height:0;aspect-ratio:16/9}
+  #twitch-live .twitch-chat{height:480px;min-height:480px}
+}
