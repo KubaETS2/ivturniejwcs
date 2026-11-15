@@ -1,2 +1,96 @@
 <!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Archiwum turniejów | BLAZEPL007</title><link rel="stylesheet" href="assets/css/style.css?v=7"></head><body><div id="site-navbar"></div><script src="assets/js/navbar.js?v=7"></script><main class="wrap"><section><div class="head"><div><div class="eyebrow">HISTORIA ROZGRYWEK</div><h2>ARCHIWUM TURNIEJÓW</h2><p>Zobacz wyniki, tabele i drabinki z poprzednich edycji turnieju.</p></div></div><div class="panel"><div class="field"><label for="editionSelect">WYBIERZ EDYCJĘ</label><select id="editionSelect"><option value="">Ładowanie archiwum…</option></select></div><div id="archiveContent"><p class="note">Wybierz edycję, aby zobaczyć dane.</p></div></div></section></main><footer><div class="wrap foot"><span>© BLAZEPL007 · ARCHIWUM TURNIEJÓW</span><a href="home.html">STRONA GŁÓWNA</a></div></footer><script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script><script>
-(()=>{const $=s=>document.querySelector(s),esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));const parse=async path=>{const r=await fetch(path);if(!r.ok)throw new Error("Nie znaleziono pliku "+path);return Papa.parse(await r.text(),{header:true,skipEmptyLines:true}).data};const val=v=>{try{return JSON.stringify(JSON.parse(v))}catch{return v}};const section=(title,rows,cols)=>`<details class="tourney-accordion" open><summary>${esc(title)}</summary><div class="tourney-content"><div class="table-scroll"><table><thead><tr>${cols.map(c=>`<th>${esc(c[1])}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${cols.map(c=>`<td>${esc(c[2]?val(r[c[0]]):r[c[0]])}</td>`).join("")}</tr>`).join("")||`<tr><td colspan="${cols.length}">Brak danych.</td></tr>`}</tbody></table></div></div></details>`;async function show(y){const root=$("#archiveContent");root.innerHTML="<p class=note>Wczytywanie archiwum…</p>";try{const p="archive/"+encodeURIComponent(y)+"/",files=await Promise.all(["metadata.json","teams.csv","matches.csv","standings.csv","playoffs.csv","final-standings.csv","mvp.csv","audience.csv","maps.csv"].map(async f=>{if(f.endsWith(".json")){const r=await fetch(p+f);return r.ok?r.json():{}}return parse(p+f)}));const [meta,teams,matches,standings,playoffs,finals,mvp,audience,maps]=files;let h=`<div class="eyebrow">EDYCJA ${esc(y)}</div><p class="note">${teams.length} drużyn · eksport ${esc(meta.exportedAt||"")}</p>`;h+=section("DRUŻYNY",teams,[["name","Drużyna"],["captain","Kapitan"],["players","Zawodnicy",true],["reserve","Rezerwowi",true]]);h+=section("TABELE GRUPOWE",standings,[["group","Grupa"],["place","Miejsce"],["name","Drużyna"],["M","Mecze"],["W","Wygrane"],["R","Remisy"],["P","Porażki"],["rf","Rundy +"],["ra","Rundy -"],["Pkt","Punkty"]]);h+=section("WYNIKI FAZY GRUPOWEJ",matches.filter(x=>x.stage==="group"||x.group),[["group","Grupa"],["team1","Drużyna 1"],["team2","Drużyna 2"],["maps","Wyniki map",true],["date","Data"]]);h+=section("PLAY-OFFY",playoffs,[["round","Runda"],["team1","Drużyna 1"],["team2","Drużyna 2"],["maps","Wyniki map",true],["winnerName","Zwycięzca"]]);h+=section("KLASYFIKACJA KOŃCOWA",finals,[["place","Miejsce"],["name","Drużyna"]]);h+=section("MVP",mvp,[["player","Zawodnik"],["count","MVP"]]);h+=section("NAGRODA PUBLICZNOŚCI",audience,[["player","Zawodnik"],["count","Punkty"]]);h+=section("STATYSTYKI MAP",maps,[["name","Mapa"],["count","Rozegrania"],["image","Obrazek"]]);root.innerHTML=h}catch(e){root.innerHTML=`<p class="note">${esc(e.message)}</p><p class="note">Rozpakuj folder archive/ z paczki eksportu do głównego katalogu repozytorium.</p>`}}fetch("archive/index.json").then(r=>r.ok?r.json():{editions:[]}).then(d=>{const ys=d.editions||[];$("#editionSelect").innerHTML=ys.length?ys.map(y=>`<option value="${esc(y)}">${esc(y)}</option>`).join(""):'<option value="">Brak archiwów</option>';if(ys.length)show(ys[0]);else $("#archiveContent").innerHTML='<p class="note">Nie dodano jeszcze żadnych archiwów.</p>'}).catch(()=>{$("#editionSelect").innerHTML='<option value="">Brak archiwów</option>'});$("#editionSelect").addEventListener("change",e=>e.target.value&&show(e.target.value))})();</script></body></html>
+(()=>{
+  const $=s=>document.querySelector(s);
+  const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const clean=v=>{
+    if(v===null||v===undefined)return "";
+    let s=String(v).trim();
+    if(!s||s==="null"||s==="undefined"||s==="[]")return "";
+    try{
+      const parsed=JSON.parse(s);
+      if(Array.isArray(parsed))return parsed.map(x=>String(x??"").trim()).filter(x=>x&&x!=='""'&&x!=="null").join("\n");
+      if(typeof parsed==="string")return parsed.trim();
+      return s;
+    }catch{return s.replace(/^["']|["']$/g,"").trim();}
+  };
+  const display=v=>esc(clean(v)).replace(/\n/g,"<br>");
+  const formatDate=v=>{
+    if(!v)return "—";
+    const d=new Date(v);
+    if(Number.isNaN(d.getTime()))return clean(v);
+    return new Intl.DateTimeFormat("pl-PL",{day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"}).format(d);
+  };
+  const parseCsv=async path=>{
+    const r=await fetch(path);
+    if(!r.ok)return [];
+    const text=await r.text();
+    if(!text.trim())return [];
+    return Papa.parse(text,{header:true,skipEmptyLines:true}).data;
+  };
+  const section=(title,rows,cols,emptyText="Brak zapisanych danych dla tej edycji.")=>{
+    const body=rows.length?rows.map(row=>`<tr>${cols.map(c=>{
+      let value=row[c[0]];
+      if(c[0]==="date"||c[0]==="exportedAt")value=formatDate(value);
+      if(c[3]==="image"){
+        const url=clean(value);
+        return `<td>${url?`<a href="${esc(url)}" target="_blank" rel="noopener">Zobacz mapę</a>`:"—"}</td>`;
+      }
+      return `<td>${display(value)||"—"}</td>`;
+    }).join("")}</tr>`).join(""):`<tr><td class="archive-empty" colspan="${cols.length}">${esc(emptyText)}</td></tr>`;
+    return `<details class="tourney-accordion" open><summary>${esc(title)} <span class="archive-count">${rows.length}</span></summary><div class="tourney-content"><div class="table-scroll"><table><thead><tr>${cols.map(c=>`<th>${esc(c[1])}</th>`).join("")}</tr></thead><tbody>${body}</tbody></table></div></div></details>`;
+  };
+  const json=async path=>{const r=await fetch(path);if(!r.ok)return {};try{return await r.json()}catch{return {}}};
+  async function show(y){
+    const root=$("#archiveContent");
+    root.innerHTML='<p class="note">Wczytywanie archiwum…</p>';
+    try{
+      const p="archive/"+encodeURIComponent(y)+"/";
+      const [meta,teams,matches,standings,playoffs,finals,mvp,audience,maps]=await Promise.all([
+        json(p+"metadata.json"),parseCsv(p+"teams.csv"),parseCsv(p+"matches.csv"),parseCsv(p+"standings.csv"),
+        parseCsv(p+"playoffs.csv"),parseCsv(p+"final-standings.csv"),parseCsv(p+"mvp.csv"),parseCsv(p+"audience.csv"),parseCsv(p+"maps.csv")
+      ]);
+      const groupMatches=matches.filter(x=>clean(x.stage).toLowerCase()==="group"||clean(x.group));
+      const exported=meta.exportedAt?formatDate(meta.exportedAt):"brak informacji";
+      let h=`<div class="archive-edition-head"><div class="eyebrow">EDYCJA ${esc(y)}</div><p class="note">${teams.length} drużyn <span class="archive-dot">•</span> Eksport: ${esc(exported)}</p></div>`;
+      h+=section("DRUŻYNY",teams,[["name","Drużyna"],["captain","Kapitan"],["players","Zawodnicy"],["reserve","Rezerwowi"]]);
+      h+=section("TABELE GRUPOWE",standings,[["group","Grupa"],["place","Miejsce"],["name","Drużyna"],["M","Mecze"],["W","Wygrane"],["R","Remisy"],["P","Porażki"],["rf","Rundy +"],["ra","Rundy −"],["Pkt","Punkty"]]);
+      h+=section("WYNIKI FAZY GRUPOWEJ",groupMatches,[["group","Grupa"],["team1","Drużyna 1"],["team2","Drużyna 2"],["maps","Wyniki map"],["date","Data"]]);
+      h+=section("PLAY-OFFY",playoffs,[["round","Runda"],["team1","Drużyna 1"],["team2","Drużyna 2"],["maps","Wyniki map"],["winnerName","Zwycięzca"]]);
+      h+=section("KLASYFIKACJA KOŃCOWA",finals,[["place","Miejsce"],["name","Drużyna"]]);
+      h+=section("MVP",mvp,[["player","Zawodnik"],["count","MVP"]]);
+      h+=section("NAGRODA PUBLICZNOŚCI",audience,[["player","Zawodnik"],["count","Punkty"]]);
+      h+=section("STATYSTYKI MAP",maps,[["name","Mapa"],["count","Rozegrania"],["image","Obrazek","", "image"]]);
+      root.innerHTML=h;
+    }catch(e){
+      root.innerHTML=`<p class="note">Nie udało się wczytać archiwum: ${esc(e.message)}</p><p class="note">Sprawdź, czy folder archive/${esc(y)}/ został dodany do repozytorium.</p>`;
+    }
+  }
+  fetch("archive/index.json").then(r=>r.ok?r.json():{editions:[]}).then(d=>{
+    const ys=Array.isArray(d.editions)?d.editions:[];
+    $("#editionSelect").innerHTML=ys.length?ys.map(y=>`<option value="${esc(y)}">${esc(y)}</option>`).join(""):'<option value="">Brak archiwów</option>';
+    if(ys.length)show(ys[0]);else $("#archiveContent").innerHTML='<p class="note">Nie dodano jeszcze żadnych archiwów.</p>';
+  }).catch(()=>{$("#editionSelect").innerHTML='<option value="">Nie udało się wczytać listy edycji</option>';$("#archiveContent").innerHTML='<p class="note">Nie udało się pobrać archive/index.json.</p>';});
+  $("#editionSelect").addEventListener("change",e=>{if(e.target.value)show(e.target.value);});
+})();
+</script>
+<style>
+.archive-edition-head{margin:8px 0 20px;padding:16px 18px;border:1px solid rgba(255,255,255,.09);border-radius:14px;background:rgba(255,255,255,.025)}
+.archive-edition-head .note{margin:8px 0 0}
+.archive-dot{padding:0 7px;opacity:.55}
+.tourney-accordion{margin:14px 0;border:1px solid rgba(255,255,255,.10);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.025)}
+.tourney-accordion>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;cursor:pointer;list-style:none;font-weight:800;letter-spacing:.06em;color:inherit}
+.tourney-accordion>summary::-webkit-details-marker{display:none}
+.tourney-accordion>summary:after{content:"＋";opacity:.7;font-size:18px}
+.tourney-accordion[open]>summary:after{content:"−"}
+.tourney-content{padding:0 16px 16px}
+.tourney-content .table-scroll{overflow-x:auto}
+.tourney-content table{width:100%;border-collapse:collapse;min-width:520px}
+.tourney-content th,.tourney-content td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid rgba(255,255,255,.08)}
+.tourney-content th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.72;white-space:nowrap}
+.tourney-content td{font-size:14px;line-height:1.55;overflow-wrap:anywhere}
+.tourney-content tbody tr:last-child td{border-bottom:0}
+.tourney-content tbody tr:hover{background:rgba(255,255,255,.035)}
+.tourney-content .archive-empty{text-align:center;padding:22px;color:rgba(255,255,255,.58)}
+.archive-count{font-size:11px;font-weight:600;letter-spacing:0;padding:3px 8px;border-radius:20px;background:rgba(255,255,255,.08);opacity:.75;margin-left:auto}
+@media(max-width:650px){.tourney-content{padding:0 9px 10px}.tourney-content th,.tourney-content td{padding:10px 9px}.tourney-accordion>summary{padding:14px}}
+</style>
