@@ -1,4 +1,4 @@
-<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zgłoszenie drużyny — BlazePL007</title><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/style.css?v=7"></head><body><div id="site-navbar"></div><script src="assets/js/navbar.js?v=8"></script><main class="wrap"><section><div class="head"><div><div class="eyebrow">ZGŁOSZENIE TURNIEJOWE</div><h2>ZGŁOŚ SWOJĄ DRUŻYNĘ</h2><p>Wypełnij skład. Organizator sprawdzi zgłoszenie przed jego zatwierdzeniem.</p></div></div></section><section id="teamSection"><div class="head"><div><div class="eyebrow">ZGŁOSZENIE TURNIEJOWE</div><h2>ZGŁOŚ SWOJĄ DRUŻYNĘ</h2><p>Wypełnij skład. Organizator sprawdzi zgłoszenie przed jego zatwierdzeniem.</p></div></div>
+<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zgłoszenie drużyny — BlazePL007</title><link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="assets/css/style.css?v=7"></head><body><div id="site-navbar"></div><script src="assets/js/navbar.js?v=7"></script><main class="wrap"><section id="teamSection"><div class="head"><div><div class="eyebrow">ZGŁOSZENIE TURNIEJOWE</div><h2>ZGŁOŚ SWOJĄ DRUŻYNĘ</h2><p>Wypełnij skład. Organizator sprawdzi zgłoszenie przed jego zatwierdzeniem.</p></div></div>
 <div class="grid2"><div class="panel"><div id="registrationClosedNotice" class="notice hidden" style="margin-bottom:16px">Zapisy do IV Turnieju w CS zostały zakończone. Formularz nie przyjmuje nowych zgłoszeń.</div><form id="teamForm"><div class="field"><label>NAZWA DRUŻYNY *</label><input name="team" required maxlength="40" placeholder="np. Blaze Warriors"></div><div class="field"><label>KAPITAN / NICK W GRZE *</label><input name="captain" required maxlength="40" placeholder="Nick kapitana"></div><div class="field"><label>KONTAKT DISCORD *</label><input name="contact" required maxlength="80" placeholder="Nazwa użytkownika Discord"></div><div class="field"><label>5 ZAWODNIKÓW — PO JEDNYM NICKU W LINII *</label><textarea name="players" required placeholder="Gracz 1&#10;Gracz 2&#10;Gracz 3&#10;Gracz 4&#10;Gracz 5"></textarea></div><div class="field"><label>REZERWOWY (OPCJONALNIE)</label><input name="reserve" maxlength="40" placeholder="Nick rezerwowego"></div>
 <div class="field"><label>LINK DO HYMNU DRUŻYNY *</label><input name="anthem_url" type="url" inputmode="url" placeholder="https://..." maxlength="500" required></div>
 <div class="field"><label>LINK DO LOGO DRUŻYNY *</label><input name="logo_url" type="url" inputmode="url" placeholder="https://..." maxlength="500" required></div>
@@ -6,7 +6,7 @@
 <label class="note"><input type="checkbox" required> Potwierdzam poprawność danych i akceptuję <a href="info.html" target="_blank" rel="noopener">regulamin turnieju</a> oraz politykę prywatności.</label><input type="hidden" name="teamId" id="teamId"><button class="btn" id="teamSubmit" style="width:100%;margin-top:15px" type="submit">WYŚLIJ ZGŁOSZENIE</button><button class="btn ghost hidden" id="cancelEdit" style="width:100%;margin-top:8px" type="button">ANULUJ EDYCJĘ</button></form><div id="teamMsg" class="status"></div></div><div class="panel"><div class="eyebrow">STATUS ZGŁOSZENIA</div><h3 style="font-size:27px;margin:12px 0">TWOJE ZGŁOSZENIA</h3><div id="myTeams" class="note">Ładowanie…</div></div></div></section></main><footer><div class="wrap foot"><span>© 2026 BLAZEPL007 · TURNIEJ CS2</span><a href="home.html">Powrót na stronę główną</a></div></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script>
 const $=s=>document.querySelector(s),safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const configured=window.SUPABASE_URL&&window.SUPABASE_PUBLISHABLE_KEY?.startsWith("sb_publishable_")&&!window.SUPABASE_PUBLISHABLE_KEY.includes("WSTAW_TUTAJ");
-const db=configured&&window.supabase?window.supabase.createClient(window.SUPABASE_URL,window.SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.localStorage}}):null;let currentUser=null;
+const db=configured&&window.supabase?window.supabase.createClient(window.SUPABASE_URL,window.SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.localStorage}}):null;let currentUser=null,existingTeam=null;
 function msg(el,t,k=""){el.textContent=t;el.className="status "+k}
 async function boot(){if(!db){msg($("#teamMsg"),"Nie można połączyć z Supabase. Sprawdź supabase-config.js.","error");return}const {data}=await db.auth.getSession();currentUser=data.session?.user||null;if(!currentUser){location.href="register.html?next=team-register.html";return}await loadMine();await refreshRegistrationStatus()}
 let registrationOpen=false;
@@ -16,19 +16,19 @@ async function refreshRegistrationStatus(){
   const {data,error}=await db.from("tournament_registration").select("is_open,closes_at,manual_override").eq("id",1).single();
   if(error)throw error;
   const deadline=new Date(data.closes_at),open=!!data.is_open&&(!!data.manual_override||Date.now()<deadline.getTime());registrationOpen=open;
-  notice.classList.toggle("hidden",open);form.classList.toggle("hidden",!open);submit.disabled=!open;
+  notice.classList.toggle("hidden",open);form.classList.toggle("hidden",!open||!!existingTeam&&!$("#teamId").value);submit.disabled=!open;
   if(!open){cancel.classList.add("hidden");$("#teamMsg").textContent="Zapisy są zamknięte. Nie można wysłać ani edytować zgłoszenia."}
  }catch(e){registrationOpen=false;notice.classList.remove("hidden");notice.textContent="Nie można sprawdzić statusu zapisów. Zgłoszenia są tymczasowo zablokowane.";form.classList.add("hidden")}
 }
 async function loadMine(){
  const {data,error}=await db.from("teams").select("id,user_id,name,captain,discord,players,reserve,anthem_url,logo_url,description,status,created_at").eq("user_id",currentUser.id).order("created_at",{ascending:false}).limit(2);
  if(error){$("#myTeams").textContent="Nie udało się pobrać zgłoszenia.";return}
- const mine=data||[];
+ const mine=data||[];existingTeam=mine[0]||null;
  if(mine.length>1){$("#myTeams").innerHTML="<p>Na koncie znaleziono więcej niż jedno zgłoszenie. Skontaktuj się z organizatorem, aby uporządkować dane.</p>";$("#teamForm").classList.add("hidden");return}
  const existing=mine[0];
  $("#teamForm").classList.toggle("hidden",!!existing&&!$("#teamId").value);
- if(!existing){$("#myTeams").textContent="Nie masz jeszcze zgłoszonej drużyny. Możesz zgłosić jedną drużynę na konto.";return}
- $("#myTeams").innerHTML=`<div class="teamcard"><div><strong>${safe(existing.name)}</strong><small>${new Date(existing.created_at).toLocaleString("pl-PL")}</small></div><span class="tag">${safe(existing.status)}</span></div><p class="note">Na jednym koncie można mieć tylko jedno zgłoszenie. Możesz je edytować poniżej; po zmianie danych zgłoszenie wróci do sprawdzenia organizatora.</p><button class="btn" id="editTeamBtn" type="button">EDYTUJ ZGŁOSZENIE</button>`;
+ if(!existing){$("#teamForm").classList.toggle("hidden",!registrationOpen);$("#myTeams").textContent="Nie masz jeszcze zgłoszonej drużyny. Możesz zgłosić jedną drużynę na konto.";return}
+ $("#myTeams").innerHTML=`<div class="teamcard"><div><strong>${safe(existing.name)}</strong><small>${new Date(existing.created_at).toLocaleString("pl-PL")}</small></div><span class="tag">${safe(existing.status)}</span></div><p class="note">Na jednym koncie można mieć tylko jedno zgłoszenie. Aby wprowadzić zmiany, użyj przycisku poniżej.</p><button class="btn" id="editTeamBtn" type="button">EDYTUJ ZGŁOSZENIE</button>`;
  $("#editTeamBtn").onclick=()=>{startEdit(existing)};
 }
 function startEdit(team){
@@ -47,7 +47,7 @@ function startEdit(team){
  $("#teamForm").scrollIntoView({behavior:"smooth",block:"center"});
 }
 function cancelEdit(){
- $("#teamForm").reset();$("#teamId").value="";$("#teamSubmit").textContent="WYŚLIJ ZGŁOSZENIE";$("#cancelEdit").classList.add("hidden");loadMine();
+ $("#teamForm").reset();$("#teamId").value="";$("#teamSubmit").textContent="WYŚLIJ ZGŁOSZENIE";$("#cancelEdit").classList.add("hidden");$("#teamForm").classList.toggle("hidden",!!existingTeam||!registrationOpen);loadMine();
 }
 $("#cancelEdit").addEventListener("click",cancelEdit);
 
