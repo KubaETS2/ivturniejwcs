@@ -32,10 +32,6 @@
     const body=rows.length?rows.map(row=>`<tr>${cols.map(c=>{
       const value=row[c[0]];
       if(c[0]==="date")return `<td>${esc(formatDate(value))}</td>`;
-      if(c[3]==="image"){
-        const url=clean(value);
-        return `<td>${url?`<a href="${esc(url)}" target="_blank" rel="noopener">Zobacz mapę</a>`:"—"}</td>`;
-      }
       return `<td>${display(value)}</td>`;
     }).join("")}</tr>`).join(""):`<tr><td class="archive-empty" colspan="${cols.length}">${esc(emptyText)}</td></tr>`;
     return `<details class="tourney-accordion" open><summary>${esc(title)}<span class="archive-count">${rows.length}</span></summary><div class="tourney-content"><div class="table-scroll"><table><thead><tr>${cols.map(c=>`<th>${esc(c[1])}</th>`).join("")}</tr></thead><tbody>${body}</tbody></table></div></div></details>`;
@@ -75,7 +71,7 @@
       h+=section("KLASYFIKACJA KOŃCOWA",finals,[["place","Miejsce"],["name","Drużyna"]]);
       h+=section("MVP",mvp,[["player","Zawodnik"],["count","MVP"]]);
       h+=section("NAGRODA PUBLICZNOŚCI",audience,[["player","Zawodnik"],["count","Punkty"]]);
-      h+=section("STATYSTYKI MAP",maps,[["name","Mapa"],["count","Rozegrania"],["image","Obrazek","","image"]]);
+      h+=section("STATYSTYKI MAP",maps,[["name","Mapa"],["count","Rozegrania"]]);
       root.innerHTML=h;
       root.querySelector(".archive-back").addEventListener("click",showList);
     }catch(e){root.innerHTML=`<button class="archive-back" type="button">← Wróć do listy edycji</button><p class="note">Nie udało się wczytać archiwum: ${esc(e.message)}</p>`;root.querySelector(".archive-back").addEventListener("click",showList);}
