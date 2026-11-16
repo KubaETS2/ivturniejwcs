@@ -113,7 +113,8 @@
       const id=`${kind}-${index}`;
       const result=isPlayoff||isFirstEdition?playoffResult(row):groupMatchResult(row);
       const last=isPlayoff?display(row.winnerName):esc(formatMatchDate(row));
-      return `<tr class="match-main-row"><td>${isPlayoff?display(row.round):display(row.group)}</td><td>${display(row.team1)}</td><td>${display(row.team2)}</td><td><span class="match-result">${esc(result)}</span><button class="match-preview-toggle" type="button" data-preview="${id}" aria-expanded="false" title="Pokaż wyniki poszczególnych map">Podgląd</button></td><td>${last}</td></tr><tr class="match-preview-row" data-preview-row="${id}" hidden><td colspan="5"><div class="match-preview-panel">${matchPreview(row)}</div></td></tr>`;
+      const preview=isFirstEdition?"":`<button class="match-preview-toggle" type="button" data-preview="${id}" aria-expanded="false" title="Pokaż wyniki poszczególnych map">Podgląd</button><tr class="match-preview-row" data-preview-row="${id}" hidden><td colspan="5"><div class="match-preview-panel">${matchPreview(row)}</div></td></tr>`;
+      return `<tr class="match-main-row"><td>${isPlayoff?display(row.round):display(row.group)}</td><td>${display(row.team1)}</td><td>${display(row.team2)}</td><td><span class="match-result">${esc(result)}</span>${preview.split('<tr class="match-preview-row"')[0]}</td><td>${last}</td></tr>${isFirstEdition?"":preview.slice(preview.indexOf('<tr class="match-preview-row"'))}`;
     }).join(""):`<tr><td class="archive-empty" colspan="5">Brak zapisanych danych dla tej edycji.</td></tr>`;
     return `<details class="tourney-accordion" open><summary>${esc(title)}<span class="archive-count">${rows.length}</span></summary><div class="tourney-content"><div class="table-scroll"><table><thead><tr>${headings.map(h=>`<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${body}</tbody></table></div></div></details>`;
   };
