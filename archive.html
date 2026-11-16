@@ -61,6 +61,62 @@
     });
     return scores.length?scores.map(esc).join(", "):"—";
   };
+  const parseMapData=value=>{
+    if(value===null||value===undefined||value==="")return [];
+    if(Array.isArray(value))return value;
+    try{const parsed=JSON.parse(String(value));return Array.isArray(parsed)?parsed:[];}catch{return [];}
+  };
+  const getScorePair=item=>{
+    if(item===null||item===undefined)return null;
+    if(typeof item!=="object")return null;
+    const a=Number(item.a??item.team1??item.home??item.score1);
+    const b=Number(item.b??item.team2??item.away??item.score2);
+    return Number.isFinite(a)&&Number.isFinite(b)?{a,b}:null;
+  };
+  const groupMatchResult=row=>{
+    const scores=parseMapData(row.maps).map(getScorePair).filter(Boolean);
+    if(!scores.length)return "—";
+    let a=0,b=0;
+    scores.forEach(score=>{if(score.a>score.b)a++;else if(score.b>score.a)b++;});
+    return `${a}–${b}`;
+  };
+  const playoffResult=row=>{
+    const raw=parseMapData(row.maps);
+    const scores=raw.map(getScorePair);
+    if(!scores.length)return "—";
+    // Starsze eksporty mogą przechowywać tylko wynik serii, np. [{a:2,b:0}].
+    if(scores.length===1&&scores[0]&&scores[0].a<=2&&scores[0].b<=2){
+      return `${scores[0].a}–${scores[0].b}`;
+    }
+    // Jeśli zapisano wyniki poszczególnych map (np. 13–4, 13–8),
+    // w głównej tabeli pokazujemy wyłącznie wynik serii BO3 (2–0, 2–1 itd.).
+    let team1=0,team2=0;
+    scores.forEach(score=>{
+      if(!score)return;
+      if(score.a>score.b)team1++;
+      else if(score.b>score.a)team2++;
+    });
+    return `${team1}–${team2}`;
+  };
+  const matchPreview=row=>{
+    const scores=parseMapData(row.maps).map(getScorePair);
+    if(!scores.length)return '<div class="match-preview-empty">Brak zapisanych szczegółów wyniku.</div>';
+    // Gdy w archiwum zapisano wyłącznie wynik serii, nie udajemy, że to wynik mapy.
+    const isSeries=scores.length===1&&scores[0]&&scores[0].a<=2&&scores[0].b<=2;
+    if(isSeries)return '<div class="match-preview-empty">Brak zapisanych wyników poszczególnych map.</div>';
+    return `<div class="match-map-list">${scores.map((score,i)=>score?`<div class="match-map-line"><span>Mapa ${i+1}</span><strong>${score.a}–${score.b}</strong></div>`:`<div class="match-map-line"><span>Mapa ${i+1}</span><strong>—</strong></div>`).join("")}</div>`;
+  };
+  const matchSection=(title,rows,kind)=>{
+    const isPlayoff=kind==="playoff";
+    const headings=isPlayoff?["Runda","Drużyna 1","Drużyna 2","Wynik","Zwycięzca"]:["Grupa","Drużyna 1","Drużyna 2","Wynik","Data"];
+    const body=rows.length?rows.map((row,index)=>{
+      const id=`${kind}-${index}`;
+      const result=isPlayoff?playoffResult(row):groupMatchResult(row);
+      const last=isPlayoff?display(row.winnerName):esc(formatMatchDate(row));
+      return `<tr class="match-main-row"><td>${isPlayoff?display(row.round):display(row.group)}</td><td>${display(row.team1)}</td><td>${display(row.team2)}</td><td><span class="match-result">${esc(result)}</span><button class="match-preview-toggle" type="button" data-preview="${id}" aria-expanded="false" title="Pokaż wyniki poszczególnych map">Podgląd</button></td><td>${last}</td></tr><tr class="match-preview-row" data-preview-row="${id}" hidden><td colspan="5"><div class="match-preview-panel">${matchPreview(row)}</div></td></tr>`;
+    }).join(""):`<tr><td class="archive-empty" colspan="5">Brak zapisanych danych dla tej edycji.</td></tr>`;
+    return `<details class="tourney-accordion" open><summary>${esc(title)}<span class="archive-count">${rows.length}</span></summary><div class="tourney-content"><div class="table-scroll"><table><thead><tr>${headings.map(h=>`<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${body}</tbody></table></div></div></details>`;
+  };
   const parseCsv=async path=>{
     const r=await fetch(path);
     if(!r.ok)return [];
@@ -112,14 +168,23 @@
       let h=`<button class="archive-back" type="button">← Wróć do listy edycji</button><div class="archive-edition-head"><div class="eyebrow">EDYCJA ${esc(y)}</div><p class="note">${teams.length} drużyn <span class="archive-dot">·</span> Eksport: ${esc(formatDate(meta.exportedAt))}</p></div>`;
       h+=section("DRUŻYNY",teams,[["name","Drużyna"],["captain","Kapitan"],["players","Zawodnicy"],["reserve","Rezerwowi"]]);
       h+=section("TABELE GRUPOWE",standings,[["group","Grupa"],["place","Miejsce"],["name","Drużyna"],["M","Mecze"],["W","Wygrane"],["R","Remisy"],["P","Porażki"],["rf","Rundy +"],["ra","Rundy −"],["Pkt","Punkty"]]);
-      h+=section("WYNIKI FAZY GRUPOWEJ",groupMatches,[["group","Grupa"],["team1","Drużyna 1"],["team2","Drużyna 2"],["maps","Wyniki map"],["date","Data"]]);
-      h+=section("PLAY-OFFY",playoffs,[["round","Runda"],["team1","Drużyna 1"],["team2","Drużyna 2"],["maps","Wynik serii BO3"],["winnerName","Zwycięzca"]]);
+      h+=matchSection("WYNIKI FAZY GRUPOWEJ",groupMatches,"group");
+      h+=matchSection("PLAY-OFFY",playoffs,"playoff");
       h+=section("KLASYFIKACJA KOŃCOWA",finals,[["place","Miejsce"],["name","Drużyna"]]);
       h+=section("MVP",mvp,[["player","Zawodnik"],["count","MVP"]]);
       h+=section("NAGRODA PUBLICZNOŚCI",audience,[["player","Zawodnik"],["count","Punkty"]]);
       h+=section("STATYSTYKI MAP",maps,[["name","Mapa"],["count","Rozegrania"]]);
       root.innerHTML=h;
       root.querySelector(".archive-back").addEventListener("click",showList);
+      root.querySelectorAll(".match-preview-toggle").forEach(button=>button.addEventListener("click",()=>{
+        const id=button.dataset.preview;
+        const row=root.querySelector(`[data-preview-row="${id}"]`);
+        if(!row)return;
+        const open=row.hidden;
+        row.hidden=!open;
+        button.setAttribute("aria-expanded",String(open));
+        button.textContent=open?"Ukryj":"Podgląd";
+      }));
     }catch(e){root.innerHTML=`<button class="archive-back" type="button">← Wróć do listy edycji</button><p class="note">Nie udało się wczytać archiwum: ${esc(e.message)}</p>`;root.querySelector(".archive-back").addEventListener("click",showList);}
   }
   showList();
@@ -145,5 +210,16 @@
 .tourney-content td{font-size:14px;line-height:1.55;overflow-wrap:anywhere}.tourney-content tbody tr:last-child td{border-bottom:0}
 .tourney-content tbody tr:hover{background:rgba(255,255,255,.035)}.tourney-content .archive-empty{text-align:center;padding:22px;color:rgba(255,255,255,.58)}
 .archive-count{font-size:11px;font-weight:600;letter-spacing:0;padding:3px 8px;border-radius:20px;background:rgba(255,255,255,.08);opacity:.75;margin-left:auto}
+
+.match-main-row .match-result{display:inline-block;min-width:34px;font-weight:800;font-variant-numeric:tabular-nums;margin-right:8px}
+.match-preview-toggle{display:inline-flex;align-items:center;justify-content:center;padding:4px 9px;border:1px solid rgba(255,166,0,.35);border-radius:6px;background:rgba(255,166,0,.08);color:#ffb02e;font:inherit;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap}
+.match-preview-toggle:hover{background:rgba(255,166,0,.16);border-color:rgba(255,166,0,.65)}
+.match-preview-row>td{padding:0!important;background:rgba(0,0,0,.16)}
+.match-preview-panel{padding:12px 14px 14px;border-left:2px solid #f59b18;margin:8px 12px 12px;color:rgba(255,255,255,.88)}
+.match-map-list{display:flex;flex-wrap:wrap;gap:8px}
+.match-map-line{display:flex;align-items:center;gap:14px;min-width:130px;padding:8px 11px;border:1px solid rgba(255,255,255,.09);border-radius:8px;background:rgba(255,255,255,.035);font-size:12px}
+.match-map-line span{opacity:.68}.match-map-line strong{font-size:13px;font-variant-numeric:tabular-nums}
+.match-preview-empty{font-size:12px;opacity:.7}
+
 @media(max-width:650px){.tourney-content{padding:0 9px 10px}.tourney-content th,.tourney-content td{padding:10px 9px}.tourney-accordion>summary{padding:14px}.archive-edition-card{padding:14px}}
 </style>
