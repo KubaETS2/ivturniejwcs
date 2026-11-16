@@ -150,7 +150,14 @@
       const cards=await Promise.all(editions.map(async y=>{
         const p="archive/"+encodeURIComponent(y)+"/";
         const [meta,teams]=await Promise.all([json(p+"metadata.json"),parseCsv(p+"teams.csv")]);
-        return `<button class="archive-edition-card" type="button" data-edition="${esc(y)}"><span class="eyebrow">EDYCJA ${esc(y)}</span><span class="archive-edition-meta">${teams.length} drużyn <i>·</i> Eksport: ${esc(formatDate(meta.exportedAt))}</span></button>`;
+        const tournamentPeriods={
+          "I Turniej w CS":"19.01.2019 – 24.02.2019",
+          "II Turniej w CS":"08.09.2024 – 21.09.2024",
+          "III Turniej w CS":"31.05.2026 – 22.06.2026"
+        };
+        const formatLabel=meta.format==="2vs2"||String(y).startsWith("I ")?"CS2 · 2V2":"CS2 · 5V5";
+        const period=tournamentPeriods[y]||"Termin turnieju: brak danych";
+        return `<button class="archive-edition-card" type="button" data-edition="${esc(y)}"><span class="archive-edition-card-main"><span class="eyebrow">EDYCJA ${esc(y)}</span><span class="archive-edition-meta">${teams.length} drużyn <i>·</i> Turniej: ${esc(period)} <i>·</i> Eksport: ${esc(formatDate(meta.exportedAt))}</span></span><span class="archive-format-tag">${formatLabel}</span></button>`;
       }));
       root.innerHTML=`<div class="archive-edition-list">${cards.join("")}</div>`;
       root.querySelectorAll("[data-edition]").forEach(btn=>btn.addEventListener("click",()=>show(btn.dataset.edition)));
@@ -199,10 +206,10 @@
 </script>
 <style>
 .archive-edition-list{display:grid;gap:12px}
-.archive-edition-card{display:flex;width:100%;min-height:72px;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;padding:16px 18px;border:1px solid rgba(255,255,255,.10);border-radius:14px;background:rgba(255,255,255,.025);color:inherit;text-align:left;cursor:pointer;transition:border-color .18s,background .18s,transform .18s}
+.archive-edition-card{display:flex;width:100%;min-height:72px;flex-direction:row;align-items:center;justify-content:space-between;gap:16px;padding:16px 18px;border:1px solid rgba(255,255,255,.10);border-radius:14px;background:rgba(255,255,255,.025);color:inherit;text-align:left;cursor:pointer;transition:border-color .18s,background .18s,transform .18s}
 .archive-edition-card:hover{border-color:rgba(255,166,0,.45);background:rgba(255,255,255,.05);transform:translateY(-1px)}
-.archive-edition-card .eyebrow{color:#ffad26;font-weight:900;letter-spacing:.22em;font-size:11px}
-.archive-edition-meta{font-size:11px;opacity:.72}.archive-edition-meta i{font-style:normal;padding:0 8px;opacity:.65}
+.archive-edition-card-main{display:flex;min-width:0;flex-direction:column;align-items:flex-start;gap:8px}.archive-edition-card .eyebrow{color:#ffad26;font-weight:900;letter-spacing:.22em;font-size:11px}
+.archive-edition-meta{font-size:11px;opacity:.72;line-height:1.5}.archive-format-tag{flex:0 0 auto;padding:5px 9px;border:1px solid rgba(255,166,0,.38);border-radius:5px;color:#ffb02e;background:rgba(255,166,0,.055);font-size:10px;letter-spacing:.12em;font-weight:800;white-space:nowrap}.archive-edition-meta i{font-style:normal;padding:0 8px;opacity:.65}
 .archive-edition-head{margin:8px 0 20px;padding:16px 18px;border:1px solid rgba(255,255,255,.09);border-radius:14px;background:rgba(255,255,255,.025)}
 .archive-edition-head .note{margin:8px 0 0}.archive-dot{padding:0 7px;opacity:.55}
 .archive-back{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:10px 14px;border:1px solid rgba(255,255,255,.13);border-radius:9px;background:rgba(255,255,255,.035);color:inherit;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
@@ -228,5 +235,5 @@
 .match-map-line span{opacity:.7}.match-map-line strong{font-size:13px}
 .match-preview-empty{font-size:12px;opacity:.7}
 
-@media(max-width:650px){.tourney-content{padding:0 9px 10px}.tourney-content th,.tourney-content td{padding:10px 9px}.tourney-accordion>summary{padding:14px}.archive-edition-card{padding:14px}}
+@media(max-width:650px){.archive-edition-card{gap:10px;padding:14px}.archive-edition-meta{max-width:100%;font-size:10px}.archive-format-tag{font-size:9px;padding:4px 6px}.tourney-content{padding:0 9px 10px}.tourney-content th,.tourney-content td{padding:10px 9px}.tourney-accordion>summary{padding:14px}.archive-edition-card{padding:14px}}
 </style>
