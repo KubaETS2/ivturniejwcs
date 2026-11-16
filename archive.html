@@ -173,7 +173,14 @@
         parseCsv(p+"playoffs.csv"),parseCsv(p+"final-standings.csv"),parseCsv(p+"mvp.csv"),parseCsv(p+"audience.csv"),parseCsv(p+"maps.csv")
       ]);
       const groupMatches=matches.filter(x=>clean(x.stage).toLowerCase()==="group"||clean(x.group));
-      let h=`<button class="archive-back" type="button">← Wróć do listy edycji</button><div class="archive-edition-head"><div class="eyebrow">EDYCJA ${esc(y)}</div><p class="note">${teams.length} drużyn <span class="archive-dot">·</span> Eksport: ${esc(formatDate(meta.exportedAt))}</p></div>`;
+      const tournamentPeriods={
+        "I Turniej w CS":"19.01.2019 – 24.02.2019",
+        "II Turniej w CS":"08.09.2024 – 21.09.2024",
+        "III Turniej w CS":"31.05.2026 – 22.06.2026"
+      };
+      const formatLabel=meta.format==="2vs2"||String(y).startsWith("I ")?"CS2 · 2V2":"CS2 · 5V5";
+      const period=tournamentPeriods[y]||"brak danych";
+      let h=`<button class="archive-back" type="button">← Wróć do listy edycji</button><div class="archive-edition-head"><div class="archive-edition-head-row"><div><div class="eyebrow">EDYCJA ${esc(y)}</div><p class="note">${teams.length} drużyn <span class="archive-dot">·</span> Turniej: ${esc(period)} <span class="archive-dot">·</span> Eksport: ${esc(formatDate(meta.exportedAt))}</p></div><span class="archive-format-tag">${formatLabel}</span></div></div>`;
       h+=section("DRUŻYNY",teams,meta.format==="2vs2"?[["name","Drużyna (duet)"],["players","Zawodnicy"]]:[["name","Drużyna"],["captain","Kapitan"],["players","Zawodnicy"],["reserve","Rezerwowi"]]);
       const isFirstEdition=meta.format==="2vs2";
       // W I edycji 2vs2 źródło zawiera wyłącznie wyniki serii (np. 2:0),
@@ -211,7 +218,7 @@
 .archive-edition-card-main{display:flex;min-width:0;flex-direction:column;align-items:flex-start;gap:8px}.archive-edition-card .eyebrow{color:#ffad26;font-weight:900;letter-spacing:.22em;font-size:11px}
 .archive-edition-meta{font-size:11px;opacity:.72;line-height:1.5}.archive-format-tag{flex:0 0 auto;padding:5px 9px;border:1px solid rgba(255,166,0,.38);border-radius:5px;color:#ffb02e;background:rgba(255,166,0,.055);font-size:10px;letter-spacing:.12em;font-weight:800;white-space:nowrap}.archive-edition-meta i{font-style:normal;padding:0 8px;opacity:.65}
 .archive-edition-head{margin:8px 0 20px;padding:16px 18px;border:1px solid rgba(255,255,255,.09);border-radius:14px;background:rgba(255,255,255,.025)}
-.archive-edition-head .note{margin:8px 0 0}.archive-dot{padding:0 7px;opacity:.55}
+.archive-edition-head .note{margin:8px 0 0}.archive-edition-head-row{display:flex;align-items:center;justify-content:space-between;gap:16px}.archive-dot{padding:0 7px;opacity:.55}
 .archive-back{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:10px 14px;border:1px solid rgba(255,255,255,.13);border-radius:9px;background:rgba(255,255,255,.035);color:inherit;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
 .archive-back:hover{border-color:rgba(255,166,0,.5);background:rgba(255,255,255,.07)}
 .tourney-accordion{margin:14px 0;border:1px solid rgba(255,255,255,.10);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.025)}
@@ -235,5 +242,5 @@
 .match-map-line span{opacity:.7}.match-map-line strong{font-size:13px}
 .match-preview-empty{font-size:12px;opacity:.7}
 
-@media(max-width:650px){.archive-edition-card{gap:10px;padding:14px}.archive-edition-meta{max-width:100%;font-size:10px}.archive-format-tag{font-size:9px;padding:4px 6px}.tourney-content{padding:0 9px 10px}.tourney-content th,.tourney-content td{padding:10px 9px}.tourney-accordion>summary{padding:14px}.archive-edition-card{padding:14px}}
+@media(max-width:650px){.archive-edition-head-row{align-items:flex-start;flex-direction:column;gap:10px}.archive-edition-card{gap:10px;padding:14px}.archive-edition-meta{max-width:100%;font-size:10px}.archive-format-tag{font-size:9px;padding:4px 6px}.tourney-content{padding:0 9px 10px}.tourney-content th,.tourney-content td{padding:10px 9px}.tourney-accordion>summary{padding:14px}.archive-edition-card{padding:14px}}
 </style>
