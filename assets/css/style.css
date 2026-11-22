@@ -839,3 +839,15 @@ img, iframe, video { max-width:100%; }
   #twitch-live .twitch-player{height:auto;min-height:0;aspect-ratio:16/9}
   #twitch-live .twitch-chat{height:480px;min-height:480px}
 }
+
+/* Fix: etykieta formatu nie może łamać się ani zwężać w karcie drużyny. */
+.team-card-full > .tag {
+  display: inline-block;
+  flex: 0 0 auto;
+  flex-shrink: 0;
+  width: max-content;
+  min-width: max-content;
+  white-space: nowrap;
+  text-align: center;
+  box-sizing: border-box;
+}
