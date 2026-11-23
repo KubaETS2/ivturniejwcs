@@ -61,25 +61,25 @@
     <div class="grid2">
       <article class="panel">
         <div class="info-step">FAZA GRUPOWA</div>
-        <h3 class="info-card-title">4 grupy · każdy z każdym</h3>
-        <p>Zakładany format turnieju to 16 drużyn podzielonych na cztery grupy. W każdej grupie drużyny rozgrywają mecze systemem każdy z każdym.</p>
+        <h3 class="info-card-title" id="infoGroupTitle">4 grupy · każdy z każdym</h3>
+        <div id="infoGroupDescription"><p>Zakładany format turnieju to 16 drużyn podzielonych na cztery grupy. W każdej grupie drużyny rozgrywają mecze systemem każdy z każdym.</p>
         <ul class="info-list">
           <li>Mecze BO2 – rozgrywane są dwie mapy.</li>
           <li>Za wygraną mapę drużyna otrzymuje 1 punkt.</li>
           <li>Przy remisie na mapie każda drużyna otrzymuje po 1 punkcie.</li>
           <li>Dwie najlepsze drużyny z każdej grupy awansują do fazy pucharowej.</li>
-        </ul>
+        </ul></div>
       </article>
       <article class="panel">
         <div class="info-step">FAZA PUCHAROWA</div>
-        <h3 class="info-card-title">Play-offy BO3</h3>
-        <p>W fazie pucharowej mecze rozgrywane są do dwóch wygranych map (BO3).</p>
+        <h3 class="info-card-title" id="infoPlayoffTitle">Play-offy BO3</h3>
+        <div id="infoPlayoffDescription"><p>W fazie pucharowej mecze rozgrywane są do dwóch wygranych map (BO3).</p>
         <ul class="info-list">
           <li>Ćwierćfinały: zwycięzcy grup grają z wicemistrzami grup przeciwnych (A1–B2, B1–A2 itd.).</li>
           <li>Następnie rozgrywane są półfinały.</li>
           <li>Przegrani półfinałów grają o 3. miejsce.</li>
           <li>Zwycięzcy półfinałów spotykają się w finale.</li>
-        </ul>
+        </ul></div>
       </article>
     </div>
     <article class="panel info-panel-spaced">
@@ -144,6 +144,37 @@
     </div>
   </section>
 </main>
+<script>
+(async()=>{
+  const groupTitle=document.getElementById('infoGroupTitle');
+  const groupDescription=document.getElementById('infoGroupDescription');
+  const playoffTitle=document.getElementById('infoPlayoffTitle');
+  const playoffDescription=document.getElementById('infoPlayoffDescription');
+  if(!groupTitle||!groupDescription||!playoffTitle||!playoffDescription||!window.supabase||!window.SUPABASE_URL||!window.SUPABASE_PUBLISHABLE_KEY)return;
+  try{
+    const db=window.supabase.createClient(window.SUPABASE_URL,window.SUPABASE_PUBLISHABLE_KEY);
+    const {data,error}=await db.from('tournament_state').select('state').eq('id',1).maybeSingle();
+    if(error)throw error;
+    const count=Number(data?.state?.teamCount)||16;
+    const groups=count/4, groupMatches=groups*6;
+    const qualifiers=count===12?8:count===8?4:count/2;
+    const groupLabel=`${groups} ${groups===1?'grupa':groups===2||groups===3||groups===4?'grupy':'grup'} po 4`;
+    let qualification='Dwie najlepsze drużyny z każdej grupy awansują do fazy pucharowej.';
+    let playoffLabel='Ćwierćfinały';
+    let playoffDetails='';
+    if(count===8){qualification='Dwie najlepsze drużyny z każdej grupy awansują do półfinałów.';playoffLabel='Półfinały';playoffDetails='<li>Półfinały: A1–B2 oraz B1–A2.</li><li>Zwycięzcy półfinałów grają w finale.</li><li>Przegrani półfinałów grają o 3. miejsce.</li>';}
+    else if(count===12){qualification='Dwie najlepsze drużyny z każdej grupy oraz dwie najlepsze drużyny z 3. miejsc (łącznie 8 zespołów) awansują do fazy pucharowej.';playoffDetails='<li>Do ćwierćfinałów awansuje 8 drużyn: TOP 2 z każdej grupy oraz 2 najlepsze drużyny z 3. miejsc.</li><li>Dwie najlepsze drużyny z 3. miejsc są porównywane według punktów, bilansu rund i liczby wygranych rund.</li><li>Rozstawienie ćwierćfinałów jest ustalane na podstawie wyników fazy grupowej.</li><li>Zwycięzcy ćwierćfinałów awansują do półfinałów.</li><li>Przegrani półfinałów grają o 3. miejsce, a zwycięzcy w finale.</li>';}
+    else if(count===32){playoffLabel='1/8 finału i dalsze rundy';playoffDetails='<li>Do 1/8 finału awansują po dwie najlepsze drużyny z każdej grupy.</li><li>Następnie rozgrywane są ćwierćfinały i półfinały.</li><li>Przegrani półfinałów grają o 3. miejsce, a zwycięzcy w finale.</li>';}
+    else{playoffDetails='<li>Ćwierćfinały: zwycięzcy grup grają z wicemistrzami grup przeciwnych.</li><li>Zwycięzcy ćwierćfinałów awansują do półfinałów.</li><li>Przegrani półfinałów grają o 3. miejsce.</li><li>Zwycięzcy półfinałów spotykają się w finale.</li>';}
+    groupTitle.innerHTML=count!==16?`<s>4 GRUPY</s> · ${groups} ${groups===1?'GRUPA':groups===2||groups===3||groups===4?'GRUPY':'GRUP'} · KAŻDY Z KAŻDYM`:`4 GRUPY · KAŻDY Z KAŻDYM`;
+    const formatChangeNote=count!==16?`<p><s>Pierwotnie zakładany format: 16 drużyn podzielonych na 4 grupy.</s></p><p class="note">Z powodu liczby zgłoszonych drużyn format turnieju został zmieniony z 16 na ${count} drużyn.</p>`:'';
+    groupDescription.innerHTML=`${formatChangeNote}<p>Turniej obejmuje ${count} drużyn podzielonych na ${groups} grup. W każdej grupie drużyny rozgrywają mecze systemem każdy z każdym.</p><ul class="info-list"><li>Mecze BO2 – rozgrywane są dwie mapy.</li><li>Za wygraną mapę drużyna otrzymuje 1 punkt.</li><li>Przy remisie na mapie każda drużyna otrzymuje po 1 punkcie.</li><li>${qualification}</li><li>Łącznie w fazie grupowej: ${groupMatches} meczów.</li></ul>`;
+    playoffTitle.textContent=playoffLabel+' · '+qualifiers+' drużyn';
+    playoffDescription.innerHTML=`<p>W fazie pucharowej mecze rozgrywane są do dwóch wygranych map (BO3).</p><ul class="info-list">${playoffDetails}</ul>`;
+  }catch(e){console.warn('Nie udało się zaktualizować formatu w informacjach:',e);}
+})();
+
+</script>
 <footer><div class="wrap foot"><span>© 2026 BLAZEPL007 · IV TURNIEJ CS</span><span>Counter-Strike 2 · Informacje i regulamin</span></div></footer>
 <style>
 .info-page{padding-bottom:20px}
@@ -155,7 +186,7 @@
 .info-date-grid small{display:block;color:#e5a03a;font-size:9px;font-weight:800;letter-spacing:1px;margin-bottom:8px}
 .info-date-grid strong{font-size:12px;line-height:1.5}
 .info-section{padding-top:18px}
-.info-card-title{font-size:25px;margin-bottom:13px;color:#ffad24}
+.info-card-title{font-size:25px;margin-bottom:13px;color:#ffad24}.info-card-title s{opacity:.55;text-decoration-thickness:2px;color:#d4c8b8}
 .info-step{font-size:9px;font-weight:900;letter-spacing:2px;color:#e9a03a;margin-bottom:10px}
 .info-list{padding-left:19px;margin:10px 0;color:#d0c9c0;font-size:12px;line-height:1.8}
 .info-list li{padding-left:4px;margin:5px 0}
